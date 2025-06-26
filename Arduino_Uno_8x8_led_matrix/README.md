@@ -7,17 +7,18 @@
 
 ### Bill of Materials
 
-| Part Type                                                                  | Num   | Role/Notes                         |     |
-| -------------------------------------------------------------------------- | ----- | ---------------------------------- | --- |
-| [Arduino UNO](https://amzn.to/44nRXEA)                    | 1     | Microcomputer                      |     |
-| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p)            | 1     | display device                     |     |
-| [Breadboard](https://amzn.to/40bMzlk)                     | 1     | Circuit base (for prototype)       |     |
-| [Tact Switch](https://amzn.to/3T0gNUF)                    | 1     | Input button                       |     |
-| [External AC adapter (5V)](https://amzn.to/4jZEIyu)       | 1     | Power supply for LEDs              |     |
-| [Jumper Wires](https://amzn.to/45voWYC)                   | 1 set | Connecting parts together          |     |
-| [USB cable (A-B)](https://amzn.to/407P2xg)                | 1     | For writing programs to Arduino    |     |
-| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)            | 1     | For protecting the LED's data line |     |
-| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)| 1     | For power supply stabilization     |     |
+| Part Type                                                  | Num   | Role/Notes                         |     |
+| ---------------------------------------------------------- | ----- | ---------------------------------- | --- |
+| [Arduino UNO](https://amzn.to/44nRXEA)                     | 1     | Microcomputer                      |     |
+| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p)             | 1     | display device                     |     |
+| [Tact Switch](https://amzn.to/3T0gNUF)                     | 1     | Input button                       |     |
+| [External AC adapter (5V)](https://amzn.to/4jZEIyu)        | 1     | Power supply for LEDs              |     |
+| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1     | Connect the AC adapter to the breadboard |     |
+| [USB cable (A-B)](https://amzn.to/407P2xg)                 | 1     | For writing programs to Arduino    |     |
+| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)             | 1     | For protecting the LED's data line |     |
+| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1     | For power supply stabilization     | 
+| [Breadboard](https://amzn.to/40bMzlk)                      | 1     | Circuit base (for prototype)       |     |
+| [Jumper Wires](https://amzn.to/45voWYC)                    | 1 set | Connecting parts together          |     |
 
 <!-- ## Requirement -->
 
@@ -25,7 +26,7 @@
 
 ### Hardware Development
 
--  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_led_matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png)
+-  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_led_matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_bb.png)
 
 ### Software Development
 
