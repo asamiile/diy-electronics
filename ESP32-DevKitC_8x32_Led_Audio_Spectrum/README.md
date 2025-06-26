@@ -7,14 +7,14 @@
 
 ### Bill of Materials
 
-| Part Type                                                  | Num   | Role/Notes                               |     |
+| Part Type                                                  | Unit  | Role/Notes                               |     |
 | ---------------------------------------------------------- | ----- | ---------------------------------------- | --- |
 | [ESP32-DevKitC-32E](hhttps://amzn.to/3I0EpGh)              | 1     | Microcomputer                            |     |
 | [8x32 RGB LED WS2812B](https://amzn.to/4nlV9rJ)            | 1     | Display device                           |     |
 | [Microphone Module INMP441](https://amzn.to/3FUDMxC)       | 1     | Audio Input                              |     |
 | [External AC adapter (5V10A)](https://amzn.to/4emi9mw)     | 1     | Power supply for LEDs                    |     |
 | [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1     | Connect the AC adapter to the breadboard |     |
-| [USB cable (A-B)](https://amzn.to/407P2xg)                 | 1     | For writing programs to Arduino          |     |
+| [Micro USB cable](https://amzn.to/4nmvlf5)                 | 1     | For writing programs to ESP32            |     |
 | [Resistor (300-500Ω)](https://amzn.to/4kMejW2)             | 1     | For protecting the LED's data line       |     |
 | [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1     | For power supply stabilization           |     |
 | [Breadboard](https://amzn.to/40bMzlk)                      | 1     | Circuit base (for prototype)             |     |
