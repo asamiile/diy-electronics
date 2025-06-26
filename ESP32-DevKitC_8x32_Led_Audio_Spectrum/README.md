@@ -1,4 +1,4 @@
-# Arduino Uno 8x8 LED Matrix
+# ESP32-DevKitC 8x32 LED Audio Spectrum
 
 ## Overview
 
