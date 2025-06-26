@@ -26,7 +26,7 @@
 
 ### Hardware Development
 
--  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_led_matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png)
+-  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_led_matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_bb.png)
 
 ### Software Development
 
