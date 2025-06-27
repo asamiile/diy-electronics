@@ -15,7 +15,7 @@
 | [Breadboard](https://amzn.to/40bMzlk)                        | 1     | Circuit base (for prototype)                                       |
 | [Jumper Wires](https://amzn.to/45voWYC)                      | 1 set | For connecting all the components together.                        |
 | [Micro USB cable](https://amzn.to/4nmvlf5)                   | 1     | To program the ESP32-DevKitC from a PC.                            |
-| AA Batteries                                                 | 1     | Alkaline or (recommended) rechargeable Ni-MH batteries.            |
+| AA Batteries (Alkaline)                                      | 4     | Standard 1.5V batteries for powering the robot.                    |
 | Smartphone or PC                                             | 1     | To access the control web app or Bluetooth terminal.               |
 
 <!-- ## Requirement -->
@@ -24,7 +24,9 @@
 
 ### Hardware Development
 
-<!-- -  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_led_matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_bb.png) -->
+-  Wire it according to [ESP32-DevKitC_Robot_Car_bb.png](https://github.com/asamiile/diy-electronics/blob/main/ESP32-DevKitC_Robot_Car/diagrams/ESP32-DevKitC_Robot_Car_bb.png)
+
+[![Image from Gyazo](https://i.gyazo.com/e7dfffddffdae3d9adb4ae7f7170d68a.jpg)](https://gyazo.com/e7dfffddffdae3d9adb4ae7f7170d68a)
 
 ### Software Development
 
