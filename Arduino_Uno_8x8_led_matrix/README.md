@@ -4,29 +4,42 @@
 
 - This project uses an Arduino UNO and an 8x8 WS2812B RGB LED matrix to display various art patterns and animations. You can switch between patterns using a tactile switch, enjoying effects such as rainbow, wave, ripple, and breathing. The project utilizes the Adafruit NeoPixel library and works with simple wiring and code. The vivid expressions of the LED matrix make it ideal for interior decoration or educational purposes.
 
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/2bd1c8229464473.68652fef58605.jpg)
+
+
 ### LED Matrix glowing pattern
 
 - Rainbow
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/e68a6a229464473.68652fef57f01.jpg)
+
 - Ripple
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/3cc74e229464473.68652fef5b1e3.jpg)
+
 - BouncingBall
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/204169229464473.68652fef54ef1.jpg)
+
 - OceanWave
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/813954229464473.68652fef55609.jpg)
+
 - Breathing
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/7d1379229464473.68652fef57857.jpg)
 
 
 ### Bill of Materials
 
-| Part Type                                                  | Unit  | Role/Notes                               |     |
-| ---------------------------------------------------------- | ----- | ---------------------------------------- | --- |
-| [Arduino UNO](https://amzn.to/44nRXEA)                     | 1     | Microcomputer                            |     |
-| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p)             | 1     | display device                           |     |
-| [Tact Switch](https://amzn.to/3T0gNUF)                     | 1     | Input button                             |     |
-| [External AC adapter (5V)](https://amzn.to/4jZEIyu)        | 1     | Power supply for LEDs                    |     |
-| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1     | Connect the AC adapter to the breadboard |     |
-| [USB cable (A-B)](https://amzn.to/407P2xg)                 | 1     | For writing programs to Arduino          |     |
-| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)             | 1     | For protecting the LED's data line       |     |
-| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1     | For power supply stabilization           |     |
-| [Breadboard](https://amzn.to/40bMzlk)                      | 1     | Circuit base (for prototype)             |     |
-| [Jumper Wires](https://amzn.to/45voWYC)                    | 1 set | Connecting parts together                |     |
+| Part Type                                                                  | Unit  | Role/Notes                               |
+| -------------------------------------------------------------------------- | ----- | ---------------------------------------- |
+| [Arduino UNO](https://amzn.to/44nRXEA)                                     | 1     | Microcomputer                            |
+| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p)                             | 1     | display device                           |
+| [Tact Switch](https://amzn.to/3T0gNUF)                                     | 1     | Input button                             |
+| [Power Supply (5V, 2A+)](https://amzn.to/4jZEIyu) or [Mobile Power Bank](https://amzn.to/449XEpG) | 1     | Power supply for LEDs.                   |
+| [DC jack adapter (female)](https://amzn.to/3IdZI7k)                        | 1     | Connect the AC adapter to the breadboard |
+| [USB cable (A-B)](https://amzn.to/407P2xg)                                 | 1     | For writing programs to Arduino          |
+| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)                             | 1     | For protecting the LED's data line       |
+| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)                 | 1     | For power supply stabilization           |
+| [Breadboard](https://amzn.to/40bMzlk)                                      | 1     | Circuit base (for prototype)             |
+| [Jumper Wires](https://amzn.to/45voWYC)                                    | 1 set | Connecting parts together                |
+|                                                                            |       |                                          |
 
 <!-- ## Requirement -->
 
