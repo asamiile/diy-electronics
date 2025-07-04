@@ -37,8 +37,6 @@
 
 -  Wire it according to [Arduino_Uno_Chroma_LED_bb.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_Chroma_LED/diagrams/Arduino_Uno_Chroma_LED_bb.png)
 
-![](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_Chroma_LED/diagrams/Arduino_Uno_Chroma_LED_bb.png)
-
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/4fc92f229627251.6867e0d0b3b1b.jpg)
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/fbf47c229627251.6867e0d0b35f8.jpg)
