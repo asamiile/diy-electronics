@@ -26,7 +26,6 @@
 
 -  Wire it according to [ESP32-DevKitC_Robot_Car_bb.png](https://github.com/asamiile/diy-electronics/blob/main/ESP32-DevKitC_Robot_Car/diagrams/ESP32-DevKitC_Robot_Car_bb.png)
 
-[![Image from Gyazo](https://i.gyazo.com/e7dfffddffdae3d9adb4ae7f7170d68a.jpg)](https://gyazo.com/e7dfffddffdae3d9adb4ae7f7170d68a)
 
 ### Software Development
 

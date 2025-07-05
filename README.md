@@ -12,6 +12,7 @@ These are a collection of DIY Electronics samples.
 ### Arduino UNO
 
 - [Arduino Uno 8x8 LED Matrix](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Uno_8x8_led_matrix)
+- [Arduino_Uno_Chroma_LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Uno_Chroma_LED)
 
 
 ### ESP32-DevKitC 
