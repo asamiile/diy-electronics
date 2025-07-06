@@ -44,10 +44,24 @@
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/eb167d229627251.6867e0d0b3081.jpg)
 
 
+#### Wiring List
+
+Please verify that each connection is wired as follows:
+
+- Common Cathode RGB LED
+  - Longest leg of the LED (Common Cathode) → Arduino GND
+  - Arduino D11 (PWM) → Resistor → Red (R) leg of LED
+  - Arduino D10 (PWM) → Resistor → Blue (B) leg of LED
+  - Arduino D9 (PWM) → Resistor → Green (G) leg of LED
+- Tactile Switch (Push-button)
+  - Arduino D2 → One leg of the Switch
+  - Diagonally opposite leg of the Switch → Arduino GND
+  - [Note] This circuit does not have an external pull-up resistor. You must use the Arduino's internal pull-up by setting pinMode(2, INPUT_PULLUP); in your sketch.
+
 ### Software Development
 
 1. Set up the IDE: Open the Arduino IDE. Ensure your board is configured correctly under Tools > Board (select "Arduino Uno").
-2. Upload the Code: Copy and paste the complete code from the [https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_Chroma_LED/Arduino_Uno_Chroma_LED.ino](Arduino_Uno_Chroma_LED/sketch/sketch_jul4a/Arduino_Uno_Chroma_LED/Arduino_Uno_Chroma_LED.ino) file into your sketch.
+2. Upload the Code: Copy and paste the complete code from the [Arduino_Uno_Chroma_LED.ino](Arduino_Uno_Chroma_LED/sketch/sketch_jul4a/Arduino_Uno_Chroma_LED/Arduino_Uno_Chroma_LED.ino) file into your sketch.
 3. Connect & Upload: Connect your Arduino Uno to your PC with the USB cable and click the "Upload" button.
 
 

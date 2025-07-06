@@ -20,8 +20,31 @@
 
 ## Usage
 
-
 ### Hardware Development
+
+-  Wire it according to [ESP32-DevKitC_16x16_LED_Matrix_bb.png](https://github.com/asamiile/diy-electronics/blob/main/ESP32-DevKitC_16x16_LED_Matrix/diagrams/ESP32-DevKitC_16x16_LED_Matrix_bb.png)
+
+
+#### Wiring List
+
+Before you apply power, carefully trace each connection with your finger and confirm that all of the following are correct.
+
+- [ ] Safety First: The AC adapter and the USB cable are both disconnected.
+- [ ] Capacitor Polarity: The electrolytic capacitor is straddling the power rails, with its longer lead (+) in the positive (+) rail and its shorter lead (-) in the negative (-) rail.
+- [ ] External Power: The DC Jack Adapter is correctly wired to the breadboard's main positive (+) and negative (-) rails.
+- [ ] LED Matrix Power: The thick 5V and GND wires from the LED matrix are connected securely to the main positive (+) and negative (-) rails.
+- [ ] ESP32 Power: The ESP32's VIN (or 5V) pin is connected to the + rail, and a GND pin is connected to the - rail to establish a common ground.
+- [ ] Logic Shifter Power:
+  - HV is connected to the + rail (5V).
+  - LV is connected to the ESP32's 3V3 pin.
+  - Both GND pins on the shifter are connected to the - rail.
+- [ ] Data Path:
+  - ESP32 GPIO 23 (or your chosen data pin) → Logic Shifter LV1
+  - Logic Shifter HV1 → 330Ω Resistor → LED Matrix DIN
+- [ ] Switch Path:
+  - ESP32 3V3 pin → One leg of the Tactile Switch
+  - Opposite leg of the Switch → ESP32 GPIO 22 (or your chosen switch pin)
+  - A 10kΩ pull-down resistor connects from GPIO 22's row to the - rail.
 
 
 ### Software Development
