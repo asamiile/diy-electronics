@@ -60,6 +60,39 @@
 5. Confirm that all patterns are displayed correctly to complete the test.
 
 
+## Final Assembly
+
+This project can be moved from a breadboard prototype to a more permanent and polished product by soldering the components onto a universal prototyping board and designing a custom 3D-printed enclosure.
+
+
+### 1. Soldering to a Prototyping Board
+
+Once the circuit is confirmed to work on the breadboard, the next step is to create a permanent version by soldering. This makes the project durable and compact.
+
+To create a compact and final product, the larger Arduino Uno used for prototyping is replaced with the much smaller Seeed Studio XIAO microcontroller. This allows the entire circuit to fit on a very small piece of prototyping board, making it ideal for a minimal desk lamp.
+
+Below are the parts needed for this final, miniaturized version.
+
+### Bill of Materials (for Final Assembly)
+
+| Part Type                                               | Unit  | Role/Notes                                        |
+| ------------------------------------------------------- | ----- | ------------------------------------------------- |
+| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs)     | 1     | Microcomputer.                                    |
+| [5mm Common Cathode RGB LED](https://amzn.to/4lmJuaE)   | 1     | Light source component.                           |
+| [Tactile Switch (Push Button)](https://amzn.to/3T0gNUF) | 1     | Used for ON/OFF control and for switching colors. |
+| [Resistor (220Ω)](https://amzn.to/4kMejW2)              | 3     | For protecting the LED's data line.               |
+| [PCB](https://amzn.to/402bcRD)                          | 1     | Permanent circuit base for soldering.             |
+| [Solid-core wire](https://amzn.to/44JYMR3)              | 1 set | For creating permanent connections on the PCB.    |
+| [USB-C cable](https://amzn.to/407P2xg)                  | 1     | For programming and powering the XIAO.            |
+
+
+### 2. 3D-Printed Enclosure
+A custom case can be designed to house the circuit board, LED, and switch, turning it into a beautiful desk object.
+- Material: Using a white or translucent filament is recommended, as it diffuses the light from the RGB LED, creating a soft, glowing effect.
+- Design: The enclosure can be designed with an integrated holder to keep the LED perfectly straight. A small opening will be needed for the USB cable to connect to the microcontroller.
+- Assembly: The final step is to place the soldered circuit board inside the 3D-printed case to complete your custom lamp.
+
+
 ## Author
 
 [Asami.K](https://asami.tokyo/)
