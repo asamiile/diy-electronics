@@ -91,7 +91,7 @@ Below are the parts needed for this final, miniaturized version.
 
 | Part Type                                               | Unit  | Role/Notes                                        |
 | ------------------------------------------------------- | ----- | ------------------------------------------------- |
-| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs)     | 1     | Microcomputer.                                    |
+| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs)     | 1     | Micro Controller.                                    |
 | [5mm Common Cathode RGB LED](https://amzn.to/4lmJuaE)   | 1     | Light source component.                           |
 | [Tactile Switch (Push Button)](https://amzn.to/3T0gNUF) | 1     | Used for ON/OFF control and for switching colors. |
 | [Resistor (220Ω)](https://amzn.to/4kMejW2)              | 3     | For protecting the LED's data line.               |

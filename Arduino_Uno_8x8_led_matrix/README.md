@@ -41,7 +41,6 @@
 | [Jumper Wires](https://amzn.to/45voWYC)                                    | 1 set | Connecting parts together                |
 |                                                                            |       |                                          |
 
-<!-- ## Requirement -->
 
 ## Usage
 
@@ -49,27 +48,25 @@
 
 -  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_led_matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_bb.png)
 
-[![Image from Gyazo](https://i.gyazo.com/d4c205e1af4648523a3a9dd021e60e1f.png)](https://gyazo.com/d4c205e1af4648523a3a9dd021e60e1f)
-
 
 #### Wiring List
 
 Before you apply power, carefully trace each connection with your finger and confirm that all of the following are correct.
 
-- [ ] Power Rails:
+- Power Rails:
   - DC Jack (+) → Breadboard Positive (+) Rail
   - DC Jack (-) → Breadboard Negative (-) Rail
-- [ ] Power Stabilization:
+- Power Stabilization:
   - 1000µF Capacitor is placed across the + and - power rails (Check for correct polarity: longer lead to +).
-- [ ] LED Matrix Power:
+- LED Matrix Power:
   - LED Matrix 5V wire → Breadboard (+) Rail
   - LED Matrix GND wire → Breadboard (-) Rail
-- [ ] Data Line:
+- Data Line:
   - Arduino D6 → 330Ω Resistor → LED Matrix DIN
-- [ ] Input Switch:
+- Input Switch:
   - Arduino D2 → One leg of the Tactile Switch
   - Opposite leg of the Switch → An Arduino GND pin
-- [ ] Common Ground:
+- Common Ground:
   - An Arduino GND pin → Breadboard Negative (-) Rail (This is essential for the circuit to work).
 
 
@@ -87,11 +84,32 @@ Before you apply power, carefully trace each connection with your finger and con
 4. Confirm that all patterns are displayed correctly to complete the test.
 
 
-<!-- ## Features -->
+## Final Assembly
 
-<!-- ## Directory 
+### 1. Soldering to a Prototyping Board
 
-<!-- ## Reference -->
+Make your breadboard circuit permanent by soldering it onto a PCB (Printed Circuit Board). For safety, please work in a well-ventilated area.
+
+### Bill of Materials (for Final Assembly)
+
+| Part Type                                                                                         | Unit  | Role/Notes                                   |
+| ------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- |
+| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs)                                               | 1     | Micro Controller.                            |
+| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p)                                                    | 1     | display device                               |
+| [JST SM 3-Pin Connector](https://amzn.to/3GCiy7N)                                                 | 1 set | To easily connect/disconnect the LED matrix. |
+| [Tactile Switch](https://amzn.to/4nHuvd1)                                                         | 1     | Input button                                 |
+| [Power Supply (5V, 2A+)](https://amzn.to/4jZEIyu) or [Mobile Power Bank](https://amzn.to/449XEpG) | 1     | Power supply for LEDs.                       |
+| [Logic Level Shifter](https://amzn.to/4eeDyhr)                                                    | 1     | To convert the data signal voltage.          |
+| [PCB Mount DC Power Jack (5.5x2.1mm)](https://amzn.to/4kuBPG4)                                    | 1     | For soldering directly onto the PCB.         |
+| [USB cable (A-B)](https://amzn.to/407P2xg)                                                        | 1     | For writing programs to Arduino              |
+| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)                                                    | 1     | To protect the LED's data line.              |
+| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)                                        | 1     | To stabilize the power supply.               |
+| [Prototyping PCB](https://amzn.to/4lpHRJu)                                                        | 1     | Circuit base for soldering.                  |
+| [Hook-up Wire](https://amzn.to/45XlDK0)                                                           | 1 set | To connect the components.                   |
+
+
+### 2. 3D-Printed Enclosure
+
 
 
 ## Author
