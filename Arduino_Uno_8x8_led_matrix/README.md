@@ -2,9 +2,11 @@
 
 ## Overview
 
-- This project uses an Arduino UNO and an 8x8 WS2812B RGB LED matrix to display various art patterns and animations. You can switch between patterns using a tactile switch, enjoying effects such as rainbow, wave, ripple, and breathing. The project utilizes the Adafruit NeoPixel library and works with simple wiring and code. The vivid expressions of the LED matrix make it ideal for interior decoration or educational purposes.
+- This project uses an Arduino UNO to control an 8x8 WS2812B LED matrix, displaying various animations like rainbow and ripple effects. A push button allows you to cycle through the patterns.
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/2bd1c8229464473.68652fef58605.jpg)
+
+This serves as the initial prototype for the final [Seeed_Studio_XIAO_RP2040_8x8_LED_Matrix](https://github.com/asamiile/diy-electronics/tree/main/Seeed_Studio_XIAO_RP2040_8x8_LED_Matrix) project, which refines this concept into a compact, permanent product.
 
 
 ### LED Matrix glowing pattern
@@ -39,7 +41,6 @@
 | [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)                 | 1     | For power supply stabilization           |
 | [Breadboard](https://amzn.to/40bMzlk)                                      | 1     | Circuit base (for prototype)             |
 | [Jumper Wires](https://amzn.to/45voWYC)                                    | 1 set | Connecting parts together                |
-|                                                                            |       |                                          |
 
 
 ## Usage
@@ -53,20 +54,20 @@
 
 Before you apply power, carefully trace each connection with your finger and confirm that all of the following are correct.
 
-- Power Rails:
+- **Power Rails**
   - DC Jack (+) → Breadboard Positive (+) Rail
   - DC Jack (-) → Breadboard Negative (-) Rail
-- Power Stabilization:
+- **Power Stabilization**
   - 1000µF Capacitor is placed across the + and - power rails (Check for correct polarity: longer lead to +).
-- LED Matrix Power:
+- **LED Matrix Power**
   - LED Matrix 5V wire → Breadboard (+) Rail
   - LED Matrix GND wire → Breadboard (-) Rail
-- Data Line:
+- **Data Line**
   - Arduino D6 → 330Ω Resistor → LED Matrix DIN
-- Input Switch:
+- **Input Switch**
   - Arduino D2 → One leg of the Tactile Switch
   - Opposite leg of the Switch → An Arduino GND pin
-- Common Ground:
+- **Common Ground**
   - An Arduino GND pin → Breadboard Negative (-) Rail (This is essential for the circuit to work).
 
 
@@ -82,34 +83,6 @@ Before you apply power, carefully trace each connection with your finger and con
 2. The LED matrix will initialize and display the first pattern.
 3. Press the tactile switch to cycle through the display patterns in order.
 4. Confirm that all patterns are displayed correctly to complete the test.
-
-
-## Final Assembly
-
-### 1. Soldering to a Prototyping Board
-
-Make your breadboard circuit permanent by soldering it onto a PCB (Printed Circuit Board). For safety, please work in a well-ventilated area.
-
-### Bill of Materials (for Final Assembly)
-
-| Part Type                                                                                         | Unit  | Role/Notes                                   |
-| ------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- |
-| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs)                                               | 1     | Micro Controller.                            |
-| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p)                                                    | 1     | display device                               |
-| [JST SM 3-Pin Connector](https://amzn.to/3GCiy7N)                                                 | 1 set | To easily connect/disconnect the LED matrix. |
-| [Tactile Switch](https://amzn.to/4nHuvd1)                                                         | 1     | Input button                                 |
-| [Power Supply (5V, 2A+)](https://amzn.to/4jZEIyu) or [Mobile Power Bank](https://amzn.to/449XEpG) | 1     | Power supply for LEDs.                       |
-| [Logic Level Shifter](https://amzn.to/4eeDyhr)                                                    | 1     | To convert the data signal voltage.          |
-| [PCB Mount DC Power Jack (5.5x2.1mm)](https://amzn.to/4kuBPG4)                                    | 1     | For soldering directly onto the PCB.         |
-| [USB cable (A-B)](https://amzn.to/407P2xg)                                                        | 1     | For writing programs to Arduino              |
-| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)                                                    | 1     | To protect the LED's data line.              |
-| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)                                        | 1     | To stabilize the power supply.               |
-| [Prototyping PCB](https://amzn.to/4lpHRJu)                                                        | 1     | Circuit base for soldering.                  |
-| [Hook-up Wire](https://amzn.to/45XlDK0)                                                           | 1 set | To connect the components.                   |
-
-
-### 2. 3D-Printed Enclosure
-
 
 
 ## Author

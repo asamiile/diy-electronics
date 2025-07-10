@@ -74,7 +74,7 @@ Please verify that each connection is wired as follows:
 5. Confirm that all patterns are displayed correctly to complete the test.
 
 
-## Final Assembly
+<!-- ## Final Assembly
 
 This project can be moved from a breadboard prototype to a more permanent and polished product by soldering the components onto a universal prototyping board and designing a custom 3D-printed enclosure.
 
@@ -104,7 +104,7 @@ Below are the parts needed for this final, miniaturized version.
 A custom case can be designed to house the circuit board, LED, and switch, turning it into a beautiful desk object.
 - Material: Using a white or translucent filament is recommended, as it diffuses the light from the RGB LED, creating a soft, glowing effect.
 - Design: The enclosure can be designed with an integrated holder to keep the LED perfectly straight. A small opening will be needed for the USB cable to connect to the microcontroller.
-- Assembly: The final step is to place the soldered circuit board inside the 3D-printed case to complete your custom lamp.
+- Assembly: The final step is to place the soldered circuit board inside the 3D-printed case to complete your custom lamp. -->
 
 
 ## Author
