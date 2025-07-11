@@ -9,7 +9,7 @@
 
 | Part Type                                                  | Unit  | Role/Notes                               |     |
 | ---------------------------------------------------------- | ----- | ---------------------------------------- | --- |
-| [ESP32-DevKitC-32E](hhttps://amzn.to/3I0EpGh)              | 1     | Microcomputer                            |     |
+| [ESP32-DevKitC-32E](hhttps://amzn.to/3I0EpGh)              | 1     | Micro Controller.                                  |     |
 | [8x32 RGB LED WS2812B](https://amzn.to/4nlV9rJ)            | 1     | Display device                           |     |
 | [Microphone Module INMP441](https://amzn.to/3FUDMxC)       | 1     | Audio Input                              |     |
 | [External AC adapter (5V10A)](https://amzn.to/4emi9mw)     | 1     | Power supply for LEDs                    |     |

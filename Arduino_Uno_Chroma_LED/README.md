@@ -23,7 +23,7 @@
 
 | Part Type                                               | Unit  | Role/Notes                                        |
 | ------------------------------------------------------- | ----- | ------------------------------------------------- |
-| [Arduino UNO](https://amzn.to/44nRXEA)                  | 1     | Microcomputer.                                    |
+| [Arduino UNO](https://amzn.to/44nRXEA)                  | 1     | Micro Controller.                                       |
 | [5mm Common Cathode RGB LED](https://amzn.to/4lmJuaE)   | 1     | Light source component.                           |
 | [Tactile Switch (Push Button)](https://amzn.to/3T0gNUF) | 1     | Used for ON/OFF control and for switching colors. |
 | [Resistor (220Ω)](https://amzn.to/4kMejW2)              | 3     | For protecting the LED's data line.               |

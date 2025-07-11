@@ -6,7 +6,7 @@
 
 | Part Type                                                  | Unit  | Role/Notes                                                                                   |
 | ---------------------------------------------------------- | ----- | -------------------------------------------------------------------------------------------- |
-| [ESP32-DevKitC](https://amzn.to/4jV1hnT)                   | 1     | Microcomputer                                                                                |
+| [ESP32-DevKitC](https://amzn.to/4jV1hnT)                   | 1     | Micro Controller.                                                                                    |
 | [16x16 WS2812B LED Matrix Panel](https://amzn.to/4ebZCcm)  | 1     | display device                                                                               |
 | [Tact Switch](https://amzn.to/4l5lGrQ)                     | 1     | Input button                                                                                 |
 | [External AC adapter 5V 10A](https://amzn.to/4neewTI)      | 1     | Power supply for LEDs.                                                                       |
