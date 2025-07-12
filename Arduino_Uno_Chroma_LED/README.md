@@ -21,15 +21,31 @@
 
 ### Bill of Materials
 
+#### Control System
+
+| Part Type                                  | Unit | Role/Notes                       |
+| ------------------------------------------ | ---- | -------------------------------- |
+| [Arduino UNO](https://amzn.to/44nRXEA)     | 1    | Micro Controller.                |
+| [USB cable (A-B)](https://amzn.to/407P2xg) | 1    | For writing programs to Arduino. |
+
+
+#### Input & Output
+
+| Part Type                                               | Unit | Role/Notes                                        |
+| ------------------------------------------------------- | ---- | ------------------------------------------------- |
+| [5mm Common Cathode RGB LED](https://amzn.to/4lmJuaE)   | 1    | Light source component.                           |
+| [Tactile Switch (Push Button)](https://amzn.to/3T0gNUF) | 1    | Used for ON/OFF control and for switching colors. |
+
+
+#### Prototyping & Wiring
+
 | Part Type                                               | Unit  | Role/Notes                                        |
 | ------------------------------------------------------- | ----- | ------------------------------------------------- |
-| [Arduino UNO](https://amzn.to/44nRXEA)                  | 1     | Micro Controller.                                       |
-| [5mm Common Cathode RGB LED](https://amzn.to/4lmJuaE)   | 1     | Light source component.                           |
-| [Tactile Switch (Push Button)](https://amzn.to/3T0gNUF) | 1     | Used for ON/OFF control and for switching colors. |
-| [Resistor (220Ω)](https://amzn.to/4kMejW2)              | 3     | For protecting the LED's data line.               |
-| [Breadboard](https://amzn.to/40bMzlk)                   | 1     | Circuit base. (for prototype)                     |
-| [Jumper Wires](https://amzn.to/45voWYC)                 | 1 set | Connecting parts together.                        |
-| [USB cable (A-B)](https://amzn.to/407P2xg)              | 1     | For writing programs to Arduino.                  |
+
+| [Resistor (220Ω)](https://amzn.to/4kMejW2) | 3     | For protecting the LED's data line. |
+| [Breadboard](https://amzn.to/40bMzlk)      | 1     | Circuit base. (for prototype)       |
+| [Jumper Wires](https://amzn.to/45voWYC)    | 1 set | Connecting parts together.          |
+
 
 ## Usage
 

@@ -17,18 +17,38 @@
 
 ### Bill of Materials
 
-| Part Type                                                                                         | Unit  | Role/Notes                                   |
-| ------------------------------------------------------------------------------------------------- | ----- | -------------------------------------------- |
-| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs)                                               | 1     | Micro Controller.                            |
-| [USB-C cable](https://amzn.to/407P2xg)                                                            | 1     | For programming and powering the XIAO.       |
-| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p)                                                    | 1     | display device                               |
-| [JST SM 3-Pin Connector](https://amzn.to/3GCiy7N)                                                 | 1 set | To easily connect/disconnect the LED matrix. |
-| [Logic Level Shifter](https://amzn.to/4eeDyhr)                                                    | 1     | To convert the data signal voltage.          |
-| [Power Supply (5V, 2A+)](https://amzn.to/4jZEIyu) or [Mobile Power Bank](https://amzn.to/449XEpG) | 1     | Power supply for LEDs.                       |
-| [DC jack adapter (female)](https://amzn.to/3IdZI7k)                                               | 1     | Connect the AC adapter to the breadboard     |
-| [Tactile Switch](https://amzn.to/4nHuvd1)                                                         | 1     | Input button                                 |
-| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)                                                    | 1     | To protect the LED's data line.              |
-| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)                                        | 1     | To stabilize the power supply.               |
+#### Control System
+
+| Part Type                                           | Unit | Role/Notes                             |
+| --------------------------------------------------- | ---- | -------------------------------------- |
+| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs) | 1    | Micro Controller.                      |
+| [USB-C cable](https://amzn.to/407P2xg)              | 1    | For programming and powering the XIAO. |
+
+
+#### Input & Output
+
+| Part Type                                      | Unit | Role/Notes     |
+| ---------------------------------------------- | ---- | -------------- |
+| [8x8 RGB LED WS2812B](https://amzn.to/44cSo3p) | 1    | display device |
+| [Tactile Switch](https://amzn.to/4nHuvd1)      | 1    | Input button   |
+
+
+#### Power System
+
+| Part Type                                                                                         | Unit | Role/Notes                     |
+| ------------------------------------------------------------------------------------------------- | ---- | ------------------------------ |
+| [Power Supply (5V, 2A+)](https://amzn.to/4jZEIyu) or [Mobile Power Bank](https://amzn.to/449XEpG) | 1    | Power supply for LEDs.         |
+| [DC jack adapter (female)](https://amzn.to/3IdZI7k)                                               |      |                                |
+| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)                                        | 1    | To stabilize the power supply. |
+
+#### Electronics & Wiring
+
+| Part Type                                         | Unit  | Role/Notes                                   |
+| ------------------------------------------------- | ----- | -------------------------------------------- |
+| [Logic Level Shifter](https://amzn.to/4eeDyhr)    | 1     | To convert the data signal voltage.          |
+| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)    | 1     | To protect the LED's data line.              |
+| [JST SM 3-Pin Connector](https://amzn.to/3GCiy7N) | 1 set | To easily connect/disconnect the LED matrix. |
+1     | Connect the AC adapter to the breadboard     |
 | [Prototyping PCB](https://amzn.to/4lpHRJu)                                                        | 1     | Circuit base for soldering.                  |
 | [Hook-up Wire](https://amzn.to/45XlDK0)                                                           | 1 set | To connect the components.                   |
 

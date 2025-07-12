@@ -10,18 +10,39 @@
 
 ### Bill of Materials
 
-| Part Type                                                  | Unit  | Role/Notes                                            |
-| ---------------------------------------------------------- | ----- | ----------------------------------------------------- |
-| [ESP32-DevKitC](https://amzn.to/4jV1hnT)                   | 1     | Micro Controller.                                     |
-| [Servo Motor (SG90)](https://amzn.to/3TUevqn)              | 2     | One for pan (horizontal) and one for tilt (vertical). |
-| [2-Axis Pan-Tilt Bracket Kit)](https://amzn.to/44J3H3s)    | 1     | The mechanical frame for mounting the two servos.     |
-| [AC Adapter (5V 4A)](https://amzn.to/4lOymDh)              | 3     | A dedicated external power supply for the servos.     |
-| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1     | Socket to connect the AC adapter to the circuit.      |
-| [Micro-USB Cable](https://amzn.to/44ZoEZa)                 | 1     | For programming and powering the Pico 2 W.            |
-| [Breadboard](https://amzn.to/40bMzlk)                      | 1     | Circuit base. (for prototype)                         |
-| [Jumper Wires](https://amzn.to/45voWYC)                    | 1 set | Connecting parts together.                            |
-| [Silicone Wire (18AWG)](https://amzn.to/4lMv2sr)           | 1     | Thick wire for high-current servo power (5V & GND).   |
-| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1     | To stabilize the servo power supply.                  |
+#### Control System
+
+| Part Type                                  | Unit | Role/Notes                              |
+| ------------------------------------------ | ---- | --------------------------------------- |
+| [ESP32-DevKitC](https://amzn.to/4jV1hnT)   | 1    | Microcontroller.                        |
+| [Micro-USB Cable](https://amzn.to/44ZoEZa) | 1    | For programming and powering the ESP32. |
+
+
+#### Mechanics & Actuators
+
+| Part Type                                               | Unit | Role/Notes                                            |
+| ------------------------------------------------------- | ---- | ----------------------------------------------------- |
+| [Servo Motor (SG90)](https://amzn.to/3TUevqn)           | 2    | One for pan (horizontal) and one for tilt (vertical). |
+| [2-Axis Pan-Tilt Bracket Kit)](https://amzn.to/44J3H3s) | 1    | The mechanical frame for mounting the two servos.     |
+
+
+#### Power System
+
+| Part Type                                                  | Unit | Role/Notes                                        |
+| ---------------------------------------------------------- | ---- | ------------------------------------------------- |
+| [AC Adapter (5V 4A)](https://amzn.to/4lOymDh)              | 1    | A dedicated external power supply for the servos. |
+| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1    | Socket to connect the AC adapter to the circuit.  |
+| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1    | To stabilize the servo power supply.              |
+
+
+#### Prototyping & Wiring
+
+| Part Type                                        | Unit  | Role/Notes                                          |
+| ------------------------------------------------ | ----- | --------------------------------------------------- |
+| [Breadboard](https://amzn.to/40bMzlk)            | 1     | Circuit base for prototyping.                       |
+| [Jumper Wires](https://amzn.to/45voWYC)          | 1 set | For connecting signal lines.                        |
+| [Silicone Wire (18AWG)](https://amzn.to/4lMv2sr) | 1     | Thick wire for high-current servo power (5V & GND). |
+
 
 ## Usage
 

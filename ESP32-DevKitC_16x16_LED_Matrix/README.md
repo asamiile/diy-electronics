@@ -4,18 +4,38 @@
 
 ### Bill of Materials
 
-| Part Type                                                  | Unit  | Role/Notes                                                                                   |
-| ---------------------------------------------------------- | ----- | -------------------------------------------------------------------------------------------- |
-| [ESP32-DevKitC](https://amzn.to/4jV1hnT)                   | 1     | Micro Controller.                                                                                    |
-| [16x16 WS2812B LED Matrix Panel](https://amzn.to/4ebZCcm)  | 1     | display device                                                                               |
-| [Tact Switch](https://amzn.to/4l5lGrQ)                     | 1     | Input button                                                                                 |
-| [External AC adapter 5V 10A](https://amzn.to/4neewTI)      | 1     | Power supply for LEDs.                                                                       |
-| [Logic Level Shifter](https://amzn.to/4eeDyhr)             | 1     | Converts ESP32's 3.3V data signal to the 5V level required by the LEDs for stable operation. |
-| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1     | Connect the AC adapter to the breadboard                                                     |
-| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)             | 1     | For protecting the LED's data line                                                           |
-| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1     | For power supply stabilization                                                               |
-| [Breadboard](https://amzn.to/40bMzlk)                      | 1     | Circuit base (for prototype)                                                                 |
-| [Jumper Wires](https://amzn.to/45voWYC)                    | 1 set | Connecting parts together                                                                    |
+#### Control System
+
+| Part Type                                | Unit | Role/Notes       |
+| ---------------------------------------- | ---- | ---------------- |
+| [ESP32-DevKitC](https://amzn.to/4jV1hnT) | 1    | Microcontroller. |
+
+
+#### Input & Output
+
+| Part Type                                                 | Unit | Role/Notes      |
+| --------------------------------------------------------- | ---- | --------------- |
+| [16x16 WS2812B LED Matrix Panel](https://amzn.to/4ebZCcm) | 1    | Display device. |
+| [Tact Switch](https://amzn.to/4l5lGrQ)                    | 1    | Input button.   |
+
+
+#### Power System
+
+| Part Type                                                  | Unit | Role/Notes                              |
+| ---------------------------------------------------------- | ---- | --------------------------------------- |
+| [External AC adapter 5V 10A](https://amzn.to/4neewTI)      | 1    | Power supply for LEDs.                  |
+| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1    | Connects the AC adapter to the circuit. |
+| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1    | To stabilize the power supply.          |
+
+
+#### Electronics & Wiring
+
+| Part Type                                      | Unit  | Role/Notes                          |
+| ---------------------------------------------- | ----- | ----------------------------------- |
+| [Logic Level Shifter](https://amzn.to/4eeDyhr) | 1     | To convert the data signal voltage. |
+| [Resistor (300-500Ω)](https://amzn.to/4kMejW2) | 1     | To protect the LED's data line.     |
+| [Breadboard](https://amzn.to/40bMzlk)          | 1     | Circuit base for prototyping.       |
+| [Jumper Wires](https://amzn.to/45voWYC)        | 1 set | To connect parts together.          |
 
 
 ## Usage
@@ -27,7 +47,7 @@
 
 #### Wiring List
 
-Before you apply power, carefully trace each connection with your finger and confirm that all of the following are correct.
+<!-- Before you apply power, carefully trace each connection with your finger and confirm that all of the following are correct.
 
 - [ ] Safety First: The AC adapter and the USB cable are both disconnected.
 - [ ] Capacitor Polarity: The electrolytic capacitor is straddling the power rails, with its longer lead (+) in the positive (+) rail and its shorter lead (-) in the negative (-) rail.
@@ -44,7 +64,7 @@ Before you apply power, carefully trace each connection with your finger and con
 - [ ] Switch Path:
   - ESP32 3V3 pin → One leg of the Tactile Switch
   - Opposite leg of the Switch → ESP32 GPIO 22 (or your chosen switch pin)
-  - A 10kΩ pull-down resistor connects from GPIO 22's row to the - rail.
+  - A 10kΩ pull-down resistor connects from GPIO 22's row to the - rail. -->
 
 
 ### Software Development

@@ -7,20 +7,38 @@
 
 ### Bill of Materials
 
-| Part Type                                                  | Unit  | Role/Notes                               |     |
-| ---------------------------------------------------------- | ----- | ---------------------------------------- | --- |
-| [ESP32-DevKitC](https://amzn.to/4jV1hnT)                   | 1     | Micro Controller.                        |     |
-| [8x32 RGB LED WS2812B](https://amzn.to/4nlV9rJ)            | 1     | Display device                           |     |
-| [Microphone Module INMP441](https://amzn.to/3FUDMxC)       | 1     | Audio Input                              |     |
-| [External AC adapter (5V10A)](https://amzn.to/4emi9mw)     | 1     | Power supply for LEDs                    |     |
-| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1     | Connect the AC adapter to the breadboard |     |
-| [Micro USB cable](https://amzn.to/4nmvlf5)                 | 1     | For writing programs to ESP32            |     |
-| [Resistor (300-500Ω)](https://amzn.to/4kMejW2)             | 1     | For protecting the LED's data line       |     |
-| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1     | For power supply stabilization           |     |
-| [Breadboard](https://amzn.to/40bMzlk)                      | 1     | Circuit base (for prototype)             |     |
-| [Jumper Wires](https://amzn.to/45voWYC)                    | 1 set | Connecting parts together                |     |
+#### Control System
+| Part Type                                  | Unit | Role/Notes                              |     |
+| ------------------------------------------ | ---- | --------------------------------------- | --- |
+| [ESP32-DevKitC](https://amzn.to/4jV1hnT)   | 1    | Micro Controller.                       |     |
+| [Micro USB cable](https://amzn.to/4nmvlf5) | 1    | For programming and powering the ESP32. |     |
 
-<!-- ## Requirement -->
+
+#### Input & Output
+
+| Part Type                                            | Unit | Role/Notes          |     |
+| ---------------------------------------------------- | ---- | ------------------- | --- |
+| [8x32 RGB LED WS2812B](https://amzn.to/4nlV9rJ)      | 1    | Display device      |     |
+| [Microphone Module INMP441](https://amzn.to/3FUDMxC) | 1    | Audio Input sensor. |     |
+
+
+#### Power System
+
+| Part Type                                                  | Unit | Role/Notes                              |     |
+| ---------------------------------------------------------- | ---- | --------------------------------------- | --- |
+| [External AC adapter (5V10A)](https://amzn.to/4emi9mw)     | 1    | Main power supply for the LEDs.         |     |
+| [DC jack adapter (female)](https://amzn.to/3IdZI7k)        | 1    | Connects the AC adapter to the circuit. |     |
+| [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ) | 1    | To stabilize the power supply.          |     |
+
+
+#### Prototyping & Wiring
+
+| Part Type                                      | Unit  | Role/Notes                      |     |
+| ---------------------------------------------- | ----- | ------------------------------- | --- |
+| [Resistor (300-500Ω)](https://amzn.to/4kMejW2) | 1     | To protect the LED's data line. |     |
+| [Breadboard](https://amzn.to/40bMzlk)          | 1     | Circuit base for prototyping.   |     |
+| [Jumper Wires](https://amzn.to/45voWYC)        | 1 set | To connect parts together.      |     |
+
 
 ## Usage
 
@@ -29,9 +47,7 @@
 
 -  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/ESP32-DevKitC_8x32_Led_Audio_Spectrum/diagrams/ESP32-DevKitC_8x32_Led_Audio_Spectrum_bb.png)
 
-[![Image from Gyazo](https://i.gyazo.com/b3b6622f17dc1531b0d57f570094329b.png)](https://gyazo.com/b3b6622f17dc1531b0d57f570094329b)
-
-#### [Important] Before You Begin Assembly
+<!-- #### [Important] Before You Begin Assembly
 
 For safety, please make sure both the ESP32's USB cable and the AC adapter are unplugged from your PC and the wall outlet until all wiring is complete.
 
@@ -89,7 +105,7 @@ After you finish wiring, please trace each connection with your finger and verif
 - [ ] I2S Mic Power → ESP32 `3V3`/`GND`
 - [ ] ESP32 `GPIO 13` → Resistor → LED `DIN`
 - [ ] I2S Mic `SD`/`WS`/`SCK` → ESP32 `GPIO 34`/`25`/`26`
-- [ ] ESP32 `GND` → **Breadboard Negative Rail (Common Ground)**
+- [ ] ESP32 `GND` → **Breadboard Negative Rail (Common Ground)** -->
 
 
 ### Software Development
@@ -105,12 +121,6 @@ After you finish wiring, please trace each connection with your finger and verif
 3. Press the tactile switch to cycle through the display patterns in order.
 4. Confirm that all patterns are displayed correctly to complete the test. -->
 
-
-<!-- ## Features -->
-
-<!-- ## Directory 
-
-<!-- ## Reference -->
 
 
 ## Author

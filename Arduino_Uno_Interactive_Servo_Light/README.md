@@ -31,16 +31,30 @@ Turn the knob to sweep the servo arm through its range of motion, and watch the 
 
 ### Bill of Materials
 
-| Part Type                                             | Unit  | Role/Notes                                                                 |
-| ----------------------------------------------------- | ----- | -------------------------------------------------------------------------- |
-| [Arduino UNO](https://amzn.to/44nRXEA)                | 1     | Micro Controller.                                                                  |
-| [Servo Motor (SG90)](https://amzn.to/3TUevqn)         | 1     | The main actuator that controls the angle. This is the part you purchased. |
-| [Potentiometer (10kΩ)](https://amzn.to/4eCRh1R)       | 1     | Used as a knob to set the servo's angle.                                   |
-| [5mm Common Cathode RGB LED](https://amzn.to/4lmJuaE) | 1     | Light source component.                                                    |
-| [Resistor (220Ω)](https://amzn.to/4kMejW2)            | 3     | For protecting the LED's data line.                                        |
-| [Breadboard](https://amzn.to/40bMzlk)                 | 1     | Circuit base. (for prototype)                                              |
-| [Jumper Wires](https://amzn.to/45voWYC)               | 1 set | Connecting parts together.                                                 |
-| [USB cable (A-B)](https://amzn.to/407P2xg)            | 1     | For writing programs to Arduino.                                           |
+#### Control System
+
+| Part Type                                  | Unit | Role/Notes                       |
+| ------------------------------------------ | ---- | -------------------------------- |
+| [Arduino UNO](https://amzn.to/44nRXEA)     | 1    | Micro Controller.                |
+| [USB cable (A-B)](https://amzn.to/407P2xg) | 1    | For writing programs to Arduino. |
+
+
+#### Input & Actuators
+| Part Type                                             | Unit | Role/Notes                                                                 |
+| ----------------------------------------------------- | ---- | -------------------------------------------------------------------------- |
+| [Servo Motor (SG90)](https://amzn.to/3TUevqn)         | 1    | The main actuator that controls the angle. This is the part you purchased. |
+| [Potentiometer (10kΩ)](https://amzn.to/4eCRh1R)       | 1    | Used as a knob to set the servo's angle.                                   |
+| [5mm Common Cathode RGB LED](https://amzn.to/4lmJuaE) | 1    | Light source component.                                                    |
+
+
+#### Prototyping & Wiring
+| Part Type                                  | Unit  | Role/Notes                          |
+| ------------------------------------------ | ----- | ----------------------------------- |
+| [Resistor (220Ω)](https://amzn.to/4kMejW2) | 3     | For protecting the LED's data line. |
+| [Breadboard](https://amzn.to/40bMzlk)      | 1     | Circuit base. (for prototype)       |
+| [Jumper Wires](https://amzn.to/45voWYC)    | 1 set | Connecting parts together.          |
+
+
 
 ## Usage
 
