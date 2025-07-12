@@ -1,4 +1,4 @@
-# Raspberry Pi Pico 2 W Web-Controlled 2-Axis Pan-Tilt Mount
+# ESP32-DevKitC Web-Controlled 2-Axis Pan-Tilt Mount
 
 ## Overview
 
@@ -12,7 +12,7 @@
 
 | Part Type                                                  | Unit  | Role/Notes                                            |
 | ---------------------------------------------------------- | ----- | ----------------------------------------------------- |
-| [Raspberry Pi Pico 2 W](https://amzn.to/46BHxTe)           | 1     | Acts as both the web server and servo controller.     |
+| [ESP32-DevKitC](https://amzn.to/4jV1hnT)                   | 1     | Micro Controller.                                     |
 | [Servo Motor (SG90)](https://amzn.to/3TUevqn)              | 2     | One for pan (horizontal) and one for tilt (vertical). |
 | [2-Axis Pan-Tilt Bracket Kit)](https://amzn.to/44J3H3s)    | 1     | The mechanical frame for mounting the two servos.     |
 | [AC Adapter (5V 4A)](https://amzn.to/4lOymDh)              | 3     | A dedicated external power supply for the servos.     |

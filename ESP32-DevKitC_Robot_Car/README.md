@@ -9,7 +9,7 @@
 
 | Part Type                                                    | Unit  | Role/Notes                                                         |
 | ------------------------------------------------------------ | ----- | ------------------------------------------------------------------ |
-| [ESP32-DevKitC-32E](hhttps://amzn.to/3I0EpGh)                | 1     | Micro Controller.                                                            |
+| [ESP32-DevKitC](https://amzn.to/4jV1hnT)                     | 1     | Micro Controller.                                                  |
 | [Motor Smart Robot Car Chassis Kit](https://amzn.to/3Ggs4gN) | 1set  | The body of the robot car.                                         |
 | [TB6612FNG Motor Driver Module](https://amzn.to/3I3CAbW)     | 1     | An efficient H-bridge to control the two DC motors from the ESP32. |
 | [Breadboard](https://amzn.to/40bMzlk)                        | 1     | Circuit base (for prototype)                                       |
