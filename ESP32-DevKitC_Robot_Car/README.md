@@ -7,18 +7,37 @@
 
 ### Bill of Materials
 
-| Part Type                                                    | Unit  | Role/Notes                                                         |
-| ------------------------------------------------------------ | ----- | ------------------------------------------------------------------ |
-| [ESP32-DevKitC-32E](hhttps://amzn.to/3I0EpGh)                | 1     | Microcomputer                                                      |
-| [Motor Smart Robot Car Chassis Kit](https://amzn.to/3Ggs4gN) | 1set  | The body of the robot car.                                         |
-| [TB6612FNG Motor Driver Module](https://amzn.to/3I3CAbW)     | 1     | An efficient H-bridge to control the two DC motors from the ESP32. |
-| [Breadboard](https://amzn.to/40bMzlk)                        | 1     | Circuit base (for prototype)                                       |
-| [Jumper Wires](https://amzn.to/45voWYC)                      | 1 set | For connecting all the components together.                        |
-| [Micro USB cable](https://amzn.to/4nmvlf5)                   | 1     | To program the ESP32-DevKitC from a PC.                            |
-| AA Batteries (Alkaline)                                      | 4     | Standard 1.5V batteries for powering the robot.                    |
-| Smartphone or PC                                             | 1     | To access the control web app or Bluetooth terminal.               |
+#### Control System
 
-<!-- ## Requirement -->
+| Part Type                                  | Unit | Role/Notes                                 |
+| ------------------------------------------ | ---- | ------------------------------------------ |
+| [ESP32-DevKitC](https://amzn.to/4jV1hnT)   | 1    | Microcontroller; the "brain" of the robot. |
+| [Micro USB cable](https://amzn.to/4nmvlf5) | 1    | To program the ESP32-DevKitC.              |
+
+
+#### Chassis & Mechanics
+
+| Part Type                                                    | Unit | Role/Notes                                        |
+| ------------------------------------------------------------ | ---- | ------------------------------------------------- |
+| [Motor Smart Robot Car Chassis Kit](https://amzn.to/3Ggs4gN) | 1set | The body, wheels, and DC motors of the robot car. |
+
+
+#### Electronics & Power
+
+| Part Type                                                | Unit | Role/Notes                                           |
+| -------------------------------------------------------- | ---- | ---------------------------------------------------- |
+| [TB6612FNG Motor Driver Module](https://amzn.to/3I3CAbW) | 1    | Controls the two DC motors from the ESP32.           |
+| AA Batteries (Alkaline)                                  | 4    | Power supply for the robot's motors and electronics. |
+
+
+#### Prototyping & Control
+
+| Part Type                               | Unit  | Role/Notes                                       |
+| --------------------------------------- | ----- | ------------------------------------------------ |
+| [Breadboard](https://amzn.to/40bMzlk)   | 1     | Circuit base for prototyping.                    |
+| [Jumper Wires](https://amzn.to/45voWYC) | 1 set | For connecting all the components.               |
+| Smartphone or PC                        | 1     | To control the robot via a web app or Bluetooth. |
+
 
 ## Usage
 
@@ -26,7 +45,6 @@
 
 -  Wire it according to [ESP32-DevKitC_Robot_Car_bb.png](https://github.com/asamiile/diy-electronics/blob/main/ESP32-DevKitC_Robot_Car/diagrams/ESP32-DevKitC_Robot_Car_bb.png)
 
-[![Image from Gyazo](https://i.gyazo.com/e7dfffddffdae3d9adb4ae7f7170d68a.jpg)](https://gyazo.com/e7dfffddffdae3d9adb4ae7f7170d68a)
 
 ### Software Development
 
@@ -41,12 +59,6 @@
 3. Press the tactile switch to cycle through the display patterns in order.
 4. Confirm that all patterns are displayed correctly to complete the test. -->
 
-
-<!-- ## Features -->
-
-<!-- ## Directory 
-
-<!-- ## Reference -->
 
 
 ## Author
