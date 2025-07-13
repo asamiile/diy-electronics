@@ -23,7 +23,7 @@ This project is a simple, interactive desk light created with an Arduino Uno and
 
 *5 Color Changes* 
 
-[![YouTube Video Thumbnail](https://i.ytimg.com/vi/HZucglmYSCs/hqdefault.jpg)](https://youtu.be/HZucglmYSCs?si=H5Ee3_KC0-fB6E_b)
+[![YouTube Video Thumbnail](https://i.ytimg.com/vi/HZucglmYSCs/hqdefault.jpg)](https://www.youtube.com/embed/HZucglmYSCs?si=57WI-5acEwMkbXWZ)
 
 *Smooth color fade animation*
 
