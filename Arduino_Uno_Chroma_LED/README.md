@@ -2,21 +2,31 @@
 
 ## Overview
 
-- This project is a simple, interactive desk light created with an Arduino Uno and a single 5mm common cathode RGB LED. By pressing the tactile switch, you can cycle through six preset colors (Pink, Orange, Green, Blue, Purple) and a smoothly transitioning color fade animation. This project is an excellent introduction to controlling RGB LEDs with PWM signals and handling button inputs on the Arduino. It's a perfect weekend project that results in a beautiful, minimalist mood lamp.
+This project is a simple, interactive desk light created with an Arduino Uno and a single 5mm common cathode RGB LED. By pressing the tactile switch, you can cycle through the display modes in the following order:
+
+- Pink
+- Yellow
+- Green
+- Blue
+- Purple
+- Smooth color fade animation
 
 ![](https://mir-cdn.behance.net/v1/rendition/project_modules/max_3840_webp/6226e6229627251.6867e0d1bb8c7.jpg)
 
-![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/938d8b229627251.6867e0d1bc328.jpg)
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/ba3420229627251.6867e0d1bacc1.jpg)
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/5d5c6a229627251.6867e0d1bb195.jpg)
 
-![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/ba3420229627251.6867e0d1bacc1.jpg)
-
-![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/9ed5b2229627251.6867e0d1bbdcc.jpg)
-
-![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/3a3079229627251.6867e0d1ba49c.jpg)
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/938d8b229627251.6867e0d1bc328.jpg)
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/e95a45229627251.6867e0d1bc881.jpg)
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HZucglmYSCs?si=6G36TLfzMUXKsTh2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dp0oIES4NKo?si=_OwSGXsnCpqJQMlE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+This project is an excellent introduction to controlling RGB LEDs with PWM signals and handling button inputs on the Arduino. It's a perfect weekend project that results in a beautiful, minimalist mood lamp.
 
 
 ### Bill of Materials
