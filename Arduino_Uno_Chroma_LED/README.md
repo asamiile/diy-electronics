@@ -21,10 +21,14 @@ This project is a simple, interactive desk light created with an Arduino Uno and
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/e95a45229627251.6867e0d1bc881.jpg)
 
+*5 Color Changes* 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HZucglmYSCs?si=6G36TLfzMUXKsTh2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![YouTube Video Thumbnail](https://i.ytimg.com/vi/HZucglmYSCs/hqdefault.jpg)](https://youtu.be/HZucglmYSCs?si=H5Ee3_KC0-fB6E_b)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dp0oIES4NKo?si=_OwSGXsnCpqJQMlE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+*Smooth color fade animation*
+
+[![YouTube Video Thumbnail](https://i.ytimg.com/vi/dp0oIES4NKo/hqdefault.jpg)](https://www.youtube.com/embed/HZucglmYSCs?si=6G36TLfzMUXKsTh2)
+
 
 This project is an excellent introduction to controlling RGB LEDs with PWM signals and handling button inputs on the Arduino. It's a perfect weekend project that results in a beautiful, minimalist mood lamp.
 
