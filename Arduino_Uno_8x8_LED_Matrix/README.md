@@ -4,6 +4,8 @@
 
 - This project uses an Arduino UNO to control an 8x8 WS2812B LED matrix, displaying various animations like rainbow and ripple effects. A push button allows you to cycle through the patterns.
 
+**Click to watch on YouTube**
+
 [![YouTube Video Thumbnail](https://i.ytimg.com/vi/6-BWVaQY8bo/hqdefault.jpg)](https://youtu.be/6-BWVaQY8bo?si=5ha3Cig4YXMKvDc2)
 
 
