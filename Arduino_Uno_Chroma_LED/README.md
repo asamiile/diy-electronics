@@ -23,11 +23,11 @@ This project is a simple, interactive desk light created with an Arduino Uno and
 
 *5 Color Changes* 
 
-[![YouTube Video Thumbnail](https://i.ytimg.com/vi/HZucglmYSCs/hqdefault.jpg)](https://www.youtube.com/embed/HZucglmYSCs?si=57WI-5acEwMkbXWZ)
+[![YouTube Video Thumbnail](https://i.ytimg.com/vi/HZucglmYSCs/hqdefault.jpg)](https://youtu.be/HZucglmYSCs?si=rXBTJWtdmKFi_rcF)
 
 *Smooth color fade animation*
 
-[![YouTube Video Thumbnail](https://i.ytimg.com/vi/dp0oIES4NKo/hqdefault.jpg)](https://www.youtube.com/embed/HZucglmYSCs?si=6G36TLfzMUXKsTh2)
+[![YouTube Video Thumbnail](https://i.ytimg.com/vi/dp0oIES4NKo/hqdefault.jpg)](https://youtu.be/dp0oIES4NKo?si=npvw56pW3KhWuZMV)
 
 
 This project is an excellent introduction to controlling RGB LEDs with PWM signals and handling button inputs on the Arduino. It's a perfect weekend project that results in a beautiful, minimalist mood lamp.

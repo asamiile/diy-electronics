@@ -14,19 +14,23 @@ Turn the knob to sweep the servo arm through its range of motion, and watch the 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/81a14e230140209.68712daf1c780.jpg)
 
 
-### At 0°, the color is pink.
+**At 0°, the color is pink**
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cbb114230140209.687134623844c.jpg)
 
 
-### At 90°, it's an intermediate purple.
+**At 90°, it's an intermediate purple**
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/3c0d8e230140209.687134623897d.jpg)
 
 
-### At 180°, the color is light blue.
+**At 180°, the color is light blue**
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/14e02c230140209.6871346237c0b.jpg)
+
+**Controlling a servo motor to change the color of an LED**
+
+[![YouTube Video Thumbnail](https://i.ytimg.com/vi/JPDLfhR-mck/hqdefault.jpg)](https://youtu.be/JPDLfhR-mck?si=Nqr5AGdnBTtr3w_z)
 
 
 ### Bill of Materials
@@ -100,6 +104,6 @@ Turn the knob to sweep the servo arm through its range of motion, and watch the 
 
 [Asami.K](https://asami.tokyo/)
 
-[Arduino Uno Interactive Servo Light]()
+[Arduino Uno Interactive Servo Light - Behance](https://www.behance.net/gallery/230140209/Arduino-Uno-Interactive-Servo-Light)
 
 <a href="https://www.buymeacoffee.com/asamiile" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
