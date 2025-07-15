@@ -2,7 +2,10 @@
 
 ## Overview
 
-This project uses an ESP32-DevKitC to control a 16x16 (256 pixels) WS2812B LED matrix, displaying various animations that can be cycled with a push button. A dedicated 5V 10A external power supply is used to handle the high current demand of the LEDs. A logic level shifter ensures stable data transmission from the 3.3V ESP32 to the 5V LED matrix.
+This project uses a Seeed Studio XIAO RP2040 to control a 16x16 (256 pixels) WS2812B LED matrix, displaying various animations that can be cycled with a push button. A dedicated 5V 10A external power supply is used to handle the high current demand of the LEDs. A logic level shifter ensures stable data transmission from the 3.3V XIAO RP2040 to the 5V LED matrix.
+
+**Note**: This project can also be built with an 8x8 (64 pixels) LED matrix. If you use an 8x8 matrix, you will need to change the LED_COUNT variable in the code from 256 to 64.
+
 
 <!-- **Click to watch on YouTube**
 
@@ -21,10 +24,10 @@ This project uses an ESP32-DevKitC to control a 16x16 (256 pixels) WS2812B LED m
 
 #### Input & Output
 
-| Part Type                                                 | Unit | Role/Notes      |
-| --------------------------------------------------------- | ---- | --------------- |
-| [16x16 WS2812B LED Matrix Panel](https://amzn.to/4ebZCcm) | 1    | Display device. |
-| [Tact Switch](https://amzn.to/4l5lGrQ)                    | 1    | Input button.   |
+| Part Type                                                                                          | Unit | Role/Notes      |
+| -------------------------------------------------------------------------------------------------- | ---- | --------------- |
+| [WS2812B LED RGB 16x16](https://amzn.to/4ebZCcm) or [WS2812B LED RGB 8x8](https://amzn.to/44cSo3p) | 1    | Display device. |
+| [Tact Switch](https://amzn.to/4l5lGrQ)                                                             | 1    | Input button.   |
 
 
 #### Power System
@@ -88,18 +91,29 @@ This project uses an ESP32-DevKitC to control a 16x16 (256 pixels) WS2812B LED m
     1.  In the IDE, go to `Tools` > `Manage Libraries...`.
     2.  Search for "**Adafruit NeoPixel**" and install the library.
 3.  Upload the Sketch
-    1.  Go to `Tools` > `Board` > `Raspberry Pi RP2040 Boards` and select "**Seeed Studio XIAO RP2040**".
-    2.  Connect your XIAO, select the correct COM port.
-    3.  Open and upload the [Seeed_Studio_XIAO_RP2040_16x16_LED_matrix.ino]() sketch.
+    1. Open the project sketch file:  [Seeed_Studio_XIAO_RP2040_16x16_LED_matrix.ino]()
+    2. Go to `Tools` > `Board` > `Raspberry Pi RP2040 Boards` and select "**Seeed Studio XIAO RP2040**".
+    3. Connect the XIAO RP2040 to your computer using a USB-C cable.
+    4. Select the correct COM port from the `Tools` menu and click the "Upload" button.
 
 
 ### Test
 
 1. Double-check all wiring, especially power and ground connections.
 2. Plug in the 5V 10A AC adapter to power the LEDs.
-3. Connect the ESP32 to your computer via USB.
-4. The LED matrix should light up with the first animation pattern.
-5. Press the tactile switch to confirm that the patterns cycle correctly.
+3. The LED matrix should light up with the first animation pattern.
+4. Press the tactile switch to confirm that the patterns cycle correctly.
+
+
+### 3D-Printed Enclosure
+
+<!-- Create a custom case with a 3D printer to protect the electronics and give your project a polished look.
+
+Using CAD software (like Tinkercad), design an enclosure based on the exact measurements of your finished PCB. The design must include:
+* **Cutouts** for the 8x8 LED matrix, USB port, DC power jack, and switch.
+* **Mounting posts** to secure the PCB in place.
+
+It's recommended to print a small test piece to check the fit of the ports before starting the final print. Once printed, secure the board inside the enclosure with screws to complete the project. -->
 
 
 ## Author
