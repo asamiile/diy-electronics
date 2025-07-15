@@ -2,8 +2,7 @@
 
 ## Overview
 
-
-
+This project uses an ESP32-DevKitC to create a 2-axis pan-tilt platform that can be controlled remotely from a web browser. The ESP32 connects to your Wi-Fi and hosts a web server with a simple interface, allowing you to control the pan and tilt servos in real-time from any device on the same network.
 
 ![]()
 
@@ -53,36 +52,56 @@
 
 #### Wiring List
 
-<!-- - **Power Setup**
-  - Arduino `5V` pin → Breadboard's Positive `(+)` Rail
-  - Arduino `GND` pin → Breadboard's Negative `(-)` Rail
-- **Servo Motor**
-  - Signal wire (Orange/Yellow) → Arduino Pin `9`
-  - Power wire (Red) → Breadboard's Positive `(+)` Rail
-  - Ground wire (Brown/Black) → Breadboard's Negative `(-)` Rail
-- **Potentiometer**
-  - Center pin → Arduino Pin `A0`
-  - One outer pin → Breadboard's Positive `(+)` Rail
-  - Other outer pin → Breadboard's Negative `(-)` Rail
-- **RGB LED (Common Cathode)**
-  - Longest leg (Cathode) → Breadboard's Negative `(-)` Rail
-  - Red leg → Resistor → Arduino Pin `11`
-  - Green leg → Resistor → Arduino Pin `10`
-  - Blue leg → Resistor → Arduino Pin `5` -->
+1. Power Setup
+  - Connect the **DC Jack Adapter** to the breadboard's main power `(+)` and ground `(-)` rails.
+  - Connect the **1000µF Capacitor** across the `+` and `-` rails (check polarity).
+  - Connect both **Servos**' power wires (Red) to the `+` rail using **thick (18AWG)** wire.
+  - Connect both **Servos**' ground wires (Brown/Black) to the `-` rail using **thick (18AWG)** wire.
+2. Control Connections
+  - Pan Servo Signal wire → ESP32 Pin `GPIO 12`
+  - Tilt Servo Signal wire → ESP32 Pin `GPIO 13`
+  - ESP32 `GND` pin → Breadboard's Ground `(-)` Rail (This creates a common ground and is essential).
 
 
 ### Software Development
 
-<!-- 1. Open the Arduino IDE.
-2. The `<Servo.h>` library required for this project comes pre-installed.
-3. Open the project sketch file and upload it to your Arduino Uno. -->
+This project's software consists of two parts: the firmware that runs on the ESP32, and the web application that provides the control interface.
+
+#### Firmware (ESP32 Sketch)
+
+1. Set Up Arduino IDE for ESP32
+   - Go to `File > Preferences` and add this URL to "Additional Board Manager URLs": `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
+   - Go to `Tools > Board > Boards Manager...`, search for `esp32`, and install the package by Espressif Systems.
+2. Install Required Libraries
+   - In the Library Manager (`Tools > Manage Libraries...`), search for and install "**ESP32Servo**".
+3. Configure and Upload
+   - First, open the project sketch file,  [ESP32-DevKitC_Web-Controlled_2-Axis_Pan-Tilt_Mount]().
+   - Update the `ssid` and `password` variables with your Wi-Fi network credentials.
+   - Choose "**ESP32 Dev Module**" from the `Tools > Board` menu.
+   - Connect your ESP32 to your computer with a Micro-USB cable, select the correct COM port from the `Tools` menu, and click the "Upload" button.
+
+
+#### Web Application (Control UI)
+
+The control interface is a React web app hosted directly on the ESP32. The final build files (HTML/CSS/JS) are uploaded to the ESP32's flash memory, which acts as a local web server. It provides the UI to any browser on the same Wi-Fi network and listens for API commands to move the servos.
+
+The source code can be found here: []()
+
+**Key Features**
+- Pan & Tilt Sliders: For real-time control of each servo from 0-180 degrees.
+- Center Button: Instantly returns both servos to their 90-degree position.
+- Angle Display: Shows the current target angle for each servo.
+- API: Sends commands to the ESP32 via simple HTTP GET requests (e.g., `/move?servo=pan&angle=120`).
 
 
 ### Test
 
-<!-- 1. Connect the Arduino to your computer via USB to power the circuit.
-2. Turn the potentiometer knob.
-3. Confirm that the servo motor rotates smoothly and that the RGB LED changes color as you turn the knob. -->
+1. After the upload is complete, keep the ESP32 connected to your PC.
+2. Connect the external 5V power supply to the DC jack. This will power the servos.
+3. Open the **Arduino Serial Monitor** and set the baud rate to 115200.
+4. Press the **EN** (or RESET) button on your ESP32 board to restart it. The ESP32 will then connect to your Wi-Fi and print its IP address in the Serial Monitor.
+5. On a smartphone or PC connected to the same Wi-Fi network, open a web browser and enter that IP address.
+6. Use the controls on the webpage to confirm that the pan-tilt mechanism moves correctly.
 
 
 ## Author
