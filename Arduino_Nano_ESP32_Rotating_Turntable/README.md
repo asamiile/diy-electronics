@@ -1,4 +1,4 @@
-# Arduino Nano ESP32 360-degree Rotating Turntable
+# Arduino Nano ESP32 Rotating Turntable
 
 ## Overview
 
