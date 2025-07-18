@@ -91,7 +91,7 @@ This project uses a Seeed Studio XIAO RP2040 to control a 16x16 (256 pixels) WS2
     1.  In the IDE, go to `Tools` > `Manage Libraries...`.
     2.  Search for "**Adafruit NeoPixel**" and install the library.
 3.  Upload the Sketch
-    1. Open the project sketch file:  [Seeed_Studio_XIAO_RP2040_16x16_LED_matrix.ino]()
+    1. Open the project [sketch file](https://github.com/asamiile/diy-electronics/blob/main/Seeed_Studio_XIAO_RP2040_16x16_LED_matrix/sketch/sketch_jul15c/sketch_jul15c.ino).
     2. Go to `Tools` > `Board` > `Raspberry Pi RP2040 Boards` and select "**Seeed Studio XIAO RP2040**".
     3. Connect the XIAO RP2040 to your computer using a USB-C cable.
     4. Select the correct COM port from the `Tools` menu and click the "Upload" button.
