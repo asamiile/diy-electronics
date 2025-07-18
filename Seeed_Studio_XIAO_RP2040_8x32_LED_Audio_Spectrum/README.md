@@ -1,4 +1,4 @@
-# ESP32-DevKitC 8x32 LED Audio Spectrum
+# Seeed Studio XIAO RP2040 LED Audio Spectrum
 
 ## Overview
 
@@ -8,10 +8,10 @@
 ### Bill of Materials
 
 #### Control System
-| Part Type                                  | Unit | Role/Notes                              |     |
-| ------------------------------------------ | ---- | --------------------------------------- | --- |
-| [ESP32-DevKitC](https://amzn.to/4jV1hnT)   | 1    | Micro Controller.                       |     |
-| [Micro USB cable](https://amzn.to/4nmvlf5) | 1    | For programming and powering the ESP32. |     |
+| Part Type                                           | Unit | Role/Notes                             |     |
+| --------------------------------------------------- | ---- | -------------------------------------- | --- |
+| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs) | 1    | Micro Controller.                      |     |
+| [USB-C cable](https://amzn.to/407P2xg)              | 1    | For programming and powering the XIAO. |     |
 
 
 #### Input & Output
@@ -45,14 +45,10 @@
 
 ### Hardware Development
 
--  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/ESP32-DevKitC_8x32_Led_Audio_Spectrum/diagrams/ESP32-DevKitC_8x32_Led_Audio_Spectrum_bb.png)
-
-<!-- #### [Important] Before You Begin Assembly
-
-For safety, please make sure both the ESP32's USB cable and the AC adapter are unplugged from your PC and the wall outlet until all wiring is complete.
+<!-- -  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/ESP32-DevKitC_8x32_Led_Audio_Spectrum/diagrams/ESP32-DevKitC_8x32_Led_Audio_Spectrum_bb.png) -->
 
 
-#### Step 1: Place Components on the Breadboard
+<!-- #### Step 1: Place Components on the Breadboard
 
 First, place the main components onto the breadboard.
 
