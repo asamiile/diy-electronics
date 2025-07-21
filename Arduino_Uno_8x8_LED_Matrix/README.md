@@ -4,6 +4,8 @@
 
 - This project uses an Arduino UNO to control an 8x8 WS2812B LED matrix, displaying various animations like rainbow and ripple effects. A push button allows you to cycle through the patterns.
 
+**Click to watch on YouTube**
+
 [![YouTube Video Thumbnail](https://i.ytimg.com/vi/6-BWVaQY8bo/hqdefault.jpg)](https://youtu.be/6-BWVaQY8bo?si=5ha3Cig4YXMKvDc2)
 
 
@@ -68,7 +70,7 @@ This serves as the initial prototype for the final [Seeed_Studio_XIAO_RP2040_8x8
 
 ### Hardware Development
 
--  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_led_matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_bb.png)
+-  Wire it according to [Arduino_Uno_LED_8x8_led_matrix_art_breadboard.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_LED_Matrix/diagrams/Fritzing/Arduino_Uno_LED_8x8_led_matrix_art_bb.png)
 
 
 #### Wiring List
@@ -96,14 +98,18 @@ Before you apply power, carefully trace each connection with your finger and con
 
 1. Open the Arduino IDE.
 2. Install "Adafruit NeoPixel by Adafruit" from the menu Tools > Manage Libraries.
-3. Write the [Arduino_Uno_8x8_led_matrix.ino](Arduino_Uno_8x8_led_matrix/sketch/Arduino_Uno_8x8_led_matrix/Arduino_Uno_8x8_led_matrix.ino) code to Arduino.
+3. Open the project sketch file:  [Arduino_Uno_8x8_LED_Matrix.ino](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_8x8_LED_Matrix/sketch/Arduino_Uno_8x8_led_matrix/Arduino_Uno_8x8_led_matrix.ino)
+4. Connect the Arduino to your computer using a USB cable (A-B) cable.
+5. Select the correct COM port from the `Tools` menu and click the "Upload" button.
+
 
 ### Test
 
-1. Upload the sketch to the Arduino and connect the power supply.
-2. The LED matrix will initialize and display the first pattern.
-3. Press the tactile switch to cycle through the display patterns in order.
-4. Confirm that all patterns are displayed correctly to complete the test.
+1. Double-check all wiring to ensure it matches the diagram.
+2. Connect the external 5V power supply to the DC jack.
+3. The LED matrix will now initialize and display the first animation pattern.
+4. Press the tactile switch to cycle through the display patterns in order.
+5. Confirm that all patterns are displayed correctly to complete the test.
 
 
 ## Author

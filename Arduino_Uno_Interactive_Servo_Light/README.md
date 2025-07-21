@@ -28,7 +28,7 @@ Turn the knob to sweep the servo arm through its range of motion, and watch the 
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/14e02c230140209.6871346237c0b.jpg)
 
-**Controlling a servo motor to change the color of an LED**
+**Controlling a servo motor to change the color of an LED (Click to watch on YouTube)**
 
 [![YouTube Video Thumbnail](https://i.ytimg.com/vi/JPDLfhR-mck/hqdefault.jpg)](https://youtu.be/JPDLfhR-mck?si=Nqr5AGdnBTtr3w_z)
 

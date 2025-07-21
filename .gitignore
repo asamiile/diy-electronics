@@ -3,3 +3,6 @@
 
 # Zip file
 *.zip
+
+# Credential file
+credentials.h
