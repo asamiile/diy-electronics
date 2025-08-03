@@ -81,9 +81,9 @@ Please verify that each connection is wired as follows:
 
 - Common Cathode RGB LED
   - Longest leg of the LED (Common Cathode) → Arduino GND
-  - Arduino D11 (PWM) → Resistor → Red (R) leg of LED
-  - Arduino D10 (PWM) → Resistor → Blue (B) leg of LED
-  - Arduino D9 (PWM) → Resistor → Green (G) leg of LED
+  - Arduino D11 (PWM) → 220Ω Resistor  → Red (R) leg of LED
+  - Arduino D10 (PWM) → 220Ω Resistor  → Blue (B) leg of LED
+  - Arduino D9 (PWM) → 220Ω Resistor  → Green (G) leg of LED
 - Tactile Switch (Push-button)
   - Arduino D2 → One leg of the Switch
   - Diagonally opposite leg of the Switch → Arduino GND
