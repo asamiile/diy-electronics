@@ -2,6 +2,8 @@
 
 ## Overview
 
+This project creates a simple digital compass using an Arduino Uno and a BNO055 9-axis orientation sensor. The BNO055 is a powerful sensor that combines an accelerometer, gyroscope, and magnetometer with an internal processor to provide tilt-compensated, absolute orientation. This allows it to output a stable and accurate heading (0-360 degrees), which is displayed on the computer's Serial Monitor.
+
 ![]()
 
 
@@ -19,7 +21,7 @@
 
 | Part Type                                            | Unit | Role/Notes                     |
 | ---------------------------------------------------- | ---- | ------------------------------ |
-| [BNO055 9DOF Sensor Module](https://amzn.to/3U8l5tN) | 1    | Sensor that detects direction. |
+| [BNO055 9DOF Sensor Module](https://amzn.to/3H3PAOx) | 1    | Sensor that detects direction. |
 
 
 #### Prototyping & Wiring
@@ -39,31 +41,30 @@
 
 #### Wiring List
 
-<!-- - Common Cathode RGB LED
-  - Longest leg of the LED (Common Cathode) → Arduino GND
-  - Arduino D11 (PWM) → 220Ω Resistor  → Red (R) leg of LED
-  - Arduino D10 (PWM) → 220Ω Resistor  → Blue (B) leg of LED
-  - Arduino D9 (PWM) → 220Ω Resistor  → Green (G) leg of LED
-- Tactile Switch (Push-button)
-  - Arduino D2 → One leg of the Switch
-  - Diagonally opposite leg of the Switch → Arduino GND
-  - [Note] This circuit does not have an external pull-up resistor. You must use the Arduino's internal pull-up by setting pinMode(2, INPUT_PULLUP); in your sketch. -->
+- **BNO055 Sensor to Arduino Uno**
+  - VIN → 5V
+  - GND → GND
+  - SCL → A5
+  - SDA → A4
+
 
 ### Software Development
 
-1. Set up the IDE: Open the Arduino IDE. Ensure your board is configured correctly under Tools > Board (select "Arduino Uno").
-<!-- 2. Upload the Code: Copy and paste the complete code from the [Arduino_Uno_Digital_Compass.ino](Arduino_Uno_Digital_Compass/sketch/sketch_jul4a/Arduino_Uno_Digital_Compass/Arduino_Uno_Digital_Compass.ino) file into your sketch.
-3. Connect & Upload: Connect your Arduino Uno to your PC with the USB cable and click the "Upload" button. -->
+1. Install Libraries: Before uploading, you need to install the required libraries.
+   - In the Arduino IDE, go to `Tools` > `Manage Libraries...`.
+   - Search for and install "Adafruit BNO055".
+   - Search for and install "Adafruit Unified Sensor".
+2. **Set up the IDE**: Open the Arduino IDE. Ensure your board is configured correctly under `Tools` > `Board` (select "Arduino Uno").
+3. **Upload the Code**: Copy and paste the complete code from [Arduino_Uno_Digital_Compass.ino](Arduino_Uno_Digital_Compass/sketch/sketch_jul4a/Arduino_Uno_Digital_Compass/Arduino_Uno_Digital_Compass.ino)  file into the sketch editor.
+4. **Connect & Upload**: Connect your Arduino Uno to your PC with the USB cable and click the "Upload" button.
 
 
 ### Test
 
-<!-- 1. After uploading the sketch, the RGB LED will be off.
-2. Press the tactile switch once. The LED will turn pink.
-3. Each subsequent press will cycle through the colors: Orange, Green, Blue, Purple, and then a smooth color-fading animation.
-4. The next press will turn the LED off again, completing the cycle.
-5. Confirm that all patterns are displayed correctly to complete the test. -->
-
+1. After uploading the sketch, open the **Serial Monitor** by clicking the magnifying glass icon in the top-right corner of the Arduino IDE.
+2. In the Serial Monitor window, set the baud rate to **9600**.
+3. The current heading (azimuth) from the sensor will be printed in degrees.
+4. Physically rotate the breadboard and sensor. Confirm that the heading value changes accordingly (e.g., pointing North should be close to 0 or 360 degrees).
 
 
 ## Author
