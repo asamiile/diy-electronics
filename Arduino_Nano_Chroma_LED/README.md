@@ -92,7 +92,7 @@ This project uses the Arduino IoT Cloud.
    - Click **Add** and select the **Stepper** widget. In the widget's settings, link it to the `colorMode` variable. Set the Min Value to `0` and the Max Value to `6`.
    - (Optional) Add a **Value** widget and link it to the same `colorMode` variable to display the current mode number.
    - Exit Edit mode.
-    [![Image from Gyazo](https://i.gyazo.com/33b0d6bf827ee54d066a77dac2a0c029.gif)](https://gyazo.com/33b0d6bf827ee54d066a77dac2a0c029)
+    [![Image from Gyazo](https://i.gyazo.com/94192f1e5d906190a007f4fb6ecdc9c7.png)](https://gyazo.com/94192f1e5d906190a007f4fb6ecdc9c7)
 2. **Verify Operation** 
    - After the board is powered on and its status is **Online**, the LED should be off (Mode 0).
    - **Dashboard Control**: Click the "**+**" button on the Stepper widget. The physical LED should turn pink (Mode 1). Each subsequent click will cycle through the colors.
