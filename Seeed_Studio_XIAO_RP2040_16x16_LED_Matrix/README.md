@@ -1,4 +1,4 @@
-# Seeed Studio XIAO RP2040 16x16 LED Matrix
+# Seeed Studio XIAO RP2040 16x16 LED Matrix (In production)
 
 ## Overview
 
