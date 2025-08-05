@@ -1,4 +1,4 @@
-# Seeed Studio XIAO RP2040 LED Audio Spectrum
+# Seeed Studio XIAO RP2040 LED Audio Spectrum (In production)
 
 ## Overview
 
