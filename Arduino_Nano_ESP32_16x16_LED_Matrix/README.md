@@ -78,7 +78,7 @@ You can see the LED animation pattern in the [Arduino Uno 8x8 LED Matrix - Behan
 2. **Install Library:**
   - Install "**Adafruit NeoPixel by Adafruit**" from the `Tools` > `Manage Libraries...` menu.
 3. **Modify the Sketch:**
-    - Open the project [Arduino_Nano_ESP32_16x16_LED_Matrix_jul20a.ino](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Nano_ESP32_16x16_LED_Matrix/sketch/Arduino_Nano_ESP32_16x16_LED_Matrix_jul20a/Arduino_Nano_ESP32_16x16_LED_Matrix_jul20a.ino) file.
+    - Open the project [Arduino_Nano_ESP32_16x16_LED_Matrix.ino](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Nano_ESP32_16x16_LED_Matrix/sketch/Arduino_Nano_ESP32_16x16_LED_Matrix/Arduino_Nano_ESP32_16x16_LED_Matrix.ino) file.
 4. **Connect & Upload:**
     - Connect the Arduino Nano ESP32 to your computer using a USB-C cable.
     - Select the correct COM port from the `Tools` menu and click the "Upload" button. (You may need to hold the BOOT button during upload).
