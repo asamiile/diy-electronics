@@ -90,7 +90,7 @@ Turn the knob to sweep the servo arm through its range of motion, and watch the 
 ### Software Development
 1. Open the Arduino IDE.
 2. The `<Servo.h>` library required for this project comes pre-installed.
-3. Open the project sketch file and upload it to your Arduino Uno.
+3. Open the [Arduino_Uno_Interactive_Servo_Light/sketch/Arduino_Uno_Interactive_Servo_Light/Arduino_Uno_Interactive_Servo_Light.ino](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_Interactive_Servo_Light/sketch/Arduino_Uno_Interactive_Servo_Light/Arduino_Uno_Interactive_Servo_Light.ino) file and upload it to your Arduino Uno.
 
 
 ### Test

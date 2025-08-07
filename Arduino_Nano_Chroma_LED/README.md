@@ -80,7 +80,7 @@ This project uses the Arduino IoT Cloud.
     [![Image from Gyazo](https://i.gyazo.com/1ab5feb8a2e3802c23280b4c67604f26.png)](https://gyazo.com/1ab5feb8a2e3802c23280b4c67604f26)
 2. **Upload the Code**
    - Go to the **Sketch** tab of your Thing.
-   - A template sketch will be automatically generated. Delete the contents and replace it with the complete code from [Nano_Chroma_LED_aug03a.ino](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Nano_Chroma_LED/sketch/Nano_Chroma_LED_aug03a/Nano_Chroma_LED_aug03a.ino) file.
+   - A template sketch will be automatically generated. Delete the contents and replace it with the complete code from [Arduino_Nano_Chroma_LED.ino](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Nano_Chroma_LED/sketch/Arduino_Nano_Chroma_LED/Arduino_Nano_Chroma_LED.ino) file.
     [![Image from Gyazo](https://i.gyazo.com/5e2e5a0bee07afac0b680496551c4410.png)](https://gyazo.com/5e2e5a0bee07afac0b680496551c4410)
    - Click the **Upload** button to flash the sketch to your board. If the update fails, enter **bootloader mode** and try uploading again using the following steps:
      - Press the reset button twice (the board's LED will flash multiple colors).
