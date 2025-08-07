@@ -79,7 +79,7 @@ This project's software consists of two parts: the firmware that runs on the ESP
    2. Open the file and replace `"YOUR_WIFI_SSID_HERE"` and `"YOUR_WIFI_PASSWORD_HERE"` with your actual Wi-Fi details.
    3. Rename the file from `credentials.h.example` to `credentials.h`.
 3. Configure and Upload
-   - Open the [ESP32-DevKitC_Web-Controlled_2-Axis_Pan-Tilt_Mount](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Nano_ESP32_Web-Controlled_2-Axis_Pan-Tilt_Mount/sketch/sketch_jul16a/sketch_jul16a.ino).
+   - Open the [ESP32-DevKitC_Web-Controlled_2-Axis_Pan-Tilt_Mount](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Nano_ESP32_Web-Controlled_2-Axis_Pan-Tilt_Mount/sketch/Arduino_Nano_ESP32_Web-Controlled_2-Axis_Pan-Tilt_Mount/Arduino_Nano_ESP32_Web-Controlled_2-Axis_Pan-Tilt_Mount.ino).
    - Go to `Tools > Board > Arduino ESP32` Boards and select "**Arduino Nano ESP32**".
    - Connect your Nano ESP32 to your computer with a USB-C cable, select the correct COM port, and click the "Upload" button.
 
