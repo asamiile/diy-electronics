@@ -10,14 +10,14 @@ These are a collection of DIY Electronics samples.
 
 ### Arduino UNO
 
+- [Arduino Uno RGB LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Uno_RGB_LED)
 - [Arduino Uno 8x8 LED Matrix](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Uno_8x8_LED_Matrix)
-- [Arduino Uno Chroma LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Uno_Chroma_LED)
 - [Arduino Uno Interactive Servo Light](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Uno_Interactive_Servo_Light)
 
 
 ### Arduino Nano ESP32
 
-- [Arduino Nano Chroma LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Nano_Chroma_LED)
+- [Arduino Nano RGB LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Nano_RGB_LED)
 
 
 

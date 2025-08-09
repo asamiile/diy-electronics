@@ -1,4 +1,4 @@
-# Arduino Uno Chroma LED
+# Arduino Uno RGB LED
 
 ## Overview
 
@@ -66,7 +66,7 @@ This project is an excellent introduction to controlling RGB LEDs with PWM signa
 
 ### Hardware Development
 
--  Wire it according to [Arduino_Uno_Chroma_LED_bb.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_Chroma_LED/diagrams/Arduino_Uno_Chroma_LED_bb.png)
+-  Wire it according to [Arduino_Uno_RGB_LED.png](https://github.com/asamiile/diy-electronics/blob/main/Arduino_Uno_RGB_LED/diagrams/Arduino_Uno_RGB_LED.png)
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/4fc92f229627251.6867e0d0b3b1b.jpg)
 
@@ -92,7 +92,7 @@ Please verify that each connection is wired as follows:
 ### Software Development
 
 1. Set up the IDE: Open the Arduino IDE. Ensure your board is configured correctly under Tools > Board (select "Arduino Uno").
-2. Upload the Code: Copy and paste the complete code from the [Arduino_Uno_Chroma_LED.ino](Arduino_Uno_Chroma_LED/sketch/sketch_jul4a/Arduino_Uno_Chroma_LED/Arduino_Uno_Chroma_LED.ino) file into your sketch.
+2. Upload the Code: Copy and paste the complete code from the [Arduino_Uno_RGB_LED.ino](Arduino_Uno_RGB_LED/sketch/sketch_jul4a/Arduino_Uno_RGB_LED/Arduino_Uno_RGB_LED.ino) file into your sketch.
 3. Connect & Upload: Connect your Arduino Uno to your PC with the USB cable and click the "Upload" button.
 
 
