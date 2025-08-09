@@ -1,26 +1,3 @@
-/*
- * Project: Arduino Uno Chroma LED
- * Author: Asami.K
- *
- * Description:
- * A simple, interactive desk light using a single RGB LED.
- * A push button cycles through different colors and a smooth fade animation.
- *
- * Hardware:
- * - Arduino Uno
- * - 5mm Common Cathode RGB LED
- * - Tactile Push Button
- * - 3x 220 Ohm Resistors
- *
- * Connections:
- * - RGB LED Red Pin   -> 220Ω Resistor -> Arduino Pin ~9
- * - RGB LED Green Pin -> 220Ω Resistor -> Arduino Pin ~10
- * - RGB LED Blue Pin  -> 220Ω Resistor -> Arduino Pin ~11
- * - RGB LED GND Pin   -> Arduino GND
- * - Button Pin 1      -> Arduino Pin D2
- * - Button Pin 2      -> Arduino GND
- */
-
 // --- Constants for Pins ---
 const int RED_PIN = 9;
 const int GREEN_PIN = 10;
