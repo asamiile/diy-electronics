@@ -17,7 +17,7 @@ These are a collection of DIY Electronics samples.
 
 ### Arduino Nano ESP32
 
-- [Arduino Nano RGB LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Nano_RGB_LED)
+- [Arduino Nano RGB LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Nano_ESP32_RGB_LED)
 
 
 
