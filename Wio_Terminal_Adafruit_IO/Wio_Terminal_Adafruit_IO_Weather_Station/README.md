@@ -4,7 +4,7 @@
 
 - This project transforms the Wio Terminal into a connected weather station. It measures ambient temperature and humidity using a Grove - DHT11 sensor and visualizes the data in two ways: locally on the built-in LCD screen and remotely on an Adafruit IO dashboard.
 
-![](https://lightroom.adobe.com/v2c/catalogs/ed2e01a539b04942967b87bf621ffa54/assets/294f9f11830c4129b0251f46e46a78b9/revisions/bf4c861ac19f4574a86f0b4264dbb407/renditions/be709306d144d6fb8234c250f2e8deca)
+![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/76df73232223085.68984e3bc47f8.jpg)
 
 
 - Adafruit IO Dashboads: [Weather Station](https://io.adafruit.com/asamiile/dashboards/weather-station)
