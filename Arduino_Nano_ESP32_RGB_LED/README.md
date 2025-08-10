@@ -39,13 +39,13 @@ You can see the LED light in the [Arduino Uno Chroma LED - Behance](https://www.
 
 ### Hardware Development
 
-![](https://lightroom.adobe.com/v2c/catalogs/ed2e01a539b04942967b87bf621ffa54/assets/b8db24c849a64bb18d8dd6fd5660a455/revisions/c071297ff20249fc9b3ba093a697bede/renditions/5b248209ceab8b479a5bee75af28089c)
+![](https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/032252232222857.68984c6f142d3.jpg)
 
-![](https://lightroom.adobe.com/v2c/catalogs/ed2e01a539b04942967b87bf621ffa54/assets/bca19d1e416744b98cee6658e6d6800a/revisions/548504f3b69b0c2330a2fb2fab47af73/renditions/e4896d7690edf4af243964254276df1e)
+![](https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/1095e9232222857.68984c6f139e4.jpg)
 
-![](https://lightroom.adobe.com/v2c/catalogs/ed2e01a539b04942967b87bf621ffa54/assets/bb6fd70ff4054056b0f6f719df701b3e/revisions/8801239ee9d04482a4760a18e419a3b3/renditions/b28d76ebb304b27770fa8d02a13d0b9d)
+![](https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/5c3228232222857.68984c6f148b3.jpg)
 
-![](https://lightroom.adobe.com/v2c/catalogs/ed2e01a539b04942967b87bf621ffa54/assets/e9131d3305154917a7ae84aa82cad378/revisions/4c1754ba6b8542449073e73987967987/renditions/3f735415ab7ce87328a2d3573b487371)
+![](https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/3b2910232222857.68984c6f150ae.jpg)
 
 
 #### Wiring List
