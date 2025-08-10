@@ -2,8 +2,7 @@
 
 ## Overview
 
-Use the following article to perform word detection:
-- [Build an ML Model in 5 Minutes and Deploy in the Wio Terminal Powered by Edge Impulse](https://wiki.seeedstudio.com/Getting_started_wizard/#getting-started-with-edge-impulse)
+- Reference: [Build an ML Model in 5 Minutes and Deploy in the Wio Terminal Powered by Edge Impulse](https://wiki.seeedstudio.com/Getting_started_wizard/#getting-started-with-edge-impulse)
 
 ## Author
 

@@ -20,15 +20,6 @@ These are a collection of DIY Electronics samples.
 - [Arduino Nano RGB LED](https://github.com/asamiile/diy-electronics/tree/main/Arduino_Nano_ESP32_RGB_LED)
 
 
-
-### Seeed Studio XIAO RP2040
-
-- []()
-
-
-### ESP32-DevKitC 
-
-
 ### Wio Terminal
 
 #### Build In
@@ -45,6 +36,23 @@ These are a collection of DIY Electronics samples.
 - [Mic Graph](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Build_In/Wio_Terminal_Mic_Graph)
 - [Light Sensor](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Build_In/Wio_Terminal_Light_Sensor)
 - [Accelerometer](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Build_In/Wio_Terminal_Accelerometer)
+
+
+#### IOT
+
+- [Wifi BLE Scan](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Iot/Wifi_BLE_Scan)
+- [Adafruit IO Weather Station](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Adafruit_IO/Wio_Terminal_Adafruit_IO_Weather_Station)
+
+
+<!-- ### Seeed Studio XIAO RP2040 -->
+
+
+<!-- ### ESP32-DevKitC  -->
+
+
+#### Tiny ML
+
+<!-- - [Edge Impulse Word Detection](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Edge_Impulse/Wio_Terminal_Edge_Impulse_Word_Detection) -->
 
 
 ## Author
