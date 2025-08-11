@@ -1,4 +1,4 @@
-# Arduino Nano RGB LED
+# Arduino Nano ESP32 RGB LED
 
 ## Overview
 

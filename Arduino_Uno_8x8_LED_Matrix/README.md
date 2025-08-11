@@ -9,9 +9,6 @@
 [![YouTube Video Thumbnail](https://i.ytimg.com/vi/6-BWVaQY8bo/hqdefault.jpg)](https://youtu.be/6-BWVaQY8bo?si=5ha3Cig4YXMKvDc2)
 
 
-This serves as the initial prototype for the final [Seeed_Studio_XIAO_RP2040_8x8_LED_Matrix](https://github.com/asamiile/diy-electronics/tree/main/Seeed_Studio_XIAO_RP2040_8x8_LED_Matrix) project, which refines this concept into a compact, permanent product.
-
-
 ### LED Matrix glowing pattern
 
 - Rainbow
@@ -29,6 +26,7 @@ This serves as the initial prototype for the final [Seeed_Studio_XIAO_RP2040_8x8
 - Breathing
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/7d1379229464473.68652fef57857.jpg)
 
+[Here is](Arduino_Nano_ESP32_RGB_LED) a project with the same configuration created with Arduino Nano ESP32.
 
 ### Bill of Materials
 
