@@ -41,7 +41,7 @@ These are a collection of DIY Electronics samples.
 #### IOT
 
 - [Wifi BLE Scan](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Iot/Wifi_BLE_Scan)
-- [Adafruit IO Weather Station](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Adafruit_IO/Wio_Terminal_Adafruit_IO_Weather_Station)
+- [Weather Station with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Weather_Station_with_Adafruit_IO)
 
 
 <!-- ### Seeed Studio XIAO RP2040 -->
