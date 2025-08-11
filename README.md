@@ -44,7 +44,7 @@ These are a collection of DIY Electronics samples.
 - [Weather Station with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Weather_Station_with_Adafruit_IO)
 
 
-<!-- ### Seeed Studio XIAO RP2040 -->
+<!-- ### XIAO RP2040 -->
 
 
 <!-- ### ESP32-DevKitC  -->

@@ -47,7 +47,7 @@ You can see the LED animation pattern in the [Arduino Uno 8x8 LED Matrix - Behan
 
 ### Hardware Development
 
-<!-- -  Wire it according to [Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix_bb.png](https://github.com/asamiile/diy-electronics/blob/main/Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix/diagrams/Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix_bb.png) -->
+<!-- -  Wire it according to [XIAO_RP2040_16x16_LED_Matrix_bb.png](https://github.com/asamiile/diy-electronics/blob/main/XIAO_RP2040_16x16_LED_Matrix/diagrams/XIAO_RP2040_16x16_LED_Matrix_bb.png) -->
 
 
 #### Wiring List

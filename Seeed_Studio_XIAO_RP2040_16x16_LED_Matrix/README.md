@@ -1,8 +1,8 @@
-# Seeed Studio XIAO RP2040 16x16 LED Matrix (In production)
+# XIAO RP2040 16x16 LED Matrix (In production)
 
 ## Overview
 
-This project uses a Seeed Studio XIAO RP2040 to control a 16x16 (256 pixels) WS2812B LED matrix, displaying various animations that can be cycled with a push button. A dedicated 5V 10A external power supply is used to handle the high current demand of the LEDs. A logic level shifter ensures stable data transmission from the 3.3V XIAO RP2040 to the 5V LED matrix.
+This project uses a XIAO RP2040 to control a 16x16 (256 pixels) WS2812B LED matrix, displaying various animations that can be cycled with a push button. A dedicated 5V 10A external power supply is used to handle the high current demand of the LEDs. A logic level shifter ensures stable data transmission from the 3.3V XIAO RP2040 to the 5V LED matrix.
 
 **Note**: This project can also be built with an 8x8 (64 pixels) LED matrix. If you use an 8x8 matrix, you will need to change the LED_COUNT variable in the code from 256 to 64.
 
@@ -18,7 +18,7 @@ This project uses a Seeed Studio XIAO RP2040 to control a 16x16 (256 pixels) WS2
 
 | Part Type                                           | Unit | Role/Notes                             |     |
 | --------------------------------------------------- | ---- | -------------------------------------- | --- |
-| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs) | 1    | Micro Controller.                      |     |
+| [XIAO RP2040](https://amzn.to/3TrkrHs) | 1    | Micro Controller.                      |     |
 | [USB-C cable](https://amzn.to/407P2xg)              | 1    | For programming and powering the XIAO. |     |
 
 
@@ -53,7 +53,7 @@ This project uses a Seeed Studio XIAO RP2040 to control a 16x16 (256 pixels) WS2
 
 ### Hardware Development
 
--  Wire it according to [Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix_bb.png](https://github.com/asamiile/diy-electronics/blob/main/Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix/diagrams/Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix_bb.png)
+-  Wire it according to [XIAO_RP2040_16x16_LED_Matrix_bb.png](https://github.com/asamiile/diy-electronics/blob/main/XIAO_RP2040_16x16_LED_Matrix/diagrams/XIAO_RP2040_16x16_LED_Matrix_bb.png)
 
 
 #### Wiring List
@@ -91,8 +91,8 @@ This project uses a Seeed Studio XIAO RP2040 to control a 16x16 (256 pixels) WS2
     1.  In the IDE, go to `Tools` > `Manage Libraries...`.
     2.  Search for "**Adafruit NeoPixel**" and install the library.
 3.  Upload the Sketch
-    1. Open the project [sketch file](https://github.com/asamiile/diy-electronics/blob/main/Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix/sketch/Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix/Seeed_Studio_XIAO_RP2040_16x16_LED_Matrix.ino).
-    2. Go to `Tools` > `Board` > `Raspberry Pi RP2040 Boards` and select "**Seeed Studio XIAO RP2040**".
+    1. Open the project [sketch file](https://github.com/asamiile/diy-electronics/blob/main/XIAO_RP2040_16x16_LED_Matrix/sketch/XIAO_RP2040_16x16_LED_Matrix/XIAO_RP2040_16x16_LED_Matrix.ino).
+    2. Go to `Tools` > `Board` > `Raspberry Pi RP2040 Boards` and select "**XIAO RP2040**".
     3. Connect the XIAO RP2040 to your computer using a USB-C cable.
     4. Select the correct COM port from the `Tools` menu and click the "Upload" button.
 

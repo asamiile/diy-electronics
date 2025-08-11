@@ -1,4 +1,4 @@
-# Seeed Studio XIAO RP2040 LED Audio Spectrum (In production)
+# XIAO RP2040 LED Audio Spectrum (In production)
 
 ## Overview
 
@@ -10,7 +10,7 @@
 #### Control System
 | Part Type                                           | Unit | Role/Notes                             |     |
 | --------------------------------------------------- | ---- | -------------------------------------- | --- |
-| [Seeed Studio XIAO RP2040](https://amzn.to/3TrkrHs) | 1    | Micro Controller.                      |     |
+| [XIAO RP2040](https://amzn.to/3TrkrHs) | 1    | Micro Controller.                      |     |
 | [USB-C cable](https://amzn.to/407P2xg)              | 1    | For programming and powering the XIAO. |     |
 
 
