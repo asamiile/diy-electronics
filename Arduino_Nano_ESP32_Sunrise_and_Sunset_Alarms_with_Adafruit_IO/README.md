@@ -1,4 +1,4 @@
-# Wio Terminal Sunrise and Sunset Alarms with Adafruit IO (In production)
+# Arduino Nano ESP32 Sunrise and Sunset Alarms with Adafruit IO (In production)
 
 ## Overview
 
@@ -19,9 +19,11 @@
 
 | Part Type                                                                                                   | Unit | Role/Notes                                                                    |
 | ----------------------------------------------------------------------------------------------------------- | ---- | ----------------------------------------------------------------------------- |
-| [Wio Terminal](https://amzn.to/4me4lxu)                                                                     | 1    | Main controller, display, and Wi-Fi module.                                   |
+| [Arduino Nano ESP32](https://amzn.to/452q2dH)                                                               | 1    | Microcontroller with Wi-Fi for processing and sending data.                   |
 | [Grove - Light Sensor v1.2](https://jp.seeedstudio.com/Grove-Light-Sensor-v1-2-LS06-S-phototransistor.html) | 1    | Detects the ambient light level to determine if it is currently day or night. |
-| USB Type-C Cable                                                                                            | 1    | For power and programming. Must be a data-sync cable.                         |
+| [Grove Shield for Arduino Nano](https://amzn.to/3UnUJnH)                                                    | 1    | Allows for easy, solder-free connection of the Grove sensor to the Nano.      |
+| [USB-C Cable](https://amzn.to/4lU4bdZ)                                                                      | 1    | For programming and powering the Nano ESP32.                                  |
+| [Mobile Power Bank](https://amzn.to/45jTQ5W)                                                                | 1    | Power supply for standalone operation of the entire device.                   |
 
 
 ## Usage
