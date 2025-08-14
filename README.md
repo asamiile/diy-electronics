@@ -46,7 +46,7 @@ These are a collection of DIY Electronics samples.
 
 - [Wifi BLE Scan](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Wifi_BLE_Scan)
 - [Weather Station with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Weather_Station_with_Adafruit_IO)
-- [Light Sensor with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Light_Sensor_with_Adafruit_IO/Light_Sensor_with_Adafruit_IO)
+- [Light Sensor with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Light_Sensor_with_Adafruit_IO)
 <!-- - [GPS Tracker with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_GPS_Tracker_with_Adafruit_IO) -->
 
 
