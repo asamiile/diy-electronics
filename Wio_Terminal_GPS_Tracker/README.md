@@ -1,4 +1,4 @@
-# Wio Terminal GPS Tracker with Adafruit IO (In production)
+# Wio Terminal GPS Tracker (In production)
 
 ## Overview
 

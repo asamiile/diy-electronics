@@ -50,7 +50,7 @@ void setup() {
   tft.fillScreen(TFT_BLACK);
   tft.setFreeFont(FSS12);
   tft.setTextColor(TFT_WHITE);
-  tft.drawString("Connecting to Wi-Fi...", 10, 100);
+  tft.drawString("Connecting to Wi-Fi...", 50, 110);
 
   // Use WiFiManager to handle the connection.
   // If no credentials are saved, it starts an Access Point named "AutoConnectAP".
@@ -60,8 +60,8 @@ void setup() {
   if (!wifiManager.autoConnect("AutoConnectAP")) {
     Serial.println("Failed to connect and hit timeout");
     tft.setFreeFont(FSS12);
-    tft.fillScreen(TFT_RED);
-    tft.drawString("Wi-Fi connection failed.", 10, 100);
+    tft.fillScreen(TFT_MAGENTA);
+    tft.drawString("Wi-Fi connection failed.", 40, 110);
     while (1);
   }
 

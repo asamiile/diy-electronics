@@ -50,7 +50,7 @@
 
 | Part Type                                                                                         | Unit | Role/Notes                               |
 | ------------------------------------------------------------------------------------------------- | ---- | ---------------------------------------- |
-| [Power Supply (5V, 2A+)](https://amzn.to/4jZEIyu) or [Mobile Power Bank](https://amzn.to/449XEpG) | 1    | Power supply for LEDs.                   |
+| [Power Supply (5V, 2A+)](https://amzn.to/4jZEIyu) or [Mobile Power Bank](https://amzn.to/45jTQ5W) | 1    | Power supply for LEDs.                   |
 | [DC jack adapter (female)](https://amzn.to/3IdZI7k)                                               | 1    | Connect the AC adapter to the breadboard |
 | [Electrolytic Capacitor (1000µF)](https://amzn.to/45ZOWLQ)                                        | 1    | For power supply stabilization           |
 
