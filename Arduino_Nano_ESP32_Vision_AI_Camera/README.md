@@ -28,7 +28,7 @@
 | [USB-C Cable](https://amzn.to/4lU4bdZ)                   | 1    | For programming and powering the Nano ESP32.                             |
 
 
-## Usage
+## Assembly Steps
 
 
 - []()
