@@ -1,56 +1,54 @@
 #include <SoftPWM.h>
 
-// Define the pins of motors 
+// Define the pins of motors
 const int in1 = 2;
 const int in2 = 3;
 const int in3 = 4;
 const int in4 = 5;
 
-// Define the pins of IRs
+// Define the pins for the IR modules
 #define IR_RIGHT 7
 #define IR_LEFT 8
 
+
 void setup() {
+
   // Initialize SoftPWM
   SoftPWMBegin();
 
-  // IR
+  // Set the IR module pins as inputs
   pinMode(IR_RIGHT, INPUT);
   pinMode(IR_LEFT, INPUT);
-
-  Serial.begin(9600);
 }
 
-
 void loop() {
-  // Motor
-  // moveForward(200); // Move the Rover forward
-  // delay(1000);
+  // Read values from IR sensors
+  // int rightValue = digitalRead(IR_RIGHT);
+  // int leftValue = digitalRead(IR_LEFT);
 
-  // moveBackward(200);  // Move the Rover backward
-  // delay(1000);
+  // Based on IR sensor readings, control rover's movements
+  // if (rightValue == 0 && leftValue == 1) {  // Right path blocked
+  //   backRight(150);
+  // } else if (rightValue == 1 && leftValue == 0) {  // Left path blocked
+  //   backLeft(150);
+  // } else if (rightValue == 0 && leftValue == 0) {  // Both paths blocked
+  //   moveBackward(150);
+  // } else {  // Paths clear
+  //   moveForward(150);
+  // }
 
-  // turnLeft(200); // Turn the Rover to the left
-  // delay(1000);
+  // delay(100);
+}
 
-  // turnRight(200); // Turn the Rover to the right
-  // delay(1000);
+// Function to move the rover backward
+void moveBackward(int speed) {
+  // Set the left motors to rotate clockwise
+  SoftPWMSet(in1, 0);      // Stop
+  SoftPWMSet(in2, speed);  // Full speed
 
-  // stopMove(); // Stop the Rover
-  // delay(5000);
-
-  // IR
-  // Read the values from the IR modules
-  int rightValue = digitalRead(IR_RIGHT);
-  int leftValue = digitalRead(IR_LEFT);
-
-  // Print the values to the serial monitor
-  Serial.print("Right IR: ");
-  Serial.println(rightValue);
-  Serial.print("Left IR: ");
-  Serial.println(leftValue);  
-
-  delay(200);
+  // Set the right motors to rotate counterclockwise
+  SoftPWMSet(in3, speed);  // Full speed
+  SoftPWMSet(in4, 0);      // Stop
 }
 
 void moveForward(int speed) {
@@ -63,36 +61,18 @@ void moveForward(int speed) {
   SoftPWMSet(in4, speed);
 }
 
-void moveBackward(int speed) {
-  // Set the left motors rotate clockwise
-  SoftPWMSet(in1, 0);
-  SoftPWMSet(in2, speed);
-
-  // Set the right motors rotate counterclockwise
-  SoftPWMSet(in3, speed);
-  SoftPWMSet(in4, 0);
-}
-
-void turnLeft(int speed) {
-  // Set al motors to rotate clockwise
+// Function to turn to the back right
+void backRight(int speed) {
   SoftPWMSet(in1, 0);
   SoftPWMSet(in2, speed);
   SoftPWMSet(in3, 0);
-  SoftPWMSet(in4, speed);
-}
-
-void turnRight(int speed) {
-  // Set all motors to rotate counterclockwise
-  SoftPWMSet(in1, speed);
-  SoftPWMSet(in2, 0);
-  SoftPWMSet(in3, speed);
   SoftPWMSet(in4, 0);
 }
 
-void stopMove() {
-  // Stop all the motors
+// Function to turn to the back left
+void backLeft(int speed) {
   SoftPWMSet(in1, 0);
   SoftPWMSet(in2, 0);
-  SoftPWMSet(in3, 0);
+  SoftPWMSet(in3, speed);
   SoftPWMSet(in4, 0);
 }
