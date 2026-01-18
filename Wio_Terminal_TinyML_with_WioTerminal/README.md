@@ -37,6 +37,10 @@ edge-impulse-daemon --clean
 ```
 
 
+### Notebook
+
+- [weather_prediction_final.ipynb](https://colab.research.google.com/drive/1gkT_LavFmRMy5RRUNolobtM4OkoFcb15?usp=sharing)
+
 ## Reference
 
 - [TinyML with Wio Terminal](https://files.seeedstudio.com/wiki/Wio-Terminal-TinyML/TinyML_with_Wio_Terminal_Course_v1-3.pdf)
