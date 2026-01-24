@@ -16,46 +16,54 @@ These are a collection of DIY Electronics samples.
 
 - [Arduino Nano RGB LED](Arduino_Nano_ESP32/Arduino_Nano_ESP32_RGB_LED)
 
-### Wio Terminal
-
-#### Build In Sensor
-
-- [TFT LCD](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_TFT_LCD)
-- [Graphics](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Graphics)
-- [Line Charts](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Line_Charts)
-- [Histograms](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Histograms)
-- [Button](Wio_Terminal/Wio_Terminal_Build_In/Wio_Teaminal_Button)
-- [5way Switch](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_5way_Switch)
-- [Buzzer](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Buzzer)
-- [Buzzer Melody](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Buzzer_Melody)
-- [Mic](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Mic)
-- [Mic Graph](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Mic_Graph)
-- [Light Sensor](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Light_Sensor)
-- [Accelerometer](Wio_Terminal/Wio_Terminal_Build_In/Wio_Terminal_Accelerometer)
-
-<!-- - [Wio Terminal Digital Tape Measure](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Digital_Tape_Measure) -->
-<!-- - [Wio Terminal Digital Compass](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Digital_Compass) -->
-
-#### IOT
-
-- [Wifi BLE Scan](Wio_Terminal/Wio_Terminal_Wifi_BLE_Scan)
-- [Weather Station with Adafruit IO](Wio_Terminal/Weather_Station_with_Adafruit_IO)
-- [Light Sensor with Adafruit IO](Wio_Terminal/Wio_Terminal_Light_Sensor_with_Adafruit_IO)
-<!-- - [GPS Tracker with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_GPS_Tracker_with_Adafruit_IO) -->
-
 <!-- ### XIAO RP2040 -->
 
 <!-- ### XIAO ESP32C3 -->
 
 <!-- ### ESP32-DevKitC  -->
 
-#### with Edge Impulse
+### Wio Terminal
 
-- [Word Detection](Wio_Terminal/with_EdgeImpulse/Word_Detection)
-- [Audio scene recognition with microphone](Wio_Terminal/with_EdgeImpulse/Audio_scene_recognition_with_microphone)
-- [Classifying hand gestures with accelerometer](Wio_Terminal/with_EdgeImpulse/Classifying_hand_gestures_with_accelerometer)
-- [People counting with Ultrasonic sensor](Wio_Terminal/with_EdgeImpulse/People_counting_with_Ultrasonic_sensor)
-- [Recognizing gestures with light sensor](Wio_Terminal/with_EdgeImpulse/Recognizing_gestures_with_light_sensor)
+#### Built-In Peripherals
+
+- [Button](Wio_Terminal/BuiltIn_Peripherals/Button)
+- [5way Switch](Wio_Terminal/BuiltIn_Peripherals/5way_Switch)
+- [Buzzer](Wio_Terminal/BuiltIn_Peripherals/Buzzer)
+- [Buzzer Melody](Wio_Terminal/BuiltIn_Peripherals/Buzzer_Melody)
+- [TFT LCD](Wio_Terminal/BuiltIn_Peripherals/TFT_LCD)
+- [Graphics](Wio_Terminal/BuiltIn_Peripherals/Graphics)
+- [Line Charts](Wio_Terminal/BuiltIn_Peripherals/Line_Charts)
+- [Histograms](Wio_Terminal/BuiltIn_Peripherals/Histograms)
+
+#### Built-In Sensors
+
+- [Mic](Wio_Terminal/BuiltIn_Sensors/Mic)
+- [Mic Graph](Wio_Terminal/BuiltIn_Sensors/Mic_Graph)
+- [Light Sensor](Wio_Terminal/BuiltIn_Sensors/Light_Sensor)
+- [Accelerometer](Wio_Terminal/BuiltIn_Sensors/Accelerometer)
+
+<!-- - [Wio Terminal Digital Tape Measure](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Digital_Tape_Measure) -->
+<!-- - [Wio Terminal Digital Compass](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Digital_Compass) -->
+
+#### IOT
+
+- [Wifi BLE Scan](Wio_Terminal/Wifi_BLE_Scan)
+
+#### IOT with Adafruit IO
+
+- [Wio Terminal Weather Station](Wio_Terminal/Weather_Station/)
+- [Weather Station with Adafruit IO](Wio_Terminal/Weather_Station/with_Adafruit_IO)
+- [Light Sensor with Adafruit IO](Wio_Terminal/Light_Sensor)
+
+<!-- - [GPS Tracker with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_GPS_Tracker_with_Adafruit_IO) -->
+
+#### ML with Edge Impulse
+
+- [Word Detection](Wio_Terminal/ML/Word_Detection)
+- [Audio scene recognition with microphone](Wio_Terminal/ML/Audio_scene_recognition_with_microphone)
+- [Classifying hand gestures with accelerometer](Wio_Terminal/ML/Classifying_hand_gestures_with_accelerometer)
+- [People counting with Ultrasonic sensor](Wio_Terminal/ML/People_counting_with_Ultrasonic_sensor)
+- [Recognizing gestures with light sensor](Wio_Terminal/ML/Recognizing_gestures_with_light_sensor)
 
 #### SunFounder_GalaxyRVR
 
