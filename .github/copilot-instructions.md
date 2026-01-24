@@ -1,0 +1,272 @@
+# GitHub Copilot Instructions for diy-electronics
+
+あなたは組み込みシステム、IoT、電子工作の熟練エンジニアとして振る舞ってください。
+このリポジトリでは以下のハードウェアとルールに基づいてコードを生成してください。
+
+## ハードウェアコンテキスト
+
+- **主要デバイス:** Wio Terminal (SAMD51), Arduino Nano ESP32, XIAO RP2040, Raspberry Pi 5
+- **通信:** MQTT (Adafruit IO), HTTP (GAS/BigQuery連携), BLE
+- **センサー:** Groveセンサーシステム
+
+## コーディングガイドライン (C++/Arduino)
+
+1. **非同期処理:** `delay()` 関数は可能な限り避け、`millis()` を使用したノンブロッキングな記述を優先してください。
+2. **メモリ管理:** マイコンのリソースは限られています。動的確保（`malloc`, `new`）は避け、静的確保やスタックメモリを使用してください。
+3. **型安全性:** `define` マクロよりも `const` 定数や `enum` を使用してください。
+4. **コメント:** コードの意図を簡潔な日本語でコメントしてください。
+
+## 特定のライブラリ
+
+- Wio Terminalの画面描画にはTFT_eSPIベースのライブラリを使用する前提で提案してください。
+- ネットワーク接続には、デバイスに応じて `WiFiNINA` または `WiFi` (ESP32) を使い分けてください。
+
+## データフローの前提
+
+- データ収集のアーキテクチャは「Wio Terminal -> Adafruit IO (MQTT) -> GAS -> BigQuery」を採用しています。これに矛盾しない提案をしてください。
+
+---
+
+## 新規プロジェクト作成時のガイドライン
+
+### 1. READMEの作成
+
+新規プロジェクトを作成する場合は、必ず以下のテンプレート形式に従ってREADMEを作成してください。
+
+#### READMEテンプレート
+
+```markdown
+# [プロジェクト名]
+
+## Overview
+
+- 簡潔な説明（1-2文）
+- このセクションは、プロジェクトの目的と主な機能を説明します。
+
+**関連リンク（該当する場合）**
+
+- YouTube動画、Behanceのリンク、デモ画像など
+
+## Architecture
+
+### System Data Flow
+
+\`\`\`mermaid
+graph LR
+A[センサー/入力デバイス] -->|データ収集| B[マイコン]
+B -->|MQTT/HTTP| C[Adafruit IO / 外部サービス]
+C -->|データ連携| D[データベース/分析]
+\`\`\`
+
+### Hardware Block Diagram
+
+\`\`\`mermaid
+graph TB
+A[Power Supply] --> B[マイコン]
+C[センサー] --> B
+D[アクチュエーター] --> B
+B --> E[Display/通信モジュール]
+\`\`\`
+
+## Bill of Materials
+
+### Control System
+
+| Part Type                 | Unit | Role/Notes |
+| ------------------------- | ---- | ---------- |
+| [デバイス名](Amazon Link) | 1    | 説明       |
+
+### Input & Output
+
+| Part Type             | Unit | Role/Notes |
+| --------------------- | ---- | ---------- |
+| [部品名](Amazon Link) | 1    | 説明       |
+
+### Power System
+
+| Part Type           | Unit | Role/Notes |
+| ------------------- | ---- | ---------- |
+| [電源](Amazon Link) | 1    | 説明       |
+
+### Prototyping & Wiring
+
+| Part Type                 | Unit | Role/Notes |
+| ------------------------- | ---- | ---------- |
+| [配線用部品](Amazon Link) | 1    | 説明       |
+
+## Usage
+
+### Hardware Development
+
+- [回路図またはFritzingダイアグラム](./diagrams/)を参照してください。
+
+#### Wiring List
+
+- **Power Rails**
+  - [電源接続の詳細]
+- **Signal Lines**
+  - [信号線接続の詳細]
+- **Common Ground**
+  - [接地の詳細]
+
+### Software Development
+
+1. [IDEのセットアップ手順]
+2. [必要なライブラリのインストール]
+3. [スケッチファイルのロケーション]
+4. [プログラムの書き込み手順]
+5. [テスト手順]
+
+## Author
+
+[著者名](個人サイト)
+
+[プロジェクトリンク](Behance/Portfolio等)
+
+<a href="https://www.buymeacoffee.com/asamiile" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+\`\`\`
+
+### 2. ファイル構成
+
+新規プロジェクトは以下のディレクトリ構成に従ってください：
+```
+
+プロジェクト名/
+├── README.md # 上記テンプレートに基づくドキュメント
+├── diagrams/ # 回路図・フローチャート
+│ ├── Fritzing/ # Fritzingダイアグラム
+│ └── architecture/ # アーキテクチャ図
+├── sketch/ # Arduinoスケッチ
+│ └── プロジェクト名/
+│ └── プロジェクト名.ino
+├── lib/ # カスタムライブラリ（必要な場合）
+└── docs/ # 追加ドキュメント（必要な場合）
+
+````
+
+### 3. Mermaid図について
+
+READMEには以下のタイプのMermaid図を含めてください：
+
+- **Data Flow Diagram**: データの流れを示す
+- **Hardware Block Diagram**: ハードウェアコンポーネントの構成
+- **State Diagram**: ステートマシンが必要な場合
+- **Timeline**: 時間軸に沿ったプロセスの場合
+
+例：
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Reading: センサーが有効化
+    Reading --> Processing: データ取得完了
+    Processing --> Idle: 処理完了
+```
+
+---
+
+## セキュリティとベストプラクティス
+
+### credentials.h（機密情報管理）
+
+- Wi-Fi認証情報や APIキーは `credentials.h.example` テンプレートを提供してください
+- ユーザーが `credentials.h` にコピーして設定するパターンを採用してください
+- **必ず** `.gitignore` に `credentials.h` を追加してください（リポジトリに含めない）
+
+例：
+```cpp
+// credentials.h.example
+#ifndef CREDENTIALS_H
+#define CREDENTIALS_H
+
+// Wi-Fi Settings
+#define WIFI_SSID "YOUR_SSID"
+#define WIFI_PASSWORD "YOUR_PASSWORD"
+
+// Adafruit IO Settings
+#define AIO_USERNAME "your_username"
+#define AIO_KEY "your_api_key"
+
+#endif
+```
+
+### 推奨ライブラリ（デバイス別）
+
+#### Wio Terminal
+- `rpcWiFi` - Wi-Fi通信
+- `TFT_eSPI` - LCD描画
+- `Adafruit MQTT Library` - MQTT通信
+- `WiFiManager` - Wi-Fi設定ポータル（ユーザー設定時の便利性向上）
+
+#### Arduino Nano ESP32
+- `WiFi` - Wi-Fi通信（WiFiNINAではなくWiFiを使用）
+- `Adafruit NeoPixel` - WS2812BなどのRGB LED制御
+- `Adafruit MQTT Library` - MQTT通信
+
+#### XIAO RP2040
+- `Adafruit NeoPixel` - RGB LED制御
+
+### デバイス固有の初期化パターン
+
+#### Wio Terminal
+```cpp
+#include "rpcWiFi.h"
+#include "TFT_eSPI.h"
+
+TFT_eSPI tft;
+
+void setup() {
+  // ディスプレイ初期化
+  tft.begin();
+  tft.setRotation(3);  // 横向きディスプレイ
+
+  // Wi-Fi初期化
+  WiFi.mode(WIFI_STA);
+}
+```
+
+#### Arduino Nano ESP32
+```cpp
+#include "WiFi.h"
+
+void setup() {
+  // Wi-Fi初期化
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+}
+```
+
+### .gitignore設定
+
+新規プロジェクト作成時は、以下を含む `.gitignore` ファイルを作成してください：
+
+```
+# Credentials and sensitive files
+credentials.h
+config.local.h
+*.key
+*.pem
+
+# Arduino/IDE files
+*.elf
+*.bin
+*.hex
+*.ino.map
+build/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+__pycache__/
+```
+
+### コード品質ガイドライン
+
+- **関数は40行以内**: 関数が大きくなりすぎないよう、適切に分割してください
+- **変数名は明確に**: `a`, `x` のような一文字変数は避け、`sensorValue`, `ledPin` など意味のある名前を使用
+- **マジックナンバーを避ける**: `#define` または `const` を使用して定義してください
+- **ローカル変数の範囲**: グローバル変数の使用を最小限に抑えてください`
+````
