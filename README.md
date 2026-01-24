@@ -69,31 +69,25 @@ These are a collection of DIY Electronics samples.
 
 - [SunFounder_GalaxyRVR](SunFounder_GalaxyRVR)
 
-## Development Environment Setup
+## Building in VS Code
 
-### Arduino CLI Installation
+The workspace includes pre-configured build tasks for compiling and uploading sketches. Open any `.ino` file and use the built-in task runner.
 
-This project uses **Arduino CLI** for building and uploading sketches.
+### Install Arduino CLI
 
-#### macOS (Homebrew)
+- [Arduino CLI official documentation](https://arduino.github.io/arduino-cli/).
 
-```bash
-brew install arduino-cli
+### VS Code Configuration
+
+The workspace file (`diy-electronics.code-workspace`) includes configuration to recognize `.ino` files as C++ and enable GitHub Copilot completions:
+
+```json
+"files.associations": {
+  "*.ino": "cpp"
+}
 ```
 
-#### Windows (Winget)
-
-```bash
-winget install ArduinoSA.ArduinoCLI
-```
-
-#### Linux
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
-```
-
-### Installing Board Definitions
+### Install Board Support
 
 Install the board definitions for the boards used in this project:
 
@@ -111,23 +105,51 @@ arduino-cli core install rp2040:rp2040
 arduino-cli core install arduino:avr
 ```
 
-### Checking Connected Boards
+### Available Tasks
+
+| Task                                    | Purpose                                  |
+| --------------------------------------- | ---------------------------------------- |
+| `Arduino: Compile (Wio Terminal)`       | Compile for Wio Terminal (SAMD51)        |
+| `Arduino: Compile (Arduino Nano ESP32)` | Compile for Arduino Nano ESP32           |
+| `Arduino: Compile (XIAO RP2040)`        | Compile for XIAO RP2040                  |
+| `Arduino: Upload (Wio Terminal)`        | Compile & upload to Wio Terminal         |
+| `Arduino: Upload (Arduino Nano ESP32)`  | Compile & upload to Arduino Nano ESP32   |
+| `Arduino: List Connected Boards`        | Detect connected boards and serial ports |
+
+### Running Tasks
+
+1. **Open a `.ino` file** in VS Code
+2. **Run a task**: `Ctrl+Shift+B` (macOS: `Shift+Cmd+B`) to show the build task menu
+3. **Select a task** from the list (e.g., "Arduino: Compile (Wio Terminal)")
+4. For upload tasks, enter the **COM port** when prompted (e.g., `COM7` on Windows, `/dev/ttyUSB0` on Linux)
+
+### Find Your Board's COM Port
 
 ```bash
 arduino-cli board list
 ```
 
-This command displays serial ports and board information.
+This command displays all connected boards with their serial ports and FQBN (Fully Qualified Board Name).
 
-### VS Code Configuration
+### Frequently Used Commands
 
-To recognize `.ino` files as C++ and enable GitHub Copilot completions, the workspace file (`diy-electronics.code-workspace`) includes the following configuration:
+Alternatively, you can use Arduino CLI directly from the terminal:
 
-```json
-"files.associations": {
-  "*.ino": "cpp"
-}
+```bash
+# Compile a sketch
+arduino-cli compile --fqbn seeeduino:samd:seeed_wio_terminal <sketch_directory>
+
+# Upload to a board (replace COM7 with your port)
+arduino-cli upload -p COM7 --fqbn seeeduino:samd:seeed_wio_terminal <sketch_directory>
+
+# Install a library
+arduino-cli lib install "DHT sensor library"
+
+# List installed libraries
+arduino-cli lib list
 ```
+
+For detailed Arduino CLI usage, see the [Arduino CLI Getting Started guide](https://arduino.github.io/arduino-cli/latest/getting-started/).
 
 ## Author
 

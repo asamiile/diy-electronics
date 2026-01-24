@@ -74,6 +74,7 @@
       "esbenp.prettier-vscode",
       "ms-vscode.cpptools",
       "ms-vscode.cpptools-extension-pack",
+      "vsciot-vscode.vscode-arduino",
     ],
   },
 }
