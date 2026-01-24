@@ -268,5 +268,63 @@ __pycache__/
 - **関数は40行以内**: 関数が大きくなりすぎないよう、適切に分割してください
 - **変数名は明確に**: `a`, `x` のような一文字変数は避け、`sensorValue`, `ledPin` など意味のある名前を使用
 - **マジックナンバーを避ける**: `#define` または `const` を使用して定義してください
-- **ローカル変数の範囲**: グローバル変数の使用を最小限に抑えてください`
+- **ローカル変数の範囲**: グローバル変数の使用を最小限に抑えてください
+
+---
+
+## 開発環境とビルド操作 (Development Environment)
+
+### Arduino CLI の使用
+
+- **主要ツール:** Arduino IDEのGUIではなく、**Arduino CLI (`arduino-cli`)** を使用します。
+- **コマンド優先:** ビルド、書き込み、ライブラリ管理に関する提案では、GUI操作の説明ではなく、ターミナルで実行可能な以下のコマンド形式を優先してください。
+
+#### よく使うコマンド
+
+**ボード情報の確認:**
+```bash
+arduino-cli board list                          # 接続されたボードを表示
+arduino-cli board list-all                      # すべての利用可能なボードを表示
+```
+
+**ライブラリ管理:**
+```bash
+arduino-cli lib install "<LIBRARY_NAME>"        # ライブラリをインストール
+arduino-cli lib list                            # インストール済みライブラリを表示
+```
+
+**コンパイル:**
+```bash
+arduino-cli compile --fqbn <FQBN> <SKETCH_PATH>
+# 例：Wio Terminal
+arduino-cli compile --fqbn seeeduino:samd:seeed_wio_terminal /path/to/sketch
+
+# 例：Arduino Nano ESP32
+arduino-cli compile --fqbn arduino:esp32:nano_nora /path/to/sketch
+
+# 例：XIAO RP2040
+arduino-cli compile --fqbn rp2040:rp2040:generic /path/to/sketch
+```
+
+**書き込み:**
+```bash
+arduino-cli upload -p <PORT> --fqbn <FQBN> <SKETCH_PATH>
+# 例：Wio Terminal
+arduino-cli upload -p /dev/ttyACM0 --fqbn seeeduino:samd:seeed_wio_terminal /path/to/sketch
+```
+
+### よく使うFQBN（Fully Qualified Board Name）
+
+| デバイス | FQBN |
+| --- | --- |
+| Wio Terminal | `seeeduino:samd:seeed_wio_terminal` |
+| Arduino Nano ESP32 | `arduino:esp32:nano_nora` |
+| XIAO RP2040 | `rp2040:rp2040:generic` |
+| Arduino Uno | `arduino:avr:uno` |
+
+### ガイドライン
+
+- **ボード情報**: 可能な限り、現在のコンテキスト（Wio Terminalなど）に合わせたFQBNを補完してコマンドを生成してください。
+- **ポート指定**: macOSでは `/dev/ttyACM*` または `/dev/ttyUSB*`、Windowsでは `COM*` を推奨してください。
+- **エラー対応**: コンパイルエラーが発生した場合は、ライブラリのバージョン確認やボード定義の更新をユーザーに提案してください。`
 ````
