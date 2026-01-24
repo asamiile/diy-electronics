@@ -14,6 +14,7 @@ DHT dht(DHTPIN, DHTTYPE);
 // Adafruit IO Connection Settings
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883              // MQTT port
+#define MQTT_PUBLISH_INTERVAL 60000       // Send data every 60 seconds (balance between battery efficiency and precision)
 
 // --- GLOBAL OBJECTS ---
 TFT_eSPI tft; //initialize TFT LCD
@@ -40,14 +41,14 @@ void setup() {
   tft.setTextColor(TFT_WHITE);
   tft.drawString("Connecting to Wi-Fi...", 50, 110);
 
-  // LCD背光の安定化（バッテリー電源での不安定さを解決）
+  // Stabilize LCD backlight (resolve instability on battery power)
   delay(200);
 
-  // credentials.hのSSID/パスワードを使用してWi-Fi接続
+  // Connect to Wi-Fi using SSID/password from credentials.h
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-  // 接続待機（最大20秒）
+  // Wait for connection (max 20 seconds)
   int attempts = 0;
   while (WiFi.status() != WL_CONNECTED && attempts < 20) {
     delay(500);
@@ -61,8 +62,8 @@ void setup() {
     tft.setFreeFont(FSS12);
     tft.fillScreen(TFT_MAGENTA);
     tft.drawString("Wi-Fi connection failed.", 40, 110);
-    // バッテリー電源でも情報表示を保持するため、ループをスキップ
-    // while (1); // コメントアウト - バッテリー動作時の対応
+    // Skip loop to keep information displayed even on battery power
+    // while (1); // Commented out - for battery operation
     delay(5000);
   } else {
     Serial.print("Connected to WiFi. IP: ");
@@ -83,26 +84,30 @@ void setup() {
 
 void loop() {
 
-  // バッテリー電源時の安定性向上：画面が消えた場合の自動復旧
+  // Improve stability on battery power: auto recovery if screen goes black
   static unsigned long lastDisplayUpdate = 0;
   static unsigned long lastMQTTRetry = 0;
   static unsigned long lastWiFiCheck = 0;
+  static unsigned long lastSensorRead = 0;
   unsigned long now = millis();
 
-  // 60秒ごとに画面表示を確認・復旧（バッテリー電源での背光リセット対策）
+  // Always maintain MQTT keep-alive (execute every loop)
+  client.loop();
+
+  // Check and recover display every 60 seconds (backlight reset mitigation on battery power)
   if (now - lastDisplayUpdate > 60000) {
     lastDisplayUpdate = now;
     drawDisplayUI();
     Serial.println("[Display refresh] UI redrawn for battery stability");
   }
 
-  // WiFi接続状態を常に監視（毎3秒確認）
+  // Constantly monitor WiFi connection status (check every 3 seconds)
   if (now - lastWiFiCheck > 3000) {
     lastWiFiCheck = now;
     if (WiFi.status() != WL_CONNECTED) {
       Serial.println("[WiFi Status] Connection lost! Attempting to reconnect...");
       Serial.printf("WiFi Status Code: %d\n", WiFi.status());
-      WiFi.reconnect();  // WiFiの再接続を試行
+      WiFi.reconnect();  // Attempt WiFi reconnection
       delay(500);
       if (WiFi.status() == WL_CONNECTED) {
         Serial.print("✓ WiFi reconnected. IP: ");
@@ -114,72 +119,75 @@ void loop() {
     }
   }
 
-  // MQTT接続試行（30秒ごと）
+  // MQTT connection attempt (every 30 seconds or when connection is lost)
   if (now - lastMQTTRetry > 30000 || !client.connected()) {
     lastMQTTRetry = now;
     reconnect();
   }
 
-  client.loop();
+  // Read and send sensor data (every 60 seconds)
+  if (now - lastSensorRead > MQTT_PUBLISH_INTERVAL) {
+    lastSensorRead = now;
 
-  // Read the latest sensor values.
-  float t = dht.readTemperature();
-  float h = dht.readHumidity();
+    // Read the latest sensor values.
+    float t = dht.readTemperature();
+    float h = dht.readHumidity();
 
-  // Publish the sensor readings to Adafruit IO feeds (only if MQTT is connected)
-  String tempTopic = String(AIO_USERNAME) + "/feeds/temperature";
-  String humidityTopic = String(AIO_USERNAME) + "/feeds/humidity";
+    // Publish the sensor readings to Adafruit IO feeds (only if MQTT is connected)
+    String tempTopic = String(AIO_USERNAME) + "/feeds/temperature";
+    String humidityTopic = String(AIO_USERNAME) + "/feeds/humidity";
 
-  char tempStr[10];
-  char humidityStr[10];
-  dtostrf(t, 4, 2, tempStr);
-  dtostrf(h, 4, 2, humidityStr);
+    char tempStr[10];
+    char humidityStr[10];
+    dtostrf(t, 4, 2, tempStr);
+    dtostrf(h, 4, 2, humidityStr);
 
-  if (client.connected()) {
-    if (client.publish(tempTopic.c_str(), tempStr)) {
-      Serial.println(F("Temperature sent!"));
+    if (client.connected()) {
+      if (client.publish(tempTopic.c_str(), tempStr)) {
+        Serial.println(F("✓ Temperature sent!"));
+      } else {
+        Serial.println(F("✗ Temperature failed"));
+      }
+
+      if (client.publish(humidityTopic.c_str(), humidityStr)) {
+        Serial.println(F("✓ Humidity sent!"));
+      } else {
+        Serial.println(F("✗ Humidity failed"));
+      }
     } else {
-      Serial.println(F("Temperature failed"));
+      Serial.println("✗ MQTT not connected - sensor data will not be sent to Adafruit IO");
+      Serial.printf("Temperature: %.2f *C, Humidity: %.2f %% (local only)\n", t, h);
     }
 
-    if (client.publish(humidityTopic.c_str(), humidityStr)) {
-      Serial.println(F("Humidity sent!"));
-    } else {
-      Serial.println(F("Humidity failed"));
-    }
-  } else {
-    Serial.println("MQTT not connected - sensor data will not be sent to Adafruit IO");
-    Serial.printf("Temperature: %.2f *C, Humidity: %.2f %% (local only)\n", t, h);
-  }
+    // Print the readings to the Serial Monitor for debugging purposes.
+    Serial.printf("Sensor readings: Temperature: %.2f *C, Humidity: %.2f %%\n", t, h);
 
-  // Print the readings to the Serial Monitor for debugging purposes.
-  Serial.printf("Temperature: %.2f *C, Humidity: %.2f %%\n", t, h);
+    // Update the temperature value on the screen using a sprite.
+    spr.createSprite(55, 40);
+    spr.fillSprite(TFT_BLACK);
+    spr.setFreeFont(FMB24);
+    spr.setTextColor(TFT_CYAN);
+    spr.drawNumber((int)t, 0, 0);
+    spr.pushSprite(200, 70);
+    spr.deleteSprite();
 
-  // Update the temperature value on the screen using a sprite.
-  spr.createSprite(55, 40);
-  spr.fillSprite(TFT_BLACK);
-  spr.setFreeFont(FMB24);
-  spr.setTextColor(TFT_CYAN);
-  spr.drawNumber((int)t, 0, 0);
-  spr.pushSprite(200, 70);
-  spr.deleteSprite();
+    // Update the humidity value on the screen using a sprite.
+    spr.createSprite(55, 40);
+    spr.fillSprite(TFT_BLACK);
+    spr.setFreeFont(FMB24);
+    spr.setTextColor(TFT_CYAN);
+    spr.drawNumber((int)h, 0, 0);
+    spr.pushSprite(155, 170);
+    spr.deleteSprite();
+  } // End of sensor read block
 
-  // Update the humidity value on the screen using a sprite.
-  spr.createSprite(55, 40);
-  spr.fillSprite(TFT_BLACK);
-  spr.setFreeFont(FMB24);
-  spr.setTextColor(TFT_CYAN);
-  spr.drawNumber((int)h, 0, 0);
-  spr.pushSprite(155, 170);
-  spr.deleteSprite();
-
-  // Wait before taking the next reading.
-  delay(3000);
+  // Non-blocking delay (always maintain MQTT keep-alive)
+  delay(100);  // Short delay to maintain other microcontroller functions
 
 }
 
 void reconnect() {
-  // WiFi接続を再確認
+  // Re-check WiFi connection
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("\n[MQTT] WiFi not connected. Attempting WiFi reconnect...");
     WiFi.reconnect();
@@ -197,7 +205,7 @@ void reconnect() {
     }
   }
 
-  // WiFi接続確認後、MQTT接続を試行
+  // Attempt MQTT connection after confirming WiFi connection
   int attempt = 0;
   while (!client.connected() && attempt < 5) {
     attempt++;
@@ -225,7 +233,7 @@ void reconnect() {
       int state = client.state();
       Serial.println(state);
 
-      // エラーコードの詳細説明
+      // Detailed explanation of error codes
       switch(state) {
         case -4: Serial.println("  → MQTT_CONNECTION_TIMEOUT"); break;
         case -3: Serial.println("  → MQTT_CONNECTION_LOST"); break;
