@@ -166,6 +166,47 @@ stateDiagram-v2
 
 ## セキュリティとベストプラクティス
 
+### 個人情報をリモートリポジトリに含めない
+
+**重要**: 以下の情報は**決して** GitHub にプッシュしないでください：
+
+- ✗ GCP Project ID, GCP API キー
+- ✗ Adafruit IO API キー、ユーザー名
+- ✗ Wi-Fi SSID、パスワード
+- ✗ 個人の Adafruit IO フィードパス（例：`asamiinae/feeds/temperature`）
+- ✗ GoogleAppsScript のスクリプト ID
+- ✗ その他の認証情報
+
+**実装方法**：
+
+1. **定数をプレースホルダーに置き換える**：
+   ```javascript
+   // ✓ 正しい例（GitHub OK）
+   const BQ_PROJECT_ID = "YOUR_GCP_PROJECT_ID";
+
+   // ✗ 間違い例（GitHub NG）
+   const BQ_PROJECT_ID = "my-actual-project-id-12345";
+   ```
+
+2. **テストデータに個人情報を含めない**：
+   ```javascript
+   // ✓ 正しい例（テンプレートのみ）
+   const testTransform = () => {
+     const data = {
+       feed: "username/feeds/temperature",  // プレースホルダー
+       value: "25.5"
+     };
+   };
+   ```
+
+3. **ドキュメントの実例では個人情報を避ける**：
+   - README やコメントで個人の Project ID を記載しない
+   - 「YOUR_GCP_PROJECT_ID」「your_username」などのプレースホルダーを使用
+
+4. **.gitignore に機密ファイルを追加**：
+   - `credentials.h`、`.env.local`、`config.local.js` など
+   - GCP キーファイル（`.json`）
+
 ### credentials.h（機密情報管理）
 
 - Wi-Fi認証情報や APIキーは `credentials.h.example` テンプレートを提供してください
@@ -188,6 +229,28 @@ stateDiagram-v2
 
 #endif
 ```
+
+### Google Apps Script（GAS）での機密情報管理
+
+プロジェクトに GAS を使用する場合：
+
+- **定数はプレースホルダーにする**：
+  ```javascript
+  const GCP_PROJECT_ID = "YOUR_GCP_PROJECT_ID";  // GitHub OK
+  ```
+
+- **実際の値は PropertiesService に保存**：
+  ```javascript
+  // ユーザーが GAS エディタで設定
+  function setupBigQuery() {
+    const projectId = "YOUR_GCP_PROJECT_ID";
+    PropertiesService.getUserProperties().setProperty("GCP_PROJECT_ID", projectId);
+  }
+  ```
+
+- **ユーザー向けの設定ドキュメントを提供**：
+  - SETUP_GUIDE.md に詳細な手順を記載
+  - ユーザーが自分の Project ID に置き換える方法を明確に
 
 ### 推奨ライブラリ（デバイス別）
 
@@ -245,6 +308,8 @@ credentials.h
 config.local.h
 *.key
 *.pem
+.env.local
+*.json  # GCP キーファイル
 
 # Arduino/IDE files
 *.elf
@@ -261,7 +326,13 @@ Thumbs.db
 # Dependencies
 node_modules/
 __pycache__/
+
+# GAS deployment (clasp)
+.clasp.json  # 必要に応じて個人用 .clasp.json を除外
 ```
+
+**注意**: `.clasp.json` には `projectId` が含まれるため、個人用バージョンは `.gitignore` に追加してください。
+リポジトリテンプレート用には `.clasp.json.example` を提供してください。
 
 ### コード品質ガイドライン
 
