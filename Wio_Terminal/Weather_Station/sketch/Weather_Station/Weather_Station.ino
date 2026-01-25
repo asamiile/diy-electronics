@@ -85,7 +85,6 @@ void setup() {
 void loop() {
 
   // Improve stability on battery power: auto recovery if screen goes black
-  static unsigned long lastDisplayUpdate = 0;
   static unsigned long lastMQTTRetry = 0;
   static unsigned long lastWiFiCheck = 0;
   static unsigned long lastSensorRead = 0;
@@ -93,13 +92,6 @@ void loop() {
 
   // Always maintain MQTT keep-alive (execute every loop)
   client.loop();
-
-  // Check and recover display every 60 seconds (backlight reset mitigation on battery power)
-  if (now - lastDisplayUpdate > 60000) {
-    lastDisplayUpdate = now;
-    drawDisplayUI();
-    Serial.println("[Display refresh] UI redrawn for battery stability");
-  }
 
   // Constantly monitor WiFi connection status (check every 3 seconds)
   if (now - lastWiFiCheck > 3000) {
