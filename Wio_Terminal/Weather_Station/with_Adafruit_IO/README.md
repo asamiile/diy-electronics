@@ -22,7 +22,7 @@ graph LR
     subgraph "Edge (Physical Layer)"
         WIO["🌡️ Wio Terminal<br/>+ DHT11 Sensor"]
     end
-    
+
     subgraph "Cloud (IoT Platform)"
         ADAFRUIT["☁️ Adafruit IO<br/>MQTT Broker & Store"]
         TEMP["📊 Temperature Feed"]
@@ -30,12 +30,12 @@ graph LR
         ADAFRUIT --> TEMP
         ADAFRUIT --> HUMIDITY
     end
-    
+
     subgraph "Visualization"
         DASHBOARD["📈 Dashboard<br/>Gauges & Charts"]
         DISCORD["🔔 Discord<br/>Notifications"]
     end
-    
+
     WIO -->|WiFi + MQTT<br/>Publish| ADAFRUIT
     TEMP --> DASHBOARD
     HUMIDITY --> DASHBOARD
@@ -43,18 +43,20 @@ graph LR
 ```
 
 **Data Flow:**
+
 1. **Wio Terminal** reads temperature and humidity from DHT11 sensor
 2. **MQTT Protocol** transmits data via WiFi to Adafruit IO
 3. **Adafruit IO** receives and stores data, updates feeds
 4. **Dashboard** displays real-time data visualization
-5. **Discord** sends notifications when thresholds are exceeded (optional)
 
 ## Prerequisites
 
 ### Hardware Setup
+
 For hardware setup and assembly instructions, see [parent README](../README.md#hardware-setup).
 
 ### Software Prerequisites
+
 - Wio Terminal with Arduino IDE setup (see [parent README](../README.md#software-setup))
 - Active Adafruit IO account
 - WiFiManager library installed
@@ -75,6 +77,7 @@ For hardware setup and assembly instructions, see [parent README](../README.md#h
 ### 2. Arduino Sketch Configuration
 
 Ensure you have installed the required libraries:
+
 - `Adafruit_MQTT_Library`
 - `WiFiManager` by tzapu
 - `DHT` sensor library
@@ -92,45 +95,7 @@ Update the sketch with your Adafruit IO credentials:
 ### 3. Upload & Configure
 
 1. Upload the sketch to Wio Terminal
-2. On first boot, connect to the WiFiManager AP and enter your Wi-Fi SSID and password
-3. The device will connect to WiFi and start publishing data to Adafruit IO
-
-## Optional: Setting Up Discord Notifications
-
-Get real-time alerts when sensor values exceed thresholds.
-
-### Steps
-
-1. **Create a Discord Webhook**
-   - In your Discord server: **Server Settings** → **Integrations** → **Webhooks**
-   - Create a new webhook for your desired channel and copy the **Webhook URL**
-
-2. **Create an Adafruit IO Reactive Action**
-   - In Adafruit IO, go to **Actions** → **Create Action**
-   - Configure a trigger for your temperature feed (e.g., value > 30°C)
-   - Set the action to send an HTTP webhook POST
-   - Use the Discord webhook URL as the target
-   - Include the following JSON body:
-
-```json
-{
-  "content": "🚨 High Temperature Alert!",
-  "embeds": [{
-    "title": "🌡️ Overtemperature Notification",
-    "description": "The temperature has exceeded the 30°C threshold.",
-    "color": 16734296
-  }]
-}
-```
-
-## Troubleshooting
-
-| Issue | Solution |
-| --- | --- |
-| Cannot connect to Adafruit IO | Verify AIO_USERNAME and AIO_KEY are correct. Check WiFi connection. |
-| No data appearing in dashboard | Ensure feeds exist in Adafruit IO. Check that MQTT feed names match the sketch. |
-| WiFiManager portal not appearing | Press Wio Terminal's Reset button on first boot. |
-| Compile errors for MQTT library | Make sure all required libraries are installed via Arduino Library Manager. |
+2. The device will connect to WiFi and start publishing data to Adafruit IO
 
 ## References
 
