@@ -4,6 +4,7 @@
 #include "Free_Fonts.h"
 
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include "credentials.h"
 
 // Sensor Configuration
@@ -16,6 +17,11 @@ DHT dht(DHTPIN, DHTTYPE);
 #define AIO_SERVERPORT  1883              // MQTT port
 #define MQTT_PUBLISH_INTERVAL 60000       // Send data every 60 seconds (balance between battery efficiency and precision)
 
+// Shiftr.io Connection Settings
+#define SHIFTR_SERVER   "public.cloud.shiftr.io"
+#define SHIFTR_SERVERPORT 1883            // MQTT port
+#define SHIFTR_TOPIC    "wio/json"        // Topic for JSON data
+
 // --- GLOBAL OBJECTS ---
 TFT_eSPI tft; //initialize TFT LCD
 TFT_eSprite spr = TFT_eSprite(&tft); //initialize sprite buffer
@@ -24,8 +30,14 @@ TFT_eSprite spr = TFT_eSprite(&tft); //initialize sprite buffer
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+// Shiftr.io MQTT Client Objects
+WiFiClient shiftrClient;
+PubSubClient shiftrMqttClient(shiftrClient);
+
 // --- FUNCTION PROTOTYPES ---
 void MQTT_connect();
+void reconnectShiftr();
+void sendJsonToShiftr(float temperature, float humidity);
 void drawDisplayUI();
 
 void setup() {
@@ -75,8 +87,11 @@ void setup() {
 
   dht.begin();
 
-  // Set up MQTT server
+  // Set up Adafruit IO MQTT server
   client.setServer(AIO_SERVER, AIO_SERVERPORT);
+
+  // Set up Shiftr.io MQTT server
+  shiftrMqttClient.setServer(SHIFTR_SERVER, SHIFTR_SERVERPORT);
 
   // Draw the initial UI
   drawDisplayUI();
@@ -92,6 +107,9 @@ void loop() {
 
   // Always maintain MQTT keep-alive (execute every loop)
   client.loop();
+
+  // Shiftr.io MQTT keep-alive
+  shiftrMqttClient.loop();
 
   // Constantly monitor WiFi connection status (check every 3 seconds)
   if (now - lastWiFiCheck > 3000) {
@@ -115,6 +133,7 @@ void loop() {
   if (now - lastMQTTRetry > 30000 || !client.connected()) {
     lastMQTTRetry = now;
     reconnect();
+    reconnectShiftr();  // Also try to connect to Shiftr.io
   }
 
   // Read and send sensor data (every 60 seconds)
@@ -153,6 +172,9 @@ void loop() {
 
     // Print the readings to the Serial Monitor for debugging purposes.
     Serial.printf("Sensor readings: Temperature: %.2f *C, Humidity: %.2f %%\n", t, h);
+
+    // Send data to Shiftr.io as JSON
+    sendJsonToShiftr(t, h);
 
     // Update the temperature value on the screen using a sprite.
     spr.createSprite(55, 40);
@@ -279,4 +301,103 @@ void drawDisplayUI() {
 
   // Draw the divider line
   tft.drawFastHLine(0, 140, 320, TFT_CYAN);
+}
+
+// ============================================
+// Shiftr.io MQTT Connection Function
+// ============================================
+void reconnectShiftr() {
+  // Re-check WiFi connection
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("[Shiftr.io] WiFi not connected. Skipping Shiftr.io connection.");
+    return;
+  }
+
+  // Attempt Shiftr.io MQTT connection
+  int attempt = 0;
+  while (!shiftrMqttClient.connected() && attempt < 3) {
+    attempt++;
+    Serial.print("\n[Shiftr.io Attempt ");
+    Serial.print(attempt);
+    Serial.print("/3] Connecting to ");
+    Serial.print(SHIFTR_SERVER);
+    Serial.print(":");
+    Serial.println(SHIFTR_SERVERPORT);
+
+    // Create a random client ID
+    String clientId = "WioTerminal-Shiftr-";
+    clientId += String(random(0xffff), HEX);
+
+    Serial.printf("Client ID: %s\n", clientId.c_str());
+    Serial.printf("Username (Key): %s\n", SHIFTR_KEY);
+
+    // Attempt to connect with Shiftr.io credentials
+    if (shiftrMqttClient.connect(clientId.c_str(), SHIFTR_KEY, SHIFTR_SECRET)) {
+      Serial.println("✓ Shiftr.io MQTT connected successfully!");
+      break;
+    } else {
+      Serial.print("✗ Shiftr.io connection failed. Error code: ");
+      int state = shiftrMqttClient.state();
+      Serial.println(state);
+
+      switch(state) {
+        case -4: Serial.println("  → MQTT_CONNECTION_TIMEOUT"); break;
+        case -3: Serial.println("  → MQTT_CONNECTION_LOST"); break;
+        case -2: Serial.println("  → MQTT_CONNECT_FAILED"); break;
+        case -1: Serial.println("  → MQTT_DISCONNECTED"); break;
+        case 1: Serial.println("  → MQTT_CONNECT_BAD_PROTOCOL"); break;
+        case 2: Serial.println("  → MQTT_CONNECT_BAD_CLIENT_ID"); break;
+        case 3: Serial.println("  → MQTT_CONNECT_UNAVAILABLE"); break;
+        case 4: Serial.println("  → MQTT_CONNECT_BAD_CREDENTIALS (Check SHIFTR_KEY and SHIFTR_SECRET)"); break;
+        case 5: Serial.println("  → MQTT_CONNECT_UNAUTHORIZED"); break;
+        default: Serial.println("  → Unknown error"); break;
+      }
+
+      if (attempt < 3) {
+        Serial.println("  Retrying in 2 seconds...");
+        delay(2000);
+      }
+    }
+  }
+
+  if (!shiftrMqttClient.connected()) {
+    Serial.println("[Shiftr.io] WARNING: Could not connect to Shiftr.io after 3 attempts.");
+  }
+}
+
+// ============================================
+// Send JSON Data to Shiftr.io
+// ============================================
+void sendJsonToShiftr(float temperature, float humidity) {
+  // Check Shiftr.io connection; reconnect if necessary
+  if (!shiftrMqttClient.connected()) {
+    Serial.println("[Shiftr.io] Not connected. Attempting reconnection...");
+    reconnectShiftr();
+  }
+
+  // Only send if connected
+  if (shiftrMqttClient.connected()) {
+    // Create JSON document using ArduinoJson
+    StaticJsonDocument<256> jsonDoc;
+    jsonDoc["device_id"] = "wio_terminal";
+    jsonDoc["temperature"] = temperature;
+    jsonDoc["humidity"] = humidity;
+
+    // Serialize JSON to string
+    String jsonString;
+    serializeJson(jsonDoc, jsonString);
+
+    // Publish to Shiftr.io topic
+    if (shiftrMqttClient.publish(SHIFTR_TOPIC, jsonString.c_str())) {
+      Serial.println("[Shiftr.io] ✓ JSON data sent successfully!");
+      Serial.print("  Topic: ");
+      Serial.println(SHIFTR_TOPIC);
+      Serial.print("  Payload: ");
+      Serial.println(jsonString);
+    } else {
+      Serial.println("[Shiftr.io] ✗ Failed to publish JSON data");
+    }
+  } else {
+    Serial.println("[Shiftr.io] ✗ Not connected - JSON data will not be sent");
+  }
 }
