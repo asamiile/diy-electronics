@@ -1,0 +1,80 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "files.associations": {
+      "*.ino": "cpp",
+    },
+    "[markdown]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "files.trimTrailingWhitespace": false,
+      "editor.tabSize": 2,
+    },
+    "[cpp]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true,
+    },
+    "[c]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true,
+    },
+    "[arduino]": {
+      "editor.defaultFormatter": "vscode.cpp",
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true,
+    },
+    "[json]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true,
+    },
+    "[yaml]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true,
+    },
+    "github.copilot.enable": {
+      "*": true,
+      "plaintext": false,
+      "markdown": true,
+      "scminput": true,
+    },
+    "github.copilot.chat.localization": "ja",
+    "editor.inlineSuggest.enabled": true,
+    "editor.quickSuggestionsDelay": 10,
+    "editor.parameterHints.enabled": true,
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/.git": true,
+      "**/node_modules": true,
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/.git": true,
+      "**/build": true,
+    },
+    "C_Cpp.clangFormatStyle": {
+      "IndentWidth": 2,
+      "UseTab": false,
+      "ColumnLimit": 100,
+    },
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "esbenp.prettier-vscode",
+      "ms-vscode.cpptools",
+      "ms-vscode.cpptools-extension-pack",
+      "vsciot-vscode.vscode-arduino",
+    ],
+  },
+}
