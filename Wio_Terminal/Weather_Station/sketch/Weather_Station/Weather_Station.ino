@@ -42,7 +42,11 @@ void drawDisplayUI();
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial);
+  // Serial wait with timeout (avoid infinite loop on battery power where serial is not available)
+  unsigned long serialWaitStart = millis();
+  while (!Serial && millis() - serialWaitStart < 3000) {
+    delay(10);
+  }
   delay(100);
 
   // Initialize the LCD and show a status message
@@ -53,8 +57,9 @@ void setup() {
   tft.setTextColor(TFT_WHITE);
   tft.drawString("Connecting to Wi-Fi...", 50, 110);
 
-  // Stabilize LCD backlight (resolve instability on battery power)
-  delay(200);
+  // Power stabilization wait (avoid instability during battery power switching)
+  // Allow sufficient time to avoid current surge when switching from USB to battery
+  delay(1000);
 
   // WiFi module initialization wait (Important: allow sufficient time after TFT initialization)
   Serial.println("\n[WiFi] Initializing WiFi module...");
@@ -336,6 +341,8 @@ void reconnectShiftr() {
   int attempt = 0;
   while (!shiftrMqttClient.connected() && attempt < 3) {
     attempt++;
+
+    // Shorten retry interval to reduce current consumption on battery power
     Serial.print("\n[Shiftr.io Attempt ");
     Serial.print(attempt);
     Serial.print("/3] Connecting to ");
@@ -373,8 +380,9 @@ void reconnectShiftr() {
       }
 
       if (attempt < 3) {
-        Serial.println("  Retrying in 2 seconds...");
-        delay(2000);
+        // Battery power load reduction: adjust retry interval
+        Serial.println("  Retrying in 1 second...");
+        delay(1000);
       }
     }
   }
