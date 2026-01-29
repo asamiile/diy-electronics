@@ -1,0 +1,91 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Arduino: Compile (Wio Terminal)",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": [
+        "compile",
+        "--fqbn", "seeeduino:samd:seeed_wio_terminal",
+        "${fileDirname}"
+      ],
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Arduino: Compile (Arduino Nano ESP32)",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": [
+        "compile",
+        "--fqbn", "arduino:esp32:nano_nora",
+        "${fileDirname}"
+      ],
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Arduino: Compile (XIAO RP2040)",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": [
+        "compile",
+        "--fqbn", "arduino:mbed_rp2040:nano_rp2040_connect",
+        "${fileDirname}"
+      ],
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Arduino: List Connected Boards",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": ["board", "list"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Arduino: Upload (Wio Terminal)",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": [
+        "upload",
+        "-p", "${input:selectPort}",
+        "--fqbn", "seeeduino:samd:seeed_wio_terminal",
+        "${fileDirname}"
+      ],
+      "problemMatcher": ["$gcc"],
+      "dependsOn": "Arduino: Compile (Wio Terminal)"
+    },
+    {
+      "label": "Arduino: Upload (Arduino Nano ESP32)",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": [
+        "upload",
+        "-p", "${input:selectPort}",
+        "--fqbn", "arduino:esp32:nano_nora",
+        "${fileDirname}"
+      ],
+      "problemMatcher": ["$gcc"],
+      "dependsOn": "Arduino: Compile (Arduino Nano ESP32)"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "selectPort",
+      "type": "promptString",
+      "description": "デバイスのCOMポート (例: COM3, COM4)",
+      "default": "COM8"
+    }
+  ]
+}
