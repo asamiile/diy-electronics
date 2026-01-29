@@ -56,13 +56,17 @@ void setup() {
   // Stabilize LCD backlight (resolve instability on battery power)
   delay(200);
 
+  // WiFi module initialization wait (Important: allow sufficient time after TFT initialization)
+  Serial.println("\n[WiFi] Initializing WiFi module...");
+  delay(500);
+
   // Connect to Wi-Fi using SSID/password from credentials.h
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   // Wait for connection (max 20 seconds)
   int attempts = 0;
-  while (WiFi.status() != WL_CONNECTED && attempts < 20) {
+  while (WiFi.status() != WL_CONNECTED && attempts < 40) {  // 40 attempts * 500ms = 20 seconds
     delay(500);
     Serial.print(".");
     attempts++;
@@ -95,17 +99,28 @@ void setup() {
 
   // Draw the initial UI
   drawDisplayUI();
+
+  Serial.println("[SETUP] Device ready");
 }
 
 void loop() {
+
+  // Track loop execution count and timestamp (for debugging)
+  static unsigned long lastDebugPrint = 0;
+  unsigned long now = millis();
+
+  if (now - lastDebugPrint > 60000) {  // Print loop status every 60 seconds
+    Serial.printf("[LOOP] Device alive - uptime: %lu sec\n", now / 1000);
+    lastDebugPrint = now;
+  }
 
   // Improve stability on battery power: auto recovery if screen goes black
   static unsigned long lastMQTTRetry = 0;
   static unsigned long lastWiFiCheck = 0;
   static unsigned long lastSensorRead = 0;
-  unsigned long now = millis();
 
   // Always maintain MQTT keep-alive (execute every loop)
+  // Timeout protection: WDT will reset if client.loop() blocks for too long
   client.loop();
 
   // Shiftr.io MQTT keep-alive
@@ -278,8 +293,10 @@ void reconnect() {
 // Draws all static UI elements (header, labels, units, divider line)
 void drawDisplayUI() {
   // Clear the screen
+  Serial.println("[UI] Attempting to initialize TFT display...");
   tft.fillScreen(TFT_BLACK);
   delay(50);  // Wait for screen clear to complete
+  Serial.println("[UI] Display cleared successfully");
 
   // Draw the header
   tft.fillRect(0, 0, 320, 50, TFT_CYAN);
@@ -301,6 +318,8 @@ void drawDisplayUI() {
 
   // Draw the divider line
   tft.drawFastHLine(0, 140, 320, TFT_CYAN);
+
+  Serial.println("[UI] Display UI initialized successfully");
 }
 
 // ============================================
