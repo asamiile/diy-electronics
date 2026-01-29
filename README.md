@@ -144,10 +144,145 @@ arduino-cli upload -p COM8 --fqbn rp2040:rp2040:generic <sketch_directory>
 arduino-cli monitor -p COM8
 
 # With custom baud rate
-arduino-cli monitor -p COM8 --config baudrate=9600
+arduino-cli monitor -p COM8 --config baudrate=115200
 ```
 
 Press `Ctrl+C` to exit the monitor.
+
+## Google Cloud Setup
+
+Some projects integrate with Google Cloud services (BigQuery, Cloud Functions) for data logging and processing. This section covers the gcloud CLI setup and common deployment patterns.
+
+### Prerequisites
+
+Install the Google Cloud CLI (gcloud):
+
+```bash
+# macOS (via Homebrew)
+brew install google-cloud-sdk
+
+# Windows (via Chocolatey)
+choco install google-cloud-cli
+
+# Or download from https://cloud.google.com/sdk/docs/install
+```
+
+### Initial Configuration
+
+```bash
+# Authenticate with Google Cloud
+gcloud auth login
+
+# Set your GCP project (replace with your actual project ID)
+gcloud config set project YOUR_GCP_PROJECT_ID
+
+# Verify configuration
+gcloud config list
+```
+
+### Deploy to Cloud Functions
+
+Example: Deploying a weather data processor to Cloud Functions
+
+```bash
+# Navigate to the Cloud Functions directory
+cd <project-path>/Cloud_Functions
+
+# Deploy
+gcloud functions deploy save-weather-data \
+  --gen2 \
+  --region=asia-northeast1 \
+  --runtime=python310 \
+  --source=. \
+  --entry-point=save_weather_data \
+  --trigger-http \
+  --allow-unauthenticated
+```
+
+**Command Flags Explained:**
+
+| Flag                              | Purpose                                              |
+| --------------------------------- | ---------------------------------------------------- |
+| `--gen2`                          | Use Cloud Functions 2nd Generation (Cloud Run based) |
+| `--region=asia-northeast1`        | Deploy to Tokyo region (adjust as needed)            |
+| `--runtime=python310`             | Use Python 3.10 runtime                              |
+| `--source=.`                      | Upload files from current directory                  |
+| `--entry-point=save_weather_data` | Execute the function entry point from `main.py`      |
+| `--trigger-http`                  | Create an HTTP trigger                               |
+| `--allow-unauthenticated`         | Allow unauthenticated access (for webhooks)          |
+
+### Local Testing
+
+Test Cloud Functions locally before deployment:
+
+```bash
+# Install the Functions Framework
+pip install functions-framework google-cloud-bigquery
+
+# Start local server
+cd <project-path>/Cloud_Functions
+functions-framework --target=save_weather_data --debug
+
+# In another terminal, test the function
+curl -X POST http://localhost:8080 \
+  -H "Content-Type: application/json" \
+  -d '{"device_id": "wio_terminal", "temperature": 22.5, "humidity": 55.0}'
+```
+
+### BigQuery Setup
+
+Create the dataset and table for storing sensor data:
+
+```sql
+-- Create dataset
+CREATE SCHEMA IF NOT EXISTS `PROJECT_ID.diy_electronics_iot`
+  OPTIONS(
+    description="IoT data from DIY electronics projects",
+    location="asia-northeast1"
+  );
+
+-- Create table
+CREATE TABLE IF NOT EXISTS `PROJECT_ID.diy_electronics_iot.weather_data` (
+  timestamp TIMESTAMP NOT NULL,
+  device_id STRING,
+  temperature FLOAT64,
+  humidity FLOAT64
+)
+PARTITION BY DATE(timestamp)
+OPTIONS(
+  description="Weather station sensor data",
+  partition_expiration_ms=7776000000
+);
+```
+
+### Troubleshooting Cloud Functions
+
+```bash
+# View function details
+gcloud functions describe save-weather-data --gen2 --region=asia-northeast1
+
+# View deployment logs
+gcloud functions logs read save-weather-data --gen2 --region=asia-northeast1 --limit 50
+
+# Delete function
+gcloud functions delete save-weather-data --gen2 --region=asia-northeast1
+```
+
+### Useful gcloud Commands
+
+```bash
+# List all deployed functions
+gcloud functions list --gen2
+
+# Get function URL
+gcloud functions describe save-weather-data --gen2 --region=asia-northeast1 --format="value(serviceConfig.uri)"
+
+# Update function
+gcloud functions deploy save-weather-data --update-env-vars VAR_NAME=value
+
+# View quotas and usage
+gcloud compute project-info describe --project YOUR_GCP_PROJECT_ID
+```
 
 ## Author
 

@@ -58,7 +58,9 @@ Please follow the reference guide below for the basic setup procedure:
 For detailed setup and configuration of cloud services, refer to the following guides:
 
 - **[Adafruit IO Integration](with_Adafruit_IO/README.md)** - Real-time dashboard and data logging
-- **[Shiftr.io Integration](with_Shiftr_io/README.md)** - MQTT broker with JSON data format
+- **[Shiftr.io Integration](Cloud_Functions_Pipeline/README.md)** - MQTT broker with Google Cloud Functions for BigQuery integration
+
+For gcloud CLI setup and Cloud Functions deployment, see the [Google Cloud Setup section](../../../README.md#google-cloud-setup) in the root README.
 
 ## References
 
