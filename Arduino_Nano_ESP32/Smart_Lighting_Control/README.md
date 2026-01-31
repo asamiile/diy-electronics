@@ -130,33 +130,7 @@ This project includes several test sketches to help with development and trouble
 
 #### Using Arduino CLI (Command Line)
 
-**Step 1: List connected boards**
-
-```bash
-arduino-cli board list
-```
-
-Note the COM port (e.g., `COM9`) for your Arduino Nano ESP32.
-
-**Step 2: Compile the sketch**
-
-```bash
-arduino-cli compile --fqbn arduino:esp32:nano_nora D:\Share\Develop\diy-electronics\Arduino_Nano_ESP32\Smart_Lighting_Control\sketch\Smart_Lighting_Control
-```
-
-**Step 3: Upload to the board**
-
-```bash
-arduino-cli upload -p COM9 --fqbn arduino:esp32:nano_nora D:\Share\Develop\diy-electronics\Arduino_Nano_ESP32\Smart_Lighting_Control\sketch\Smart_Lighting_Control
-```
-
-Replace `COM9` with your actual COM port from Step 1.
-
-**Step 4: Monitor serial output**
-
-```bash
-arduino-cli monitor -p COM9 -c baudrate=115200
-```
+For detailed Arduino CLI setup and usage instructions, refer to the [main repository README](../../README.md#arduino-cli-コマンドリファレンス).
 
 ## References
 
