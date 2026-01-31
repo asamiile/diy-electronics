@@ -1,4 +1,4 @@
-# Wio Terminal Weather Station
+# Wio Terminal Weather Station v1
 
 ## Overview
 
