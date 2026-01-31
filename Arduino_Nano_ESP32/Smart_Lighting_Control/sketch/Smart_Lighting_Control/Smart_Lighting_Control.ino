@@ -15,7 +15,7 @@
 #include <time.h>
 
 // Important: Define IR protocols before including IRremote
-#define DECODE_ONKYO
+#define DECODE_NEC
 #include <IRremote.hpp>
 
 // Include configuration files
@@ -94,7 +94,7 @@ void loop() {
   }
 
   // Read sensor periodically
-  if (millis() - lastSensorReadTime > 5000) { // Read every 5 seconds
+  if (millis() - lastSensorReadTime > 60000) { // Read every 60 seconds (for BigQuery logging)
     readLightSensor();
     lastSensorReadTime = millis();
   }
@@ -195,10 +195,16 @@ void initializePins() {
 // ============================================
 
 void initializeLightSensor() {
-  Serial.println(F("Initializing TSL2561 light sensor..."));
-  // Note: Actual initialization depends on the Grove TSL2561 library
-  // This is a placeholder for sensor setup
-  Serial.println(F("Light sensor initialized."));
+  Serial.println(F("Initializing Grove - Light Sensor..."));
+
+  // Configure analog pin for reading
+  pinMode(LIGHT_SENSOR_PIN, INPUT);
+
+  // Take initial reading to stabilize
+  delay(100);
+  analogRead(LIGHT_SENSOR_PIN);
+
+  Serial.println(F("✓ Light Sensor initialized successfully"));
 }
 
 // ============================================
@@ -206,17 +212,15 @@ void initializeLightSensor() {
 // ============================================
 
 void readLightSensor() {
-  // Read current light level (Lux)
-  // This is a placeholder - replace with actual sensor library call
-  // Example: currentLux = lightSensor.getLux();
+  // Read current light level using Grove - Light Sensor
+  // Raw value: 0-4095 (12-bit ADC)
+  // Higher value = brighter light
 
-  // For now, we'll use a dummy value for demonstration
-  currentLux = analogRead(A0) / 10; // Simulated reading
+  int rawValue = analogRead(LIGHT_SENSOR_PIN);
+
+  // For display purposes, convert to 10-bit equivalent (0-1023)
+  currentLux = rawValue / 4;
 }
-
-// ============================================
-// Scheduled Task Check
-// ============================================
 
 void checkScheduledTask() {
   time_t now = time(nullptr);
@@ -226,23 +230,35 @@ void checkScheduledTask() {
   int currentMinute = timeinfo->tm_min;
   int currentSecond = timeinfo->tm_sec;
 
-  // Check if scheduled time has arrived
+  // Check if scheduled time has arrived (23:30)
   if (currentHour == SCHEDULED_OFF_HOUR &&
       currentMinute == SCHEDULED_OFF_MINUTE &&
       currentSecond >= 0 && currentSecond < 2) { // Allow 2-second window
 
     if (!taskExecutedToday && !waitingForFeedback) {
       Serial.println();
-      Serial.println(F(">>> Scheduled OFF time reached <<<"));
+      Serial.println(F(">>> Scheduled OFF time reached (23:30) <<<"));
 
-      sendLightOffSignal();
+      // Check light sensor status before sending OFF command
+      Serial.print(F("Current Light Level: "));
+      Serial.print(currentLux);
+      Serial.println(F(" (10-bit)"));
+
+      if (currentLux >= LIGHT_OFF_THRESHOLD) {
+        // Light is ON (bright) - send OFF command
+        Serial.println(F("✓ Light is ON - Sending OFF command..."));
+        sendLightOffSignal();
+      } else {
+        // Light is already OFF (dark) - do nothing
+        Serial.println(F("⊘ Light is already OFF - No action needed"));
+      }
 
       lastTaskExecutionTime = millis();
       taskExecutedToday = true;
     }
   }
 
-  // Reset flag at end of day
+  // Reset flag at end of day (23:59)
   if (currentHour == 23 && currentMinute == 59) {
     taskExecutedToday = false;
   }
@@ -253,14 +269,19 @@ void checkScheduledTask() {
 // ============================================
 
 void sendLightOffSignal() {
-  Serial.println(F("Sending IR OFF signal..."));
+  Serial.println(F("Sending IR OFF signal (raw waveform)..."));
 
-  // Send the learned IR code
-  // For Onkyo protocol: Address=0x1275, Command=0x207
-  IrSender.sendOnkyo(IR_OFF_CODE >> 8, IR_OFF_CODE & 0xFF, 1);
+  // Send the exact infrared waveform captured from the physical remote
+  // This ensures complete compatibility with the ceiling light's receiver
+  // by transmitting the raw IR signal at 38 kHz (standard IR frequency)
+  IrSender.sendRaw(rawDataON_OFF, RAW_DATA_LENGTH, 38);
 
-  Serial.print(F("IR Code sent: 0x"));
-  Serial.println(IR_OFF_CODE, HEX);
+  Serial.println(F("Raw IR signal transmitted:"));
+  Serial.print(F("  Data length: "));
+  Serial.print(RAW_DATA_LENGTH);
+  Serial.println(F(" timings"));
+  Serial.println(F("  Frequency: 38 kHz"));
+  Serial.println(F("  Status: Sent successfully"));
 
   lastIRSendTime = millis();
   waitingForFeedback = true;
@@ -279,12 +300,18 @@ void handleFeedbackVerification() {
     Serial.println(F("Checking light sensor for feedback..."));
     readLightSensor();
 
-    Serial.print(F("Current light level: "));
-    Serial.print(currentLux);
-    Serial.println(F(" Lux"));
+    // currentLux contains raw value / 4 (10-bit equivalent)
+    // Need to get actual raw value for comparison
+    int rawValue = analogRead(LIGHT_SENSOR_PIN);
 
-    // Check if light is off
-    if (currentLux <= LIGHT_OFF_THRESHOLD) {
+    Serial.print(F("Current light level (raw): "));
+    Serial.print(rawValue);
+    Serial.print(F(" (10-bit equiv: "));
+    Serial.print(currentLux);
+    Serial.println(F(")"));
+
+    // Check if light is off (raw value below threshold)
+    if (rawValue < LIGHT_OFF_THRESHOLD) {
       Serial.println(F("✓ Light OFF confirmed. Task successful."));
       waitingForFeedback = false;
       retryCount = 0;
@@ -333,7 +360,7 @@ void printSystemStatus() {
 
   Serial.print(F("Light Level: "));
   Serial.print(currentLux);
-  Serial.println(F(" Lux"));
+  Serial.println(F(" (10-bit)"));
 
   Serial.print(F("Task Status: "));
   if (taskExecutedToday) {
