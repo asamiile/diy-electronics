@@ -136,6 +136,15 @@ This project includes several test sketches to help with development and trouble
 
 For detailed Arduino CLI setup and usage instructions, refer to the [main repository README](../../README.md#arduino-cli-コマンドリファレンス).
 
+## Cloud Integration
+
+This project supports dual MQTT publishing for flexible cloud integration:
+
+- **[Adafruit IO Integration](with_Adafruit_IO/README.md)** - Real-time dashboard and data logging (Lux values)
+- **[Smart Lighting Control Data Pipeline](../../../Cloud_Functions/Smart_Lighting_Control_Data_Pipeline/README.md)** - Shiftr.io MQTT broker with Google Cloud Functions for BigQuery integration (full telemetry including device_id, timestamp, light_state, and task execution status)
+
+The data pipeline automatically streams sensor readings and device status to BigQuery for analytics and historical tracking.
+
 ## References
 
 - [Arduino Nano ESP32 Documentation](https://docs.arduino.cc/hardware/nano-esp32/)
