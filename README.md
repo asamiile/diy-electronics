@@ -8,13 +8,15 @@ These are a collection of DIY Electronics samples.
 
 ### Arduino UNO
 
-- [Arduino Uno RGB LED](Arduino_Uno/Arduino_Uno_RGB_LED)
-- [Arduino Uno 8x8 LED Matrix](Arduino_Uno/Arduino_Uno_8x8_LED_Matrix)
-- [Arduino Uno Interactive Servo Light](Arduino_Uno/Arduino_Uno_Interactive_Servo_Light)
+- [RGB LED](Arduino_Uno/RGB_LED)
+- [8x8 LED Matrix](Arduino_Uno/8x8_LED_Matrix)
+- [Interactive Servo Light](Arduino_Uno/Interactive_Servo_Light)
 
 ### Arduino Nano ESP32
 
-- [Arduino Nano RGB LED](Arduino_Nano_ESP32/Arduino_Nano_ESP32_RGB_LED)
+- [RGB LED](Arduino_Nano_ESP32/RGB_LED)
+
+- [Smart Lighting Control](Arduino_Nano_ESP32/Smart_Lighting_Control)
 
 <!-- ### XIAO RP2040 -->
 
