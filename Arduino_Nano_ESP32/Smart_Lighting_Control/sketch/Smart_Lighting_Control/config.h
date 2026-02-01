@@ -74,12 +74,12 @@ const uint16_t rawDataON_OFF[] PROGMEM = {
 // ============================================
 #define SHIFTR_SERVER "public.cloud.shiftr.io"
 #define SHIFTR_PORT 1883
-#define SHIFTR_TOPIC "wio/json"
+#define SHIFTR_TOPIC "lighting/json"
 #define DEVICE_ID "arduino_nano_esp32"         // Device identifier for BigQuery
 // Credentials from credentials.h
 #define SHIFTR_USERNAME SHIFTR_KEY      // From credentials.h
 #define SHIFTR_PASSWORD SHIFTR_SECRET   // From credentials.h
-#define SHIFTR_SUBSCRIBE_TOPIC "wio/json/in"
+#define SHIFTR_SUBSCRIBE_TOPIC "lighting/json/in"
 
 // ============================================
 // Adafruit IO MQTT Configuration
