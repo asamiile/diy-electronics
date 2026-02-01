@@ -16,6 +16,8 @@ These are a collection of DIY Electronics samples.
 
 - [RGB LED](Arduino_Nano_ESP32/RGB_LED)
 
+#### IoT with Adafruit IO & BigQuery
+
 - [Smart Lighting Control](Arduino_Nano_ESP32/Smart_Lighting_Control)
 
 <!-- ### XIAO RP2040 -->
@@ -53,9 +55,12 @@ These are a collection of DIY Electronics samples.
 
 #### IOT with Adafruit IO
 
-- [Wio Terminal Weather Station](Wio_Terminal/Weather_Station/)
-- [Weather Station with Adafruit IO](Wio_Terminal/Weather_Station/with_Adafruit_IO)
-- [Light Sensor with Adafruit IO](Wio_Terminal/Light_Sensor)
+- [Light Sensor](Wio_Terminal/Light_Sensor)
+
+#### IoT with Adafruit IO & BigQuery
+
+- [Weather Station v1](Wio_Terminal/Weather_Station_v1)
+- [Weather_Station_v2](Wio_Terminal/Weather_Station_v2)
 
 <!-- - [GPS Tracker with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_GPS_Tracker_with_Adafruit_IO) -->
 
@@ -199,41 +204,6 @@ gcloud functions deploy save_weather_data \
   --entry-point=save_weather_data \
   --trigger-http \
   --allow-unauthenticated
-```
-
-**Command Flags Explained:**
-
-| Flag                              | Purpose                                              |
-| --------------------------------- | ---------------------------------------------------- |
-| `--gen2`                          | Use Cloud Functions 2nd Generation (Cloud Run based) |
-| `--region=asia-northeast1`        | Deploy to Tokyo region (adjust as needed)            |
-| `--runtime=python311`             | Use Python 3.11 runtime (supports latest features)   |
-| `--source=.`                      | Upload files from current directory                  |
-| `--entry-point=save_weather_data` | Execute the function entry point from `main.py`      |
-| `--trigger-http`                  | Create an HTTP trigger                               |
-| `--allow-unauthenticated`         | Allow unauthenticated access (for webhooks)          |
-
-**Update Existing Deployment:**
-
-When deploying with the same function name, the command automatically updates the existing deployment:
-
-```bash
-# Simply run the deploy command again with the same function name
-# This will create a new revision while preserving deployment history
-gcloud functions deploy save_weather_data --gen2 --region=asia-northeast1 ...
-```
-
-**Troubleshooting Deployment Errors:**
-
-If you get a 409 conflict error ("service already exists"), you have two options:
-
-```bash
-# Option 1: Delete and redeploy (not recommended for production - loses revision history)
-gcloud run services delete save-weather-data --region=asia-northeast1 --quiet
-gcloud functions deploy save_weather_data --gen2 --region=asia-northeast1 ...
-
-# Option 2: Update existing (recommended - preserves revision history and allows rollback)
-gcloud functions deploy save_weather_data --gen2 --region=asia-northeast1 ...
 ```
 
 ### Local Testing
