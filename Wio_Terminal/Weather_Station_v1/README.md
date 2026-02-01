@@ -8,8 +8,7 @@ This project transforms the Wio Terminal into a connected weather station. It me
 
 **Cloud Dashboards:**
 
-- [Adafruit IO Dashboard](https://io.adafruit.com/asamiinae/dashboards/weather-station)
-- [Shiftr.io Dashboard](https://www.shiftr.io/)
+- [Adafruit IO Dashboard](https://io.adafruit.com/asamiile/dashboards/room-sensors)
 
 ### Features
 

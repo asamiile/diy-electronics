@@ -343,6 +343,54 @@ __pycache__/
 
 ---
 
+## MQTT とクラウド統合
+
+### MQTT トピック命名規則
+
+Shiftr.io での複数プロジェクト管理を想定した命名規則：
+
+- **推奨構造**: `device_name/json` （単一プロジェクト） または `project_name/device_type/json` （マルチプロジェクト）
+- **例**:
+  - `lighting/json` - Smart Lighting Control プロジェクト用
+  - `weather/json` - Weather Station プロジェクト用
+  - `smart_home/lighting/json` - 統一的な命名（推奨）
+  - `smart_home/weather/json` - 統一的な命名（推奨）
+
+**重要**: Arduino側の `config.h` で定義する `SHIFTR_TOPIC` と、Shiftr.io webhook の Topic 設定が **完全に一致している** ことを確認してください。不一致の場合、データが Cloud Functions に到達しません。
+
+### Shiftr.io Webhook 設定チェックリスト
+
+webhook が正しく動作しているか確認する際のチェックリスト：
+
+| 項目 | 確認内容 | トラブル時の対応 |
+|------|---------|-----------------|
+| **Topic** | Arduino config.h と Shiftr.io webhook のトピックが完全に一致 | 不一致の場合はwebhookを修正して Save |
+| **URL** | Cloud Functions の HTTPS trigger URL が正しいか | URL をコピー&ペーストで確認 |
+| **Content-Type** | `application/json` に設定されているか | Shiftr.io webhook 設定画面で確認 |
+| **Enable** | webhook が enabled 状態になっているか | ダッシュボードで有効化 |
+| **Request History** | 最近のリクエスト履歴が記録されているか | 履歴がない場合はArduino側の MQTT 接続を確認 |
+
+### データパイプラインのトラブルシューティング
+
+**症状: BigQuery テーブルに1件のみ記録され、その後データが入らない**
+
+主な原因と確認手順：
+
+| 原因 | 症状 | 確認方法 | 解決策 |
+|------|------|---------|-------|
+| **Webhook トピック不一致** | Arduino は publish しているが webhook が受け取れていない | Shiftr.io ダッシュボード → Last Messages と webhook Topic を比較 | 両者のトピック名を完全に一致させて webhook 再度保存 |
+| **Arduino MQTT 接続失敗** | Shiftr.io に Last Messages が表示されない | シリアルモニタでエラー確認、credentials.h の key/secret を確認 | 接続情報を修正して re-upload |
+| **Cloud Functions エラー** | Shiftr.io webhook が履歴を記録している（成功と表示）が BigQuery に入らない | `gcloud functions logs read save_lighting_data --gen2 --region asia-northeast1 --limit 50` | エラーログから原因特定（BigQuery 権限、スキーマ不一致など） |
+| **BigQuery スキーマ不一致** | Cloud Functions がエラー返却（400 or 500） | BigQuery テーブルスキーマ確認、Cloud Functions コード確認 | カラム型を修正または Cloud Functions コード更新 |
+
+**デバッグのポイント**:
+- Arduino シリアルモニタで MQTT publish 成功メッセージを確認
+- Shiftr.io ダッシュボールで同じトピックの Last Messages が更新されているか確認
+- Shiftr.io webhook 設定ページで「最近のリクエスト」を確認（HTTP 成功・失敗ログ）
+- Cloud Functions のレスポンス `status: "success"` を確認
+
+---
+
 ## 開発環境とビルド操作 (Development Environment)
 
 ### Arduino CLI の使用

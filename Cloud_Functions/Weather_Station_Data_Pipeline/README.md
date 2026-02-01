@@ -168,40 +168,6 @@ gcloud functions logs read save-weather-data \
   --limit 50
 ```
 
-## Troubleshooting
-
-### "Permission denied" error during deployment
-
-Ensure your GCP user has the following roles:
-
-- `Cloud Functions Developer`
-- `BigQuery Data Editor`
-- `Service Account User`
-
-### "Dataset not found" error
-
-Verify the BigQuery dataset was created correctly:
-
-```bash
-bq ls -d --project_id=YOUR_PROJECT_ID
-```
-
-### Function not receiving webhook data
-
-1. Verify Shiftr.io webhook is enabled and pointing to correct URL
-2. Check Shiftr.io webhook logs/history
-3. Verify Cloud Function logs: `gcloud functions logs read save-weather-data --region asia-northeast1`
-
-### "Timeout" errors
-
-Increase the Cloud Function timeout:
-
-```bash
-gcloud functions update save-weather-data \
-  --region asia-northeast1 \
-  --timeout 120s
-```
-
 ## References
 
 - [Cloud Functions Documentation](https://cloud.google.com/functions/docs)
