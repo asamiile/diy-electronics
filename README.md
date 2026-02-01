@@ -188,13 +188,13 @@ Example: Deploying a weather data processor to Cloud Functions
 
 ```bash
 # Navigate to the Cloud Functions directory
-cd <project-path>/Cloud_Functions
+cd <project-path>/Cloud_Functions/Weather_Station_Data_Pipeline
 
-# Deploy
-gcloud functions deploy save-weather-data \
+# Deploy (first time or update existing)
+gcloud functions deploy save_weather_data \
   --gen2 \
   --region=asia-northeast1 \
-  --runtime=python310 \
+  --runtime=python311 \
   --source=. \
   --entry-point=save_weather_data \
   --trigger-http \
@@ -207,11 +207,34 @@ gcloud functions deploy save-weather-data \
 | --------------------------------- | ---------------------------------------------------- |
 | `--gen2`                          | Use Cloud Functions 2nd Generation (Cloud Run based) |
 | `--region=asia-northeast1`        | Deploy to Tokyo region (adjust as needed)            |
-| `--runtime=python310`             | Use Python 3.10 runtime                              |
+| `--runtime=python311`             | Use Python 3.11 runtime (supports latest features)   |
 | `--source=.`                      | Upload files from current directory                  |
 | `--entry-point=save_weather_data` | Execute the function entry point from `main.py`      |
 | `--trigger-http`                  | Create an HTTP trigger                               |
 | `--allow-unauthenticated`         | Allow unauthenticated access (for webhooks)          |
+
+**Update Existing Deployment:**
+
+When deploying with the same function name, the command automatically updates the existing deployment:
+
+```bash
+# Simply run the deploy command again with the same function name
+# This will create a new revision while preserving deployment history
+gcloud functions deploy save_weather_data --gen2 --region=asia-northeast1 ...
+```
+
+**Troubleshooting Deployment Errors:**
+
+If you get a 409 conflict error ("service already exists"), you have two options:
+
+```bash
+# Option 1: Delete and redeploy (not recommended for production - loses revision history)
+gcloud run services delete save-weather-data --region=asia-northeast1 --quiet
+gcloud functions deploy save_weather_data --gen2 --region=asia-northeast1 ...
+
+# Option 2: Update existing (recommended - preserves revision history and allows rollback)
+gcloud functions deploy save_weather_data --gen2 --region=asia-northeast1 ...
+```
 
 ### Local Testing
 
@@ -248,7 +271,8 @@ CREATE TABLE IF NOT EXISTS `PROJECT_ID.diy_electronics_iot.weather_data` (
   timestamp TIMESTAMP NOT NULL,
   device_id STRING,
   temperature FLOAT64,
-  humidity FLOAT64
+  humidity FLOAT64,
+  pressure FLOAT64
 )
 PARTITION BY DATE(timestamp)
 OPTIONS(
