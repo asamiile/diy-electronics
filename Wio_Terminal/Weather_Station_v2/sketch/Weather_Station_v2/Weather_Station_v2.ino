@@ -216,30 +216,30 @@ void loop() {
     sendJsonToShiftr(t, h, p);
 
     // Update the temperature value on the screen using a sprite.
-    spr.createSprite(55, 40);
+    spr.createSprite(70, 30);
     spr.fillSprite(TFT_BLACK);
-    spr.setFreeFont(FMB24);
+    spr.setFreeFont(FMB18);  // Unified FMB18 for better readability
     spr.setTextColor(TFT_CYAN);
     spr.drawNumber((int)t, 0, 0);
-    spr.pushSprite(200, 70);
+    spr.pushSprite(160, 75);
     spr.deleteSprite();
 
     // Update the humidity value on the screen using a sprite.
-    spr.createSprite(55, 40);
+    spr.createSprite(70, 30);
     spr.fillSprite(TFT_BLACK);
-    spr.setFreeFont(FMB24);
+    spr.setFreeFont(FMB18);  // Unified FMB18 for better readability
     spr.setTextColor(TFT_CYAN);
     spr.drawNumber((int)h, 0, 0);
-    spr.pushSprite(200, 120);
+    spr.pushSprite(160, 130);
     spr.deleteSprite();
 
     // Update the pressure value on the screen using a sprite.
-    spr.createSprite(70, 40);
+    spr.createSprite(80, 30);  // Wider sprite to accommodate 4-digit values
     spr.fillSprite(TFT_BLACK);
-    spr.setFreeFont(FMB24);
+    spr.setFreeFont(FMB18);
     spr.setTextColor(TFT_CYAN);
     spr.drawNumber((int)p, 0, 0);
-    spr.pushSprite(195, 170);
+    spr.pushSprite(160, 185);
     spr.deleteSprite();
   } // End of sensor read block
 
@@ -263,25 +263,25 @@ void drawDisplayUI() {
   tft.fillRect(0, 0, 320, 50, TFT_CYAN);
   tft.setFreeFont(FMB12);
   tft.setTextColor(TFT_BLACK);
-  tft.drawString("WEATHER STATION V2", 30, 15);
+  tft.drawString("WEATHER STATION", 25, 15);
+
+  // Draw horizontal divider lines for 3 equal sections
+  tft.drawFastHLine(0, 105, 320, TFT_CYAN);  // After first section (Temperature)
+  tft.drawFastHLine(0, 160, 320, TFT_CYAN);  // After second section (Humidity)
 
   // Draw the static labels
-  tft.setFreeFont(FM12);
+  tft.setFreeFont(FSSB9);  // Smaller font for labels
   tft.setTextColor(TFT_WHITE);
   tft.drawString("Temperature:", 10, 75);
-  tft.drawString("Humidity:", 10, 125);
-  tft.drawString("Pressure:", 10, 175);
+  tft.drawString("Humidity:", 10, 130);
+  tft.drawString("Pressure:", 10, 185);
 
   // Draw the units
   tft.setFreeFont(FSSB9);
   tft.setTextColor(TFT_CYAN);
   tft.drawString("C", 260, 70);
-  tft.drawString("%RH", 275, 120);
-  tft.drawString("hPa", 270, 170);
-
-  // Draw divider lines
-  tft.drawFastHLine(0, 105, 320, TFT_CYAN);
-  tft.drawFastHLine(0, 155, 320, TFT_CYAN);
+  tft.drawString("%RH", 255, 125);
+  tft.drawString("hPa", 250, 180);
 
   Serial.println("[UI] Display UI initialized successfully");
 }
@@ -329,7 +329,7 @@ void reconnect() {
 
     // Attempt to connect with Adafruit IO username and API key as password
     if (client.connect(clientId.c_str(), AIO_USERNAME, AIO_KEY)) {
-      Serial.println("✓ MQTT connected successfully!");
+      Serial.println("✓ Adafruit IO MQTT connected successfully!");
       break;
     } else {
       Serial.print("✗ MQTT connection failed. Error code: ");
