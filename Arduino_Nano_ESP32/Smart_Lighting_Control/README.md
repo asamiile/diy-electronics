@@ -4,6 +4,10 @@
 
 This project transforms the Arduino Nano ESP32 into an automated lighting control system. It retrieves the precise Japan Standard Time (JST) from an NTP server and sends infrared signals to control ceiling lights at scheduled times. The system includes a feedback loop using a light sensor (Grove - Light Sensor) to verify successful light control, and supports learning IR codes from existing remote controls.
 
+**Cloud Dashboards:**
+
+- [Adafruit IO Dashboard](https://io.adafruit.com/asamiile/dashboards/room-sensors)
+
 ### Features
 
 - **Scheduled Auto Off**: Retrieves accurate JST time from NTP server and sends lights OFF signal at specified times
