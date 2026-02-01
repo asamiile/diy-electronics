@@ -70,9 +70,28 @@ const uint16_t rawDataON_OFF[] PROGMEM = {
 #define RAW_DATA_LENGTH (sizeof(rawDataON_OFF) / sizeof(rawDataON_OFF[0]))
 
 // ============================================
+// Shiftr.io MQTT Configuration
+// ============================================
+#define SHIFTR_SERVER "public.cloud.shiftr.io"
+#define SHIFTR_PORT 1883
+#define SHIFTR_TOPIC "wio/json"
+#define DEVICE_ID "arduino_nano_esp32"         // Device identifier for BigQuery
+// Credentials from credentials.h
+#define SHIFTR_USERNAME SHIFTR_KEY      // From credentials.h
+#define SHIFTR_PASSWORD SHIFTR_SECRET   // From credentials.h
+#define SHIFTR_SUBSCRIBE_TOPIC "wio/json/in"
+
+// ============================================
+// Adafruit IO MQTT Configuration
+// ============================================
+#define ADAFRUIT_SERVER "io.adafruit.com"
+#define ADAFRUIT_PORT 1883
+#define MQTT_PUBLISH_INTERVAL 60000            // Send data every 60 seconds
+
+// ============================================
 // Pin Definitions
 // ============================================
-#define IR_EMITTER_PIN D2          // Grove - Infrared Emitter (Digital Pin D2)
-#define IR_RECEIVER_PIN D4         // Grove - Infrared Receiver (Digital Pin D4)
+#define IR_EMITTER_PIN 2           // D2 (GPIO 2)
+#define IR_RECEIVER_PIN 4          // D4 (GPIO 4)
 
 #endif

@@ -1,382 +1,396 @@
 /*
- * Smart Lighting Control - Main Program
- * Arduino Nano ESP32
- *
- * Features:
- * - WiFi connection and NTP time synchronization (JST)
- * - Scheduled IR signal transmission at specified time
- * - Light sensor feedback verification
- * - Automatic retry on send failure
- * - Non-blocking operation using millis()
- */
+  Smart Lighting Control - Arduino Nano ESP32
 
-#include <Arduino.h>
+  Features:
+  - Grove Light Sensor (analog A0) for brightness detection
+  - Scheduled OFF at 23:30 (with brightness check)
+  - IR remote control (Grove Infrared Emitter D2, Receiver D4)
+  - Dual MQTT publishing (Shiftr.io + Adafruit IO)
+  - WiFi with NTP time sync (JST)
+  - Feedback verification via IR receiver
+
+  Author: DIY Electronics
+  Date: 2025
+*/
+
+#include "config.h"
+#include "credentials.h"
 #include <WiFi.h>
+#include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include <time.h>
-
-// Important: Define IR protocols before including IRremote
-#define DECODE_NEC
 #include <IRremote.hpp>
 
-// Include configuration files
-#include "credentials.h"
-#include "config.h"
+// ===== PIN DEFINITIONS =====
+// ピン番号は config.h で定義されているため、ここでは直接数値を使用
 
-// ============================================
-// System State Variables
-// ============================================
+// ===== MQTT CLIENT OBJECTS =====
+WiFiClient shiftrClient;
+PubSubClient shiftrMqtt(shiftrClient);
 
-// WiFi and NTP
-unsigned long lastNTPSyncTime = 0;
-const unsigned long NTP_SYNC_INTERVAL = 3600000; // Sync every hour (ms)
+WiFiClient adafruitClient;
+PubSubClient adafruitMqtt(adafruitClient);
 
-// Scheduled task
-unsigned long lastTaskExecutionTime = 0;
-bool taskExecutedToday = false;
-
-// Sensor measurements
+// ===== STATE VARIABLES =====
 uint16_t currentLux = 0;
+bool lastKnownState = false;  // true = light ON, false = light OFF
 unsigned long lastSensorReadTime = 0;
+unsigned long lastShiftrPublishTime = 0;
+unsigned long lastAdafruitPublishTime = 0;
+unsigned long lastIRFeedbackCheckTime = 0;
+bool taskExecutedToday = false;
+uint8_t wifiRetryCount = 0;
 
-// IR sending state
-unsigned long lastIRSendTime = 0;
-bool waitingForFeedback = false;
-int retryCount = 0;
-const int MAX_RETRIES = 3;
-
-// ============================================
-// Setup
-// ============================================
-
+// ===== SETUP =====
 void setup() {
-  // Initialize Serial
   Serial.begin(115200);
-  while (!Serial); // Wait for serial connection
   delay(1000);
 
-  Serial.println();
-  Serial.println(F("================================="));
-  Serial.println(F("Smart Lighting Control"));
-  Serial.println(F("Arduino Nano ESP32"));
-  Serial.println(F("================================="));
-  Serial.println();
+  Serial.println("\n\n=== Smart Lighting Control (Arduino Nano ESP32) ===");
 
-  // Initialize pins
+  // Initialize hardware
   initializePins();
-
-  // Initialize WiFi
-  initializeWiFi();
-
-  // Synchronize time from NTP
-  syncNTPTime();
-
-  // Initialize light sensor (TSL2561)
   initializeLightSensor();
 
-  // Initialize IR sender
-  IrSender.begin(IR_EMITTER_PIN);
+  // WiFi and time sync
+  initializeWiFi();
+  syncNTPTime();
 
-  Serial.println(F("System initialized successfully."));
-  Serial.println(F("Waiting for scheduled time..."));
-  Serial.println();
+  // Configure MQTT servers
+  shiftrMqtt.setServer(SHIFTR_SERVER, SHIFTR_PORT);
+  shiftrMqtt.setCallback(shiftrCallback);
+
+  adafruitMqtt.setServer(ADAFRUIT_SERVER, ADAFRUIT_PORT);
+  adafruitMqtt.setCallback(adafruitCallback);
+
+  // Reconnect MQTT
+  reconnectShiftrMQTT();
+  reconnectAdafruitMQTT();
+
+  // IR emitter setup
+  IrSender.begin(2, ENABLE_LED_FEEDBACK);  // D2 (GPIO 2)
+  Serial.println("[SETUP] IR emitter initialized");
+
+  // IR receiver setup
+  IrReceiver.begin(4, ENABLE_LED_FEEDBACK);  // D4 (GPIO 4)
+
+  printSystemStatus();
 }
 
-// ============================================
-// Main Loop
-// ============================================
-
+// ===== MAIN LOOP =====
 void loop() {
-  // Non-blocking operations
-
-  // Check and refresh NTP time periodically
-  if (millis() - lastNTPSyncTime > NTP_SYNC_INTERVAL) {
-    syncNTPTime();
+  // Maintain WiFi connection
+  if (WiFi.status() != WL_CONNECTED) {
+    initializeWiFi();
   }
 
-  // Read sensor periodically
-  if (millis() - lastSensorReadTime > 60000) { // Read every 60 seconds (for BigQuery logging)
+  // Maintain MQTT connections
+  if (!shiftrMqtt.connected()) {
+    reconnectShiftrMQTT();
+  }
+  shiftrMqtt.loop();
+
+  if (!adafruitMqtt.connected()) {
+    reconnectAdafruitMQTT();
+  }
+  adafruitMqtt.loop();
+
+  // Sensor reading (every 60 seconds)
+  if (millis() - lastSensorReadTime > 60000) {
     readLightSensor();
     lastSensorReadTime = millis();
   }
 
-  // Check for scheduled task execution
-  checkScheduledTask();
+  // Check scheduled task (every minute)
+  static unsigned long lastCheckTime = 0;
+  if (millis() - lastCheckTime > 60000) {
+    checkScheduledTask();
+    lastCheckTime = millis();
+  }
 
-  // Handle IR feedback verification
-  if (waitingForFeedback) {
+  // Publish to Shiftr.io (every 60 seconds)
+  if (millis() - lastShiftrPublishTime > 60000) {
+    if (shiftrMqtt.connected()) {
+      publishToShiftr();
+      lastShiftrPublishTime = millis();
+    }
+  }
+
+  // Publish to Adafruit IO (every 60 seconds)
+  if (millis() - lastAdafruitPublishTime > 60000) {
+    if (adafruitMqtt.connected()) {
+      publishToAdafruit();
+      lastAdafruitPublishTime = millis();
+    }
+  }
+
+  // IR feedback check (if light control was executed)
+  if (millis() - lastIRFeedbackCheckTime > 5000) {
     handleFeedbackVerification();
+    lastIRFeedbackCheckTime = millis();
   }
 
-  // Print status periodically
-  static unsigned long lastStatusPrint = 0;
-  if (millis() - lastStatusPrint > 10000) { // Print every 10 seconds
-    printSystemStatus();
-    lastStatusPrint = millis();
-  }
-
-  delay(100); // Small delay to prevent watchdog timeout
+  delay(100);  // Non-blocking delay
 }
 
-// ============================================
-// WiFi Initialization
-// ============================================
+// ===== INITIALIZATION FUNCTIONS =====
+void initializePins() {
+  pinMode(A0, INPUT);       // Light sensor
+  pinMode(2, OUTPUT);       // IR emitter (D2)
+  pinMode(4, INPUT);        // IR receiver (D4)
+  Serial.println("[INIT] Pins configured");
+}
+
+void initializeLightSensor() {
+  // Read once to initialize
+  currentLux = analogRead(A0);
+  Serial.print("[INIT] Light Sensor initialized. Initial value: ");
+  Serial.println(currentLux);
+}
 
 void initializeWiFi() {
-  Serial.println(F("Connecting to WiFi..."));
-  Serial.print(F("SSID: "));
-  Serial.println(WIFI_SSID);
-
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-
-  int attempts = 0;
-  const int MAX_ATTEMPTS = 20;
-
-  while (WiFi.status() != WL_CONNECTED && attempts < MAX_ATTEMPTS) {
-    delay(500);
-    Serial.print(F("."));
-    attempts++;
+  if (WiFi.status() == WL_CONNECTED) {
+    return;  // Already connected
   }
 
+  Serial.print("[WiFi] Connecting to ");
+  Serial.println(WIFI_SSID);
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  uint8_t attempts = 0;
+  while (WiFi.status() != WL_CONNECTED && attempts < 20) {
+    delay(500);
+    Serial.print(".");
+    attempts++;
+  }
   Serial.println();
 
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println(F("WiFi connected successfully."));
-    Serial.print(F("IP Address: "));
+    Serial.print("[WiFi] Connected! IP: ");
     Serial.println(WiFi.localIP());
+    wifiRetryCount = 0;
   } else {
-    Serial.println(F("WiFi connection failed. Retrying..."));
+    Serial.println("[WiFi] Connection failed");
+    wifiRetryCount++;
   }
 }
 
-// ============================================
-// NTP Time Synchronization
-// ============================================
-
 void syncNTPTime() {
-  Serial.println(F("Syncing time from NTP server..."));
+  Serial.println("[NTP] Syncing time...");
+  configTime(9 * 3600, 0, "ntp.nict.jp", "time.google.com");  // JST (UTC+9)
 
-  // Set timezone and sync time
-  configTzTime("JST-9", NTP_SERVER, NTP_SERVER_JP);
-
-  // Wait for time to be set
   time_t now = time(nullptr);
-  int attempts = 0;
-  while (now < 24 * 3600 && attempts < 30) {
+  uint8_t attempts = 0;
+  while (now < 24 * 3600 && attempts < 20) {
     delay(500);
-    Serial.print(F("."));
+    Serial.print(".");
     now = time(nullptr);
     attempts++;
   }
-
   Serial.println();
 
   if (now > 24 * 3600) {
-    struct tm* timeinfo = localtime(&now);
-    Serial.print(F("Current JST: "));
-    Serial.println(asctime(timeinfo));
-    lastNTPSyncTime = millis();
+    Serial.print("[NTP] Time synced: ");
+    Serial.println(ctime(&now));
   } else {
-    Serial.println(F("NTP sync failed."));
+    Serial.println("[NTP] Failed to sync time");
   }
 }
 
-// ============================================
-// Pin Initialization
-// ============================================
-
-void initializePins() {
-  pinMode(IR_EMITTER_PIN, OUTPUT);
-  digitalWrite(IR_EMITTER_PIN, LOW);
-}
-
-// ============================================
-// Light Sensor Initialization
-// ============================================
-
-void initializeLightSensor() {
-  Serial.println(F("Initializing Grove - Light Sensor..."));
-
-  // Configure analog pin for reading
-  pinMode(LIGHT_SENSOR_PIN, INPUT);
-
-  // Take initial reading to stabilize
-  delay(100);
-  analogRead(LIGHT_SENSOR_PIN);
-
-  Serial.println(F("✓ Light Sensor initialized successfully"));
-}
-
-// ============================================
-// Light Sensor Reading
-// ============================================
-
+// ===== SENSOR READING =====
 void readLightSensor() {
-  // Read current light level using Grove - Light Sensor
-  // Raw value: 0-4095 (12-bit ADC)
-  // Higher value = brighter light
-
-  int rawValue = analogRead(LIGHT_SENSOR_PIN);
-
-  // For display purposes, convert to 10-bit equivalent (0-1023)
-  currentLux = rawValue / 4;
+  currentLux = analogRead(A0);
+  Serial.print("[SENSOR] Lux: ");
+  Serial.print(currentLux);
+  Serial.print(" | Light State: ");
+  Serial.println(currentLux >= LIGHT_OFF_THRESHOLD ? "ON" : "OFF");
 }
 
+// ===== SCHEDULED TASK =====
 void checkScheduledTask() {
   time_t now = time(nullptr);
   struct tm* timeinfo = localtime(&now);
 
   int currentHour = timeinfo->tm_hour;
   int currentMinute = timeinfo->tm_min;
-  int currentSecond = timeinfo->tm_sec;
 
-  // Check if scheduled time has arrived (23:30)
+  // Check if it's 23:30 and light is ON
   if (currentHour == SCHEDULED_OFF_HOUR &&
       currentMinute == SCHEDULED_OFF_MINUTE &&
-      currentSecond >= 0 && currentSecond < 2) { // Allow 2-second window
+      !taskExecutedToday) {
 
-    if (!taskExecutedToday && !waitingForFeedback) {
-      Serial.println();
-      Serial.println(F(">>> Scheduled OFF time reached (23:30) <<<"));
-
-      // Check light sensor status before sending OFF command
-      Serial.print(F("Current Light Level: "));
-      Serial.print(currentLux);
-      Serial.println(F(" (10-bit)"));
-
-      if (currentLux >= LIGHT_OFF_THRESHOLD) {
-        // Light is ON (bright) - send OFF command
-        Serial.println(F("✓ Light is ON - Sending OFF command..."));
-        sendLightOffSignal();
-      } else {
-        // Light is already OFF (dark) - do nothing
-        Serial.println(F("⊘ Light is already OFF - No action needed"));
-      }
-
-      lastTaskExecutionTime = millis();
+    // Only send OFF if light is currently bright (ON)
+    if (currentLux >= LIGHT_OFF_THRESHOLD) {
+      Serial.println("[TASK] Executing scheduled OFF at 23:30");
+      sendLightOffSignal();
+      taskExecutedToday = true;
+    } else {
+      Serial.println("[TASK] Light already OFF, skipping send");
       taskExecutedToday = true;
     }
   }
 
-  // Reset flag at end of day (23:59)
-  if (currentHour == 23 && currentMinute == 59) {
+  // Reset flag at midnight
+  if (currentHour == 0 && currentMinute == 0) {
     taskExecutedToday = false;
+    Serial.println("[TASK] Daily flag reset");
   }
 }
 
-// ============================================
-// IR Signal Transmission
-// ============================================
-
+// ===== IR CONTROL =====
 void sendLightOffSignal() {
-  Serial.println(F("Sending IR OFF signal (raw waveform)..."));
+  // Send raw IR waveform for OFF command
+  Serial.println("[IR] Sending OFF signal (raw waveform)...");
 
-  // Send the exact infrared waveform captured from the physical remote
-  // This ensures complete compatibility with the ceiling light's receiver
-  // by transmitting the raw IR signal at 38 kHz (standard IR frequency)
   IrSender.sendRaw(rawDataON_OFF, RAW_DATA_LENGTH, 38);
 
-  Serial.println(F("Raw IR signal transmitted:"));
-  Serial.print(F("  Data length: "));
-  Serial.print(RAW_DATA_LENGTH);
-  Serial.println(F(" timings"));
-  Serial.println(F("  Frequency: 38 kHz"));
-  Serial.println(F("  Status: Sent successfully"));
-
-  lastIRSendTime = millis();
-  waitingForFeedback = true;
-  retryCount = 0;
+  delay(500);
+  Serial.println("[IR] OFF signal sent");
 }
-
-// ============================================
-// Feedback Verification
-// ============================================
 
 void handleFeedbackVerification() {
-  unsigned long timeSinceIRSend = millis() - lastIRSendTime;
+  if (IrReceiver.decode()) {
+    Serial.print("[IR_RX] Decoded: ");
+    Serial.print(IrReceiver.decodedIRData.protocol);
+    Serial.print(" | Address: ");
+    Serial.print(IrReceiver.decodedIRData.address, HEX);
+    Serial.print(" | Command: ");
+    Serial.println(IrReceiver.decodedIRData.command, HEX);
 
-  // Wait FEEDBACK_CHECK_DELAY milliseconds after sending
-  if (timeSinceIRSend >= FEEDBACK_CHECK_DELAY) {
-    Serial.println(F("Checking light sensor for feedback..."));
-    readLightSensor();
-
-    // currentLux contains raw value / 4 (10-bit equivalent)
-    // Need to get actual raw value for comparison
-    int rawValue = analogRead(LIGHT_SENSOR_PIN);
-
-    Serial.print(F("Current light level (raw): "));
-    Serial.print(rawValue);
-    Serial.print(F(" (10-bit equiv: "));
-    Serial.print(currentLux);
-    Serial.println(F(")"));
-
-    // Check if light is off (raw value below threshold)
-    if (rawValue < LIGHT_OFF_THRESHOLD) {
-      Serial.println(F("✓ Light OFF confirmed. Task successful."));
-      waitingForFeedback = false;
-      retryCount = 0;
-    }
-    // Light still on - attempt retry
-    else if (retryCount < MAX_RETRIES) {
-      retryCount++;
-      Serial.print(F("✗ Light still ON. Retry #"));
-      Serial.println(retryCount);
-      sendLightOffSignal();
-    }
-    // Max retries exceeded
-    else {
-      Serial.println(F("✗ Light OFF failed after maximum retries."));
-      waitingForFeedback = false;
-      retryCount = 0;
-    }
+    IrReceiver.resume();
   }
 }
 
-// ============================================
-// System Status Output
-// ============================================
+// ===== MQTT CONNECTION =====
+void reconnectShiftrMQTT() {
+  if (shiftrMqtt.connected()) {
+    return;
+  }
 
+  Serial.print("[MQTT-Shiftr] Connecting...");
+
+  // Generate random client ID (like Weather_Station pattern)
+  String clientId = "Arduino-Nano-ESP32-";
+  clientId += String(random(0xffff), HEX);
+
+  // Username and password for Shiftr.io
+  if (shiftrMqtt.connect(clientId.c_str(), SHIFTR_USERNAME, SHIFTR_PASSWORD)) {
+    Serial.println(" SUCCESS");
+    shiftrMqtt.subscribe(SHIFTR_SUBSCRIBE_TOPIC);
+  } else {
+    Serial.print(" FAILED (");
+    Serial.print(shiftrMqtt.state());
+    Serial.println(")");
+  }
+}
+
+void reconnectAdafruitMQTT() {
+  if (adafruitMqtt.connected()) {
+    return;
+  }
+
+  Serial.print("[MQTT-Adafruit] Connecting...");
+
+  // Generate random client ID (like Weather_Station pattern)
+  String clientId = "Arduino-Nano-ESP32-";
+  clientId += String(random(0xffff), HEX);
+
+  // Username and key for Adafruit IO
+  if (adafruitMqtt.connect(clientId.c_str(), AIO_USERNAME, AIO_KEY)) {
+    Serial.println(" SUCCESS");
+  } else {
+    Serial.print(" FAILED (");
+    Serial.print(adafruitMqtt.state());
+    Serial.println(")");
+  }
+}
+
+// ===== MQTT PUBLISH =====
+void publishToShiftr() {
+  if (!shiftrMqtt.connected()) {
+    return;
+  }
+
+  DynamicJsonDocument doc(256);
+  doc["device_id"] = DEVICE_ID;  // Add device identifier for BigQuery
+  doc["timestamp"] = time(nullptr);
+  doc["lux"] = currentLux;
+  doc["light_state"] = currentLux >= LIGHT_OFF_THRESHOLD ? "ON" : "OFF";
+  doc["task_executed"] = taskExecutedToday;
+  doc["wifi_connected"] = WiFi.status() == WL_CONNECTED;
+  doc["retry_count"] = wifiRetryCount;
+
+  String payload;
+  serializeJson(doc, payload);
+
+  if (shiftrMqtt.publish(SHIFTR_TOPIC, payload.c_str())) {
+    Serial.print("[MQTT-Shiftr] Published: ");
+    Serial.println(payload);
+  } else {
+    Serial.println("[MQTT-Shiftr] Publish failed");
+  }
+}
+
+void publishToAdafruit() {
+  if (!adafruitMqtt.connected()) {
+    return;
+  }
+
+  String feedPath = String(AIO_USERNAME) + "/feeds/lighting";
+  String luxValue = String(currentLux);
+
+  if (adafruitMqtt.publish(feedPath.c_str(), luxValue.c_str())) {
+    Serial.print("[MQTT-Adafruit] Published Lux: ");
+    Serial.println(luxValue);
+  } else {
+    Serial.println("[MQTT-Adafruit] Publish failed");
+  }
+}
+
+// ===== MQTT CALLBACKS =====
+void shiftrCallback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("[MQTT-Shiftr] Message on ");
+  Serial.print(topic);
+  Serial.print(": ");
+  for (unsigned int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}
+
+void adafruitCallback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("[MQTT-Adafruit] Message on ");
+  Serial.print(topic);
+  Serial.print(": ");
+  for (unsigned int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}
+
+// ===== STATUS PRINTING =====
 void printSystemStatus() {
-  time_t now = time(nullptr);
-  struct tm* timeinfo = localtime(&now);
-
-  Serial.println();
-  Serial.println(F("--- System Status ---"));
-  Serial.print(F("Time (JST): "));
-  Serial.print(timeinfo->tm_hour);
-  Serial.print(F(":"));
-  if (timeinfo->tm_min < 10) Serial.print(F("0"));
-  Serial.print(timeinfo->tm_min);
-  Serial.print(F(":"));
-  if (timeinfo->tm_sec < 10) Serial.print(F("0"));
-  Serial.println(timeinfo->tm_sec);
-
-  Serial.print(F("WiFi Status: "));
+  Serial.println("\n========== SYSTEM STATUS ==========");
+  Serial.print("WiFi Status: ");
+  Serial.println(WiFi.status() == WL_CONNECTED ? "CONNECTED" : "DISCONNECTED");
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println(F("Connected"));
-  } else {
-    Serial.println(F("Disconnected"));
+    Serial.print("IP Address: ");
+    Serial.println(WiFi.localIP());
   }
 
-  Serial.print(F("Light Level: "));
-  Serial.print(currentLux);
-  Serial.println(F(" (10-bit)"));
+  Serial.print("Shiftr MQTT: ");
+  Serial.println(shiftrMqtt.connected() ? "CONNECTED" : "DISCONNECTED");
 
-  Serial.print(F("Task Status: "));
-  if (taskExecutedToday) {
-    Serial.println(F("Executed today"));
-  } else {
-    Serial.println(F("Pending"));
-  }
+  Serial.print("Adafruit MQTT: ");
+  Serial.println(adafruitMqtt.connected() ? "CONNECTED" : "DISCONNECTED");
 
-  if (waitingForFeedback) {
-    Serial.print(F("Feedback Status: Waiting (Retry "));
-    Serial.print(retryCount);
-    Serial.print(F("/"));
-    Serial.print(MAX_RETRIES);
-    Serial.println(F(")"));
-  }
+  Serial.print("Current Lux: ");
+  Serial.println(currentLux);
 
-  Serial.println(F("--------------------"));
-  Serial.println();
+  time_t now = time(nullptr);
+  Serial.print("Current Time (JST): ");
+  Serial.println(ctime(&now));
+
+  Serial.println("=====================================\n");
 }
