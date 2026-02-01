@@ -470,5 +470,23 @@ arduino-cli upload -p /dev/ttyACM0 --fqbn seeeduino:samd:seeed_wio_terminal /pat
 **推奨される運用方法**:
 - **GUI が必須な場合**: Arduino IDE を使用してください（ブロッキングやプロセス競合の問題が少ない）
 - **CLI で複数ボードのビルド**: 同時実行ではなく、ボードごとに順序立てて実行してください
-- **シェル環境**: PowerShell の新規プロセスで実行するか、cmd.exe の使用を検討してください`
+- **シェル環境**: PowerShell の新規プロセスで実行するか、cmd.exe の使用を検討してください
+
+**問題 3: Wio Terminal コンパイルエラー（ライブラリが見つからない）**
+- **原因**: Arduino CLI で Wio Terminal ライブラリのパスが正しく認識されない（複数プロセス競合またはボード定義キャッシュ問題）
+- **症状**: `#include "rpcWiFi.h"` や `#include "Seeed_BME280.h"` などで "ソース ファイルを開けません" エラー
+- **最も確実な回避方法**:
+  1. **Arduino IDE (GUI版) を使用してください（推奨）**
+     - Arduino IDE を起動
+     - Tools → Board → Seeeduino SAMD → Wio Terminal を選択
+     - File → Open で `.ino` ファイルを開く
+     - Sketch → Verify/Compile でコンパイル実行
+     - ボード接続後、Sketch → Upload でアップロード
+  2. **Arduino CLI をリセット** (GUI版でも問題が出た場合):
+     - すべてのターミナルを閉じる
+     - `%APPDATA%\Arduino15\package_index_*.json.cache` を削除
+     - `%APPDATA%\Arduino15\staging` ディレクトリを削除
+     - Arduino IDE または新しいターミナルで再実行
+
+---
 ````

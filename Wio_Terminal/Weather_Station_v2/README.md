@@ -10,7 +10,6 @@
 | ------------------------------------------------------------ | ---- | ---------------------------------------------------- |
 | [Wio Terminal](https://amzn.to/4me4lxu)                      | 1    | Main controller, display, and Wi-Fi module           |
 | [Grove BME280 Environmental Sensor](https://amzn.to/4qcfIY1) | 1    | Measures temperature, humidity, and pressure         |
-| [Grove Light Sensor](https://amzn.to/3MiifBX)                | 1    | Measures ambient light intensity                     |
 | USB Type-C Cable                                             | 1    | For power and programming. Must be a data-sync cable |
 | **Battery Base (Optional)**                                  | 1    | For standalone operation without USB power           |
 
