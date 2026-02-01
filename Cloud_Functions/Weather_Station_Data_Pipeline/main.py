@@ -33,7 +33,8 @@ def save_weather_data(request):
             "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
             "device_id": request_json.get("device_id", "unknown_device"),
             "temperature": request_json.get("temperature"),
-            "humidity": request_json.get("humidity")
+            "humidity": request_json.get("humidity"),
+            "pressure": request_json.get("pressure")
         }
 
         # Local test mode: print and return without actual BigQuery insertion
