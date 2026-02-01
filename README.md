@@ -16,6 +16,8 @@ These are a collection of DIY Electronics samples.
 
 - [RGB LED](Arduino_Nano_ESP32/RGB_LED)
 
+#### IoT with Adafruit IO & BigQuery
+
 - [Smart Lighting Control](Arduino_Nano_ESP32/Smart_Lighting_Control)
 
 <!-- ### XIAO RP2040 -->
@@ -53,9 +55,12 @@ These are a collection of DIY Electronics samples.
 
 #### IOT with Adafruit IO
 
-- [Wio Terminal Weather Station](Wio_Terminal/Weather_Station/)
-- [Weather Station with Adafruit IO](Wio_Terminal/Weather_Station/with_Adafruit_IO)
-- [Light Sensor with Adafruit IO](Wio_Terminal/Light_Sensor)
+- [Light Sensor](Wio_Terminal/Light_Sensor)
+
+#### IoT with Adafruit IO & BigQuery
+
+- [Weather Station v1](Wio_Terminal/Weather_Station_v1)
+- [Weather_Station_v2](Wio_Terminal/Weather_Station_v2)
 
 <!-- - [GPS Tracker with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_GPS_Tracker_with_Adafruit_IO) -->
 
@@ -188,30 +193,18 @@ Example: Deploying a weather data processor to Cloud Functions
 
 ```bash
 # Navigate to the Cloud Functions directory
-cd <project-path>/Cloud_Functions
+cd <project-path>/Cloud_Functions/Weather_Station_Data_Pipeline
 
-# Deploy
-gcloud functions deploy save-weather-data \
+# Deploy (first time or update existing)
+gcloud functions deploy save_weather_data \
   --gen2 \
   --region=asia-northeast1 \
-  --runtime=python310 \
+  --runtime=python311 \
   --source=. \
   --entry-point=save_weather_data \
   --trigger-http \
   --allow-unauthenticated
 ```
-
-**Command Flags Explained:**
-
-| Flag                              | Purpose                                              |
-| --------------------------------- | ---------------------------------------------------- |
-| `--gen2`                          | Use Cloud Functions 2nd Generation (Cloud Run based) |
-| `--region=asia-northeast1`        | Deploy to Tokyo region (adjust as needed)            |
-| `--runtime=python310`             | Use Python 3.10 runtime                              |
-| `--source=.`                      | Upload files from current directory                  |
-| `--entry-point=save_weather_data` | Execute the function entry point from `main.py`      |
-| `--trigger-http`                  | Create an HTTP trigger                               |
-| `--allow-unauthenticated`         | Allow unauthenticated access (for webhooks)          |
 
 ### Local Testing
 
@@ -248,7 +241,8 @@ CREATE TABLE IF NOT EXISTS `PROJECT_ID.diy_electronics_iot.weather_data` (
   timestamp TIMESTAMP NOT NULL,
   device_id STRING,
   temperature FLOAT64,
-  humidity FLOAT64
+  humidity FLOAT64,
+  pressure FLOAT64
 )
 PARTITION BY DATE(timestamp)
 OPTIONS(
