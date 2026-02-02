@@ -207,6 +207,30 @@ void readLightSensor() {
   Serial.println(currentLux >= LIGHT_OFF_THRESHOLD ? "ON" : "OFF");
 }
 
+// Read light sensor multiple times and return average (for scheduled OFF verification)
+uint16_t readLightSensorMultiple() {
+  uint32_t sum = 0;
+  Serial.print("[SENSOR] Multiple readings: ");
+
+  for (uint8_t i = 0; i < SCHEDULED_OFF_READ_COUNT; i++) {
+    uint16_t reading = analogRead(A0);
+    sum += reading;
+    Serial.print(reading);
+    if (i < SCHEDULED_OFF_READ_COUNT - 1) {
+      Serial.print(", ");
+    }
+    if (i < SCHEDULED_OFF_READ_COUNT - 1) {
+      delay(SCHEDULED_OFF_READ_INTERVAL);
+    }
+  }
+
+  uint16_t average = sum / SCHEDULED_OFF_READ_COUNT;
+  Serial.print(" | Average: ");
+  Serial.println(average);
+
+  return average;
+}
+
 // ===== SCHEDULED TASK =====
 void checkScheduledTask() {
   time_t now = time(nullptr);
@@ -215,18 +239,26 @@ void checkScheduledTask() {
   int currentHour = timeinfo->tm_hour;
   int currentMinute = timeinfo->tm_min;
 
-  // Check if it's 23:30 and light is ON
+  // Check if it's 23:30 and task not yet executed today
   if (currentHour == SCHEDULED_OFF_HOUR &&
       currentMinute == SCHEDULED_OFF_MINUTE &&
       !taskExecutedToday) {
 
-    // Only send OFF if light is currently bright (ON)
-    if (currentLux >= LIGHT_OFF_THRESHOLD) {
-      Serial.println("[TASK] Executing scheduled OFF at 23:30");
+    // Perform multiple readings to verify light state
+    uint16_t averageLux = readLightSensorMultiple();
+
+    Serial.print("[TASK] Scheduled OFF check at 23:30 | Average Lux: ");
+    Serial.print(averageLux);
+    Serial.print(" | Threshold: ");
+    Serial.println(SCHEDULED_OFF_THRESHOLD);
+
+    // Only send OFF if light is sufficiently bright (verified by multiple readings)
+    if (averageLux >= SCHEDULED_OFF_THRESHOLD) {
+      Serial.println("[TASK] Light is ON (bright). Executing scheduled OFF at 23:30");
       sendLightOffSignal();
       taskExecutedToday = true;
     } else {
-      Serial.println("[TASK] Light already OFF, skipping send");
+      Serial.println("[TASK] Light is OFF or dim. Skipping OFF signal");
       taskExecutedToday = true;
     }
   }
