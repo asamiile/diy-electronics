@@ -21,11 +21,14 @@
 // ============================================
 // CdS phototransistor (GL5528) connected to analog pin A0 (D6 port)
 // Threshold calibrated for user's environment:
-// - Light OFF (dark): ~21-27 (10-bit equiv)
-// - Light ON (normal): ~34 (10-bit equiv)
-#define LIGHT_SENSOR_PIN A0        // Analog input pin
-#define LIGHT_OFF_THRESHOLD 32     // 10-bit equivalent: Light below this = OFF
-#define LIGHT_ON_THRESHOLD 150     // Reserved for future use
+// - Light OFF (dark): 0-40 (10-bit equiv)
+// - Light ON (normal): 121+ (10-bit equiv)
+#define LIGHT_SENSOR_PIN A0              // Analog input pin
+#define LIGHT_OFF_THRESHOLD 32           // 10-bit equivalent: Light below this = OFF (regular sensor reading)
+#define LIGHT_ON_THRESHOLD 150           // Reserved for future use
+#define SCHEDULED_OFF_THRESHOLD 80       // Threshold for scheduled OFF at 23:30 (requires multiple readings)
+#define SCHEDULED_OFF_READ_COUNT 5       // Number of consecutive readings for scheduled OFF check
+#define SCHEDULED_OFF_READ_INTERVAL 100  // Interval between readings (milliseconds)
 
 // ============================================
 // System Configuration
