@@ -49,22 +49,28 @@ These are a collection of DIY Electronics samples.
 <!-- - [Wio Terminal Digital Tape Measure](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Digital_Tape_Measure) -->
 <!-- - [Wio Terminal Digital Compass](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_Digital_Compass) -->
 
+##### With Adafruit IO
+
+- [Light Sensor](Wio_Terminal\BuiltIn_Sensors\Light_Sensor_With_AdafruitIO)
+
+#### External Sensor
+
+- [Grove - Analog Microphone (MEMS)](Wio_Terminal\External_Sensor\Grove_Analog_Microphone)
+
+##### with Adafruit IO & BigQuery
+
+- [Weather Station v1](Wio_Terminal\External_Sensor\Weather_Station_v1)
+- [Weather_Station_v2](Wio_Terminal\External_Sensor\Weather_Station_v2)
+
 #### IOT
 
 - [Wifi BLE Scan](Wio_Terminal/Wifi_BLE_Scan)
 
-#### IOT with Adafruit IO
-
-- [Light Sensor](Wio_Terminal/Light_Sensor)
-
-#### IoT with Adafruit IO & BigQuery
-
-- [Weather Station v1](Wio_Terminal/Weather_Station_v1)
-- [Weather_Station_v2](Wio_Terminal/Weather_Station_v2)
-
 <!-- - [GPS Tracker with Adafruit IO](https://github.com/asamiile/diy-electronics/tree/main/Wio_Terminal_GPS_Tracker_with_Adafruit_IO) -->
 
-#### ML with Edge Impulse
+#### ML
+
+##### with Edge Impulse
 
 - [Word Detection](Wio_Terminal/ML/Word_Detection)
 - [Audio scene recognition with microphone](Wio_Terminal/ML/Audio_scene_recognition_with_microphone)
@@ -72,7 +78,7 @@ These are a collection of DIY Electronics samples.
 - [People counting with Ultrasonic sensor](Wio_Terminal/ML/People_counting_with_Ultrasonic_sensor)
 - [Recognizing gestures with light sensor](Wio_Terminal/ML/Recognizing_gestures_with_light_sensor)
 
-#### SunFounder_GalaxyRVR
+### SunFounder_GalaxyRVR
 
 - [SunFounder_GalaxyRVR](SunFounder_GalaxyRVR)
 
