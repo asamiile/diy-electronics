@@ -15,6 +15,7 @@ These are a collection of DIY Electronics samples.
 ### Arduino Nano ESP32
 
 - [RGB LED](Arduino_Nano_ESP32/RGB_LED)
+- [Grove LED Color Preview — 仕様と在庫照合](Arduino_Nano_ESP32/LED_Color_Preview)
 
 #### IoT with Adafruit IO & BigQuery
 
