@@ -7,10 +7,13 @@
       "command": "arduino-cli",
       "args": [
         "compile",
-        "--fqbn", "seeeduino:samd:seeed_wio_terminal",
+        "--fqbn",
+        "seeeduino:samd:seeed_wio_terminal",
         "${fileDirname}"
       ],
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "group": {
         "kind": "build",
         "isDefault": false
@@ -22,25 +25,13 @@
       "command": "arduino-cli",
       "args": [
         "compile",
-        "--fqbn", "arduino:esp32:nano_nora",
+        "--fqbn",
+        "arduino:esp32:nano_nora",
         "${fileDirname}"
       ],
-      "problemMatcher": ["$gcc"],
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      }
-    },
-    {
-      "label": "Arduino: Compile (XIAO RP2040)",
-      "type": "shell",
-      "command": "arduino-cli",
-      "args": [
-        "compile",
-        "--fqbn", "arduino:mbed_rp2040:nano_rp2040_connect",
-        "${fileDirname}"
+      "problemMatcher": [
+        "$gcc"
       ],
-      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": false
@@ -50,7 +41,10 @@
       "label": "Arduino: List Connected Boards",
       "type": "shell",
       "command": "arduino-cli",
-      "args": ["board", "list"],
+      "args": [
+        "board",
+        "list"
+      ],
       "problemMatcher": []
     },
     {
@@ -59,11 +53,15 @@
       "command": "arduino-cli",
       "args": [
         "upload",
-        "-p", "${input:selectPort}",
-        "--fqbn", "seeeduino:samd:seeed_wio_terminal",
+        "-p",
+        "${input:selectPort}",
+        "--fqbn",
+        "seeeduino:samd:seeed_wio_terminal",
         "${fileDirname}"
       ],
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "dependsOn": "Arduino: Compile (Wio Terminal)"
     },
     {
@@ -72,11 +70,15 @@
       "command": "arduino-cli",
       "args": [
         "upload",
-        "-p", "${input:selectPort}",
-        "--fqbn", "arduino:esp32:nano_nora",
+        "-p",
+        "${input:selectPort}",
+        "--fqbn",
+        "arduino:esp32:nano_nora",
         "${fileDirname}"
       ],
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "dependsOn": "Arduino: Compile (Arduino Nano ESP32)"
     }
   ],
@@ -84,8 +86,7 @@
     {
       "id": "selectPort",
       "type": "promptString",
-      "description": "デバイスのCOMポート (例: COM3, COM4)",
-      "default": "COM8"
+      "description": "接続ポート（arduino-cli board list で確認）"
     }
   ]
 }
