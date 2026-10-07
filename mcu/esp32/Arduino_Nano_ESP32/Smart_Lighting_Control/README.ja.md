@@ -6,6 +6,10 @@
 
 NTP で日本標準時に同期し、指定時刻に赤外線で照明を制御します。Grove 照度センサによる結果確認、赤外線コードの学習、Wi-Fi 再接続、Adafruit IO と Shiftr.io への MQTT 送信に対応します。
 
+## Wio Terminalへの統合
+
+Chassis Battery付きWio Terminal 1台で気象観測と照明制御を行う場合は、[Wio Terminal統合版](../../../samd51/Wio_Terminal/External_Sensor/Weather_Station_v2_Smart_Lighting_Control/README.ja.md)を参照してください。Wio専用の配線・コード・変更する設定を記載しています。照度のしきい値はWioで再調整します。Nano用コードは単独構成向けに残しています。
+
 ## 部品表
 
 | 部品 | 数量 | 用途・備考 |

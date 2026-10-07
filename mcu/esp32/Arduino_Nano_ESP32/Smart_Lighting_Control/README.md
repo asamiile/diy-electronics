@@ -6,6 +6,10 @@
 
 Scheduled infrared lighting control using NTP-synchronized Japan Standard Time, with Grove light-sensor feedback, IR-code learning, Wi-Fi reconnection, and dual MQTT publication to Adafruit IO and Shiftr.io.
 
+## Integration with Wio Terminal
+
+For weather sensing and lighting control on one device with a Chassis Battery, see the [Wio Terminal integrated version](../../../samd51/Wio_Terminal/External_Sensor/Weather_Station_v2_Smart_Lighting_Control/README.md). It provides Wio-specific wiring, code, and configuration. Recalibrate the ADC thresholds for Wio; the Nano firmware remains available for standalone use.
+
 ## Bill of Materials
 
 | Part | Quantity | Role / Notes |
