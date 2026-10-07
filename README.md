@@ -74,6 +74,7 @@ These are a collection of DIY Electronics samples.
 
 - [Weather Station v1](mcu/samd51/Wio_Terminal/External_Sensor/Weather_Station_v1/README.md)
 - [Weather Station v2](mcu/samd51/Wio_Terminal/External_Sensor/Weather_Station_v2/README.md)
+- [Weather Station v2 + Smart Lighting Control](mcu/samd51/Wio_Terminal/External_Sensor/Weather_Station_v2_Smart_Lighting_Control/README.md)
 
 #### IoT
 

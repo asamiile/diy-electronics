@@ -2,7 +2,7 @@ import functions_framework
 import requests
 import json
 import os
-from typing import Tuple
+from datetime import datetime, timezone, timedelta
 
 @functions_framework.http
 def notify_discord(request):
@@ -74,43 +74,52 @@ def get_discord_webhook_url(channel: str) -> str:
     return os.getenv('DISCORD_WEBHOOK_URL', '')
 
 
-def create_discord_message(payload: dict, channel: str) -> dict:
-    """
-    Generate Discord message from Google Cloud Monitoring payload.
-
-    Args:
-        payload: JSON payload from Google Cloud Monitoring
-        channel: Channel name
-
-    Returns:
-        JSON data to send to Discord Webhook ({"content": "..."})
-    """
+def format_incident_time(value) -> str:
+    """MonitoringのUnix時刻を日本時間で表示する。"""
     try:
-        # Extract incident information
-        incident = payload.get('incident', {})
-        summary = incident.get('summary', 'No summary available')
-        state = incident.get('state', 'UNKNOWN').upper()
-        url = incident.get('url', '')
+        return datetime.fromtimestamp(float(value), timezone(timedelta(hours=9))).strftime('%Y/%m/%d %H:%M:%S JST')
+    except (TypeError, ValueError, OverflowError, OSError):
+        return 'Unknown'
 
-        # Base message part
+
+def create_discord_message(payload: dict, channel: str) -> dict:
+    """気象・照明の停止通知を英語にし、他のポリシーは概要を保持する。"""
+    incident = payload.get('incident') or {}
+    state = str(incident.get('state', 'UNKNOWN')).upper()
+    summary = incident.get('summary') or 'No summary available'
+    service = (incident.get('resource') or {}).get('labels', {}).get('service_name')
+    policy = incident.get('policy_name', '')
+    routes = {
+        'save-weather-data': ('weather-station', 'Weather'),
+        'save-lighting-data': ('lighting', 'Lighting'),
+    }
+    # リソースラベルを優先し、既存ポリシー名でも対象を識別する。
+    if not service:
+        service = {
+            'weather-station - Data delivery outage': 'save-weather-data',
+            'lighting - Data delivery outage': 'save-lighting-data',
+            'Wio Terminal outage alert': 'save-weather-data',
+            'Arduino Nano ESP32 outage alert': 'save-lighting-data',
+        }.get(policy)
+    if service in routes and state in ('OPEN', 'CLOSED'):
+        route, label = routes[service]
+        closed = state == 'CLOSED'
+        title = f"✅ Data delivery alert cleared: {route}" if closed else f"⚠️ Data delivery stopped: {route}"
+        description = f"The {label.lower()} data delivery alert has closed." if closed else f"No requests for {label.lower()} data have been received for 10 minutes."
+        timestamp = format_incident_time(incident.get('ended_at' if closed else 'started_at'))
+        time_label = 'Closed at' if closed else 'Detected at'
+        message = f"**{title}**\n\n{description}\n\nTarget: Wio Terminal / {service}\n{time_label}: {timestamp}"
+        if not closed:
+            message += '\n\nCheck:\n- Wio Terminal power and Wi-Fi\n- Shiftr connection and webhook\n- Cloud Run logs'
+        else:
+            message += '\n\nThe monitoring incident has closed. Verify that BigQuery data storage has resumed separately.'
+    else:
         message = f"**[{state}]** {summary}"
-
-        # Make prominent for critical channel
-        if channel == 'critical':
-            message = f"⚠️ @everyone\n{message}"
-
-        # Add URL if it exists
-        if url:
-            message += f"\n\nDetails: {url}"
-
-        return {"content": message}
-
-    except Exception as e:
-        print(f"ERROR: Failed to create Discord message: {str(e)}")
-        # Return generic message on error
-        return {
-            "content": f"⚠️ Alert notification received. Please check Cloud Monitoring for details.\nError: {str(e)}"
-        }
+    if channel == 'critical':
+        message = '@everyone\n' + message
+    if incident.get('url'):
+        message += f"\n\nDetails: {incident['url']}"
+    return {'content': message}
 
 
 def send_to_discord(webhook_url: str, message: dict) -> requests.Response:
