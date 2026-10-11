@@ -4,7 +4,16 @@
 
 ## Overview
 
-Preview physical LED color and brightness against 3DCG lighting using a Grove RGB LED Stick and Arduino IoT Remote. All ten WS2813 Mini LEDs show the same color. This is a planned build: the control sketch is not included and the proposed wiring has not been tested.
+A simple device for previewing LED colors with a Grove RGB LED Stick. Adjust the LED color and brightness from a smartphone with Arduino IoT Remote.
+
+![](images/PXL_20261009_075742498.MP.jpg)
+![](images/PXL_20261011_031406774.MP.jpg)
+![](images/PXL_20261011_031414415.MP.jpg)
+![](images/PXL_20261011_031422834.MP.jpg)
+![](images/PXL_20261011_031431135.MP.jpg)
+![](images/PXL_20261011_031445786.MP.jpg)
+![](images/PXL_20261011_083823331.MP.jpg)
+![](images/PXL_20261011_084216843.MP.jpg)
 
 ## Bill of Materials
 
@@ -36,7 +45,7 @@ Preview physical LED color and brightness against 3DCG lighting using a Grove RG
 | Part | Quantity | Role / Notes |
 | ---------------------------------------------- | ----- | ---------------------------------- |
 | [Breadboard](https://amzn.to/40bMzlk)          | 1     | Circuit base (for prototype)       |
-| [Jumper Wires](https://amzn.to/45voWYC)        | 1 set | Connecting parts together          |
+| [Jumper Wires](https://amzn.to/45voWYC)        | 1 set | Connecting parts together; 22AWG solid wire recommended. Grove Screw Terminal accepts 20–30AWG. |
 | [Resistor (300-500Ω)](https://amzn.to/4kMejW2) | 1     | For protecting the LED's data line |
 | [USB-C Cable](https://amzn.to/4lU4bdZ)        | 1    | For programming and powering . |
 
@@ -44,67 +53,99 @@ Preview physical LED color and brightness against 3DCG lighting using a Grove RG
 
 ### Hardware Development
 
-#### Wiring plan
+#### Breadboard diagram
 
-Power XIAO through USB-C and the LED circuit from a separate 5V supply. With all power off, insert the XIAO into the Grove Shield in the correct orientation. Connect Screw Terminal 1 to the Shield's D2/A2 Grove port and verify its primary signal reaches GPIO4. Connect Screw Terminal 2 to the LED through the second Grove cable.
+![Breadboard wiring diagram](diagrams/LED_Color_Preview.png)
 
-- Terminal 1 signal → 3.3V-to-5V buffer input; buffer output → 330Ω resistor → Terminal 2 SIG → LED yellow SIG.
-- External 5V positive → DC jack → optional fuse → 5V junction → buffer VCC and Terminal 2 VCC/LED red wire.
-- External supply negative → common GND → Terminal 1/XIAO GND, buffer GND, and Terminal 2/LED black wire.
-- Place a 1000µF capacitor rated 10V or higher at the LED input, with positive to 5V and negative to GND. Place 0.1µF decoupling close to buffer VCC/GND unless already included.
-- Leave Terminal 1 VCC/unused signal, Terminal 2 NC (white LED wire), and XIAO 5V/3V3 power pins disconnected. Do not join the terminals' VCC connections.
+Fritzing source: [LED_Color_Preview.fzz](diagrams/LED_Color_Preview.fzz)
 
-The screw terminals do not shift signal levels. Configure buffer enable pins for the selected component. The diagram describes connections, not physical terminal positions. Check polarity, fastening, and insulation; do not apply 5V to XIAO GPIO or 9V/12V to the LED. Use compatible wire sizes rather than forcing 18AWG wire into Grove terminals.
+The diagram's notes are in Japanese.
 
-#### Connection diagram
+#### Wiring steps
 
-```mermaid
-flowchart TB
-    USB[USB power supply] -->|USB-C| XIAO[XIAO ESP32C3 + Grove Shield]
-    XIAO -->|Grove cable: D2 / GPIO4| T1[Screw Terminal 1: signal]
-    T1 -->|3.3V signal| Buffer[Signal buffer: 3.3V to 5V]
-    Buffer --> R[330 ohm resistor]
-    R --> T2[Screw Terminal 2: SIG]
-    T2 -->|Grove cable: yellow SIG| LED[Grove RGB LED Stick]
+> [!IMPORTANT]
+> Keep the USB-C cable and the external 5V supply unplugged while wiring.
 
-    Supply[External DC 5V supply] --> Jack[DC jack adapter]
-    Jack -->|Positive| Fuse[Fuse]
-    Fuse --> P[5V junction]
-    P -->|Terminal 2 VCC: red wire| LED
-    P -->|VCC| Buffer
+Wire colors follow the diagram (yellow: signal, orange: 3.3V, red: 5V, black: GND, white: Grove cable).
 
-    Jack ---|Negative| Ground[Common GND]
-    Ground ---|Terminal 1 GND| XIAO
-    Ground ---|GND| Buffer
-    Ground ---|Terminal 2 GND: black wire| LED
-
-    P ---|Positive| C1[1000 uF electrolytic capacitor: 10V or higher]
-    C1 ---|Negative| Ground
-    P --- C2[0.1 uF ceramic capacitor]
-    C2 --- Ground
-```
+1. **Mount XIAO ESP32C3 on the Grove Shield**
+   - Check the orientation against the Shield's silkscreen.
+2. **Connect XIAO ESP32C3 to the LED**
+   - Use Grove cables to connect the Shield's D2/A2 port ([pinout](https://jp.seeedstudio.com/Grove-Shield-for-Seeeduino-XIAO-p-4621.html)) to Grove Screw Terminal 1, and the LED Stick to Grove Screw Terminal 2 ([Grove Screw Terminal schematic](https://files.seeedstudio.com/wiki/Grove-Screw_Terminal/res/Grove-Screw_Terminal_v1.0.zip)).
+   - Before connecting the orange wire, connect only XIAO ESP32C3 and the Shield to USB-C and measure about 3.3V between Grove Screw Terminal 1 VCC and GND with a multimeter. If it reads 5V, do not connect it; that can damage XIAO ESP32C3. Unplug USB-C after measuring.
+   - Connect the yellow and orange wires and the 330Ω resistor as shown in the diagram. Only channel 1 (LV1/HV1) of the level shifter is used.
+3. **Connect the power**
+   - Connect the red and black wires and the 1000µF capacitor as shown in the diagram.
+   - Insert the capacitor's striped lead into the − rail.
+4. **Check before powering on**
+   - No short between the + and − rails (check with a multimeter).
+   - The external supply is 5V (do not use 9V or 12V).
+   - Screw terminals are tight and no bare wires touch each other. Do not force thick wire (such as 18AWG) into Grove terminals.
+5. **Power on**
+   - Plug in the external 5V supply, then USB-C. Disconnect in reverse order.
 
 #### Current and optional protection
 
-The original estimate for full-white LED channels is about 0.48A (10 × 3 × 16mA). Measure total and startup current before choosing wire, terminal, and fuse ratings. Optional protection uses a [Littelfuse 0287001.PXCN](https://www.marutsu.co.jp/pc/i/2563488/) 1A/DC32V ATO fuse and [FHAC0002ZXJ holder](https://www.marutsu.co.jp/pc/i/15761797/). Confirm purchase quantity and suitability before use. Fit the fuse near the DC input before the LED/buffer split, or connect the input directly to the 5V junction if omitted.
+All ten LEDs at full-brightness white draw only about 0.5A, so a fuse is not required; to add one as short-circuit protection, place the following parts between the DC jack + and the + rail.
+
+- [Littelfuse 0287001.PXCN](https://www.marutsu.co.jp/pc/i/2563488/) (1A, DC32V, ATO)
+- [FHAC0002ZXJ holder](https://www.marutsu.co.jp/pc/i/15761797/)
 
 ### Software Development
 
-#### Board and libraries
+#### Development steps
 
-Use the `esp32 by Espressif Systems` package, select `XIAO_ESP32C3`, and attach its Wi-Fi antenna. The signal is D2 (GPIO4), not the Nano pin mapping. Required libraries: `ArduinoIoTCloud`, `Adafruit_NeoPixel`, and the core's `WiFi` library.
+> [!NOTE]
+> Internet access and an Arduino Cloud plan that allows four variables are required.
 
-#### Arduino Cloud plan
-
-Register XIAO ESP32C3 as a third-party ESP32 device, save its Device ID/Secret Key, and configure 2.4GHz Wi-Fi. Confirm registration and connection. Create four Read & Write integer variables, `red`, `green`, `blue`, and `brightness`, and four 0–255 dashboard sliders. Open the dashboard in Arduino IoT Remote for iOS/Android. Internet access and an account plan supporting four variables are required.
-
-Implement a dedicated sketch with RGB and brightness stored separately, LEDs off at startup, and cloud-variable changes applied to all ten LEDs. Verify channel order with separate red/green/blue tests.
+1. **Prepare the Arduino IDE**
+   - Launch the Arduino IDE.
+   - In the Boards Manager, install `esp32 by Espressif Systems`.
+   - In the Library Manager, install `ArduinoIoTCloud` and `Adafruit_NeoPixel`.
+2. **Connect XIAO ESP32C3 to the PC**
+   - With USB-C unplugged, attach the [Wi-Fi antenna](https://files.seeedstudio.com/wiki/XIAO_WiFi/XIAO_ESP32-C3_front_pinout.png) to XIAO ESP32C3.
+   - Connect XIAO ESP32C3 to the PC with a USB-C cable.
+   - In the Arduino IDE, select `XIAO_ESP32C3` as the board and select the XIAO ESP32C3 port.
+3. **Register the device in Arduino Cloud**
+   - Open [Arduino Cloud](https://app.arduino.cc/) in a browser and sign in.
+   - In Devices, register XIAO ESP32C3 as a third-party ESP32 device, and save the Device ID and Secret Key shown.
+4. **Create a Thing**
+   - In the Arduino Cloud left menu, open Things and press + Thing (Create Thing). Rename the Thing at the top of the page, for example to `LED_Color_Preview`.
+   - Under Associated Device, press Select Device, choose the device registered in step 3, and press Associate.
+   - Under Network, press Configure, enter the following, and press Save.
+     - Wi-Fi Name: the SSID of a 2.4GHz Wi-Fi network (5GHz is not supported)
+     - Password: the Wi-Fi password
+     - Secret Key: the Secret Key saved in step 3
+   - Under Cloud Variables, press + Add (Add Variable) and add a variable with the following settings. Repeat for `red`, `green`, `blue`, and `brightness`.
+     - Name: the variable name (for example, `red`). Enter it exactly, because it becomes the variable name in the sketch.
+     - Type: Integer Number
+     - Variable Permission: Read & Write
+     - Variable Update Policy: On change
+5. **Upload the sketch**
+   - Copy [credentials.h.example](sketch/LED_Color_Preview/credentials.h.example) and rename the copy to `credentials.h`.
+   - Enter the following values in `credentials.h` and save it.
+     - `SECRET_DEVICE_ID`: the Device ID from step 3
+     - `SECRET_DEVICE_KEY`: the Secret Key from step 3
+     - `SECRET_SSID`: the SSID of a 2.4GHz Wi-Fi network
+     - `SECRET_OPTIONAL_PASS`: the Wi-Fi password
+   - In the Arduino IDE, open [LED_Color_Preview.ino](sketch/LED_Color_Preview/LED_Color_Preview.ino) with File → Open.
+   - Press the Verify button and confirm that the sketch compiles without errors, then press the Upload button to upload the sketch.
+     - If the upload fails, hold the B (BOOT) button, press and release the R (RESET) button, release the B button, and press Upload again.
+   - Open Tools → Serial Monitor and set the speed to 115200 baud. If **WiFi.status(): 3** appears, Wi-Fi is connected.
+   - In Arduino Cloud Devices, confirm that the device is Online.
+6. **Create the dashboard**
+   - Select Linked Dashboards and click **Build dashboard**.
+   - Add four Sliders with a 0–255 range, linked to `red`, `green`, `blue`, and `brightness`.
+7. **Control from a smartphone**
+   - Install the [Arduino IoT Cloud Remote app](https://cloud.arduino.cc/iot-remote-app/) on your smartphone.
+   - Open the dashboard in the Arduino IoT Cloud Remote app.
+   - Operate the dashboard as described in the Test section.
 
 ### Test
 
-#### Planned tests
-
-Test red, green, blue, and white at low brightness, app control, and brightness 0. Measure current, voltage, and temperature at the intended maximum brightness; verify behavior after power cycling and Wi-Fi reconnection.
+- Set brightness above 0.
+- Show red, green, and blue one at a time and confirm that the LEDs light in the specified color.
+- If the colors differ, fix the color order in the sketch (change `NEO_GRB` to `NEO_RGB`, etc.).
 
 ## References
 
@@ -119,6 +160,7 @@ Test red, green, blue, and white at low brightness, app control, and brightness 
 - [Arduino Cloud / IoT Remote](https://cloud.arduino.cc/how-it-works/)
 - [Grove-to-Jumper Conversion Cable](https://jp.seeedstudio.com/Grove-4-pin-Female-Jumper-to-Grove-4-pin-Conversion-Cable-5-PCs-per-PAck.html)
 - [Grove Screw Terminal](https://wiki.seeedstudio.com/Grove-Screw_Terminal/)
+- [Grove Screw Terminal schematic (Eagle/PDF)](https://files.seeedstudio.com/wiki/Grove-Screw_Terminal/res/Grove-Screw_Terminal_v1.0.zip)
 
 ## Author
 

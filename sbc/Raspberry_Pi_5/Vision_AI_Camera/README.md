@@ -22,20 +22,20 @@ The six specified products are **confirmed**. Other rows distinguish required ad
 
 ### Control
 
-| Part | Quantity | Role / Notes |
-| ------------------------------------------ | ---- | ------------------------------- |
-| [Raspberry Pi 5 (16GB)](https://amzn.to/4sqqta4) | 1 | **Confirmed**. Patrol, result aggregation, local queue, and cloud delivery. |
-| [Grove - Vision AI Module V2](https://amzn.to/41Mx9Vs) | 1 | **Confirmed**. Person inference; verify result retrieval over USB during implementation. |
-| microSD card (32–64GB, Class 10 / UHS-I; A2 candidate) | 1 | **Required addition** for microSD boot. OS, program, and pending JSON storage. Capacity is a project proposal. |
-| USB microSD reader | 1 if needed | **Conditional**. OS imaging on the development PC; unnecessary with a compatible built-in slot. |
+| Part                                                   | Quantity    | Role / Notes                                                                                                   |
+| ------------------------------------------------------ | ----------- | -------------------------------------------------------------------------------------------------------------- |
+| [Raspberry Pi 5 (16GB)](https://amzn.to/4sqqta4)       | 1           | **Confirmed**. Patrol, result aggregation, local queue, and cloud delivery.                                    |
+| [Grove - Vision AI Module V2](https://amzn.to/41Mx9Vs) | 1           | **Confirmed**. Person inference; verify result retrieval over USB during implementation.                       |
+| microSD card (32–64GB, Class 10 / UHS-I; A2 candidate) | 1           | **Required addition** for microSD boot. OS, program, and pending JSON storage. Capacity is a project proposal. |
+| USB microSD reader                                     | 1 if needed | **Conditional**. OS imaging on the development PC; unnecessary with a compatible built-in slot.                |
 
 ### Input / Output
 
-| Part | Quantity | Role / Notes |
-| ------------------------------------------ | ---- | ------------------------------- |
-| [OV5647-62 FOV Camera Module for Raspberry Pi](https://amzn.to/41IEmWF) | 1 | **Confirmed**. Connect to Vision AI V2, not directly to the Pi CSI port in this architecture. |
-| [Pan Tilt Platform for Raspberry Pi & Nvidia Jetson Cameras](https://amzn.to/3OeokzX) | 1 kit | **Confirmed**. Moves between zones; check the actual model number. |
-| Mount servos, controller, assembly screws | 1 set | **Check included items**. The identically named Arducam B0283 includes two servos, an I2C controller, brackets, and screws; normally no separate purchase for B0283. Verify Pi 5 control. |
+| Part                                                                                  | Quantity | Role / Notes                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [OV5647-62 FOV Camera Module for Raspberry Pi](https://amzn.to/41IEmWF)               | 1        | **Confirmed**. Connect to Vision AI V2, not directly to the Pi CSI port in this architecture.                                                                                             |
+| [Pan Tilt Platform for Raspberry Pi & Nvidia Jetson Cameras](https://amzn.to/3OeokzX) | 1 kit    | **Confirmed**. Moves between zones; check the actual model number.                                                                                                                        |
+| Mount servos, controller, assembly screws                                             | 1 set    | **Check included items**. The identically named Arducam B0283 includes two servos, an I2C controller, brackets, and screws; normally no separate purchase for B0283. Verify Pi 5 control. |
 
 ### Power
 
@@ -106,10 +106,10 @@ Fix the camera in the near corner of a long room (bottom left below), facing tow
 
 Mount on a shelf or wall at a height selected by checking seated people and people at the door. The proposed work view tilts downward and the door view faces farther into the room. Height, angles, and effective detection distances require hardware validation; they are not guaranteed constants.
 
-| Zone ID | Target | View and region |
-| --- | --- | --- |
+| Zone ID     | Target          | View and region                                                               |
+| ----------- | --------------- | ----------------------------------------------------------------------------- |
 | `work_area` | Near desk/chair | View containing seated people at close range; ROI covers the desk/chair area. |
-| `door_area` | Far doorway | Far-facing view; ROI covers where people stand in front of the door. |
+| `door_area` | Far doorway     | Far-facing view; ROI covers where people stand in front of the door.          |
 
 Alternate between two views: move → stop/settle → observe → classify/store. Views are not simultaneous. Brief door passages may be missed; use the door observations for usage trends, not exhaustive entry/exit counts.
 
@@ -125,11 +125,11 @@ During installation, check seated people being cropped out, furniture occlusion,
 
 Determine safe mount limits on hardware. Recorded angles are commands, not measured positions.
 
-| Source | Destination | Checks |
-| --- | --- | --- |
-| OV5647-62 | Vision AI V2 | Camera cable orientation and connection. |
-| Vision AI V2 | Raspberry Pi 5 | Transport, supported library, signal voltage; determine on hardware. |
-| Raspberry Pi 5 | Mount controller | Control interface, pins, servo supply; determine on hardware. |
+| Source         | Destination      | Checks                                                               |
+| -------------- | ---------------- | -------------------------------------------------------------------- |
+| OV5647-62      | Vision AI V2     | Camera cable orientation and connection.                             |
+| Vision AI V2   | Raspberry Pi 5   | Transport, supported library, signal voltage; determine on hardware. |
+| Raspberry Pi 5 | Mount controller | Control interface, pins, servo supply; determine on hardware.        |
 
 Do not power servos directly from Pi GPIO. Follow the chosen controller's requirements for external power and signal-ground connections.
 
@@ -156,15 +156,15 @@ An ingestion API and BigQuery are planned. Select the API runtime, authenticatio
 
 These settings are initial proposals. Tune on hardware and version every configuration change.
 
-| Item | Initial proposal |
-| --- | --- |
-| Patrol | Two zones in registered order; target approximately 30 seconds between observations of each zone. |
-| Settling | Wait one second after stopping; exclude images captured during movement. |
-| Samples | Five per observation. |
-| Detection threshold | Model confidence at least 0.7. |
-| Classification | With five valid samples, at least three positives means `occupied`; otherwise `empty`. Fewer than five valid samples means `unknown`. |
-| Time | Observation start in UTC with millisecond precision; verify clock synchronization before observing. |
-| Waiting | Apply sensor/network timeouts so waits cannot halt patrol indefinitely. |
+| Item                | Initial proposal                                                                                                                      |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Patrol              | Two zones in registered order; target approximately 30 seconds between observations of each zone.                                     |
+| Settling            | Wait one second after stopping; exclude images captured during movement.                                                              |
+| Samples             | Five per observation.                                                                                                                 |
+| Detection threshold | Model confidence at least 0.7.                                                                                                        |
+| Classification      | With five valid samples, at least three positives means `occupied`; otherwise `empty`. Fewer than five valid samples means `unknown`. |
+| Time                | Observation start in UTC with millisecond precision; verify clock synchronization before observing.                                   |
+| Waiting             | Apply sensor/network timeouts so waits cannot halt patrol indefinitely.                                                               |
 
 `empty` means the observation did not meet the occupied criterion; it does not guarantee physical absence. For `occupied`, `person_count` is the median count across positive valid samples (the lower middle value for even sample counts). `confidence` is the highest person confidence across those samples.
 
@@ -172,23 +172,23 @@ These settings are initial proposals. Tune on hardware and version every configu
 
 Retain observation-level records before aggregation. Compute estimated use time through SQL when needed. The following examples are illustrative, not measurements.
 
-| Field | Type / meaning |
-| --- | --- |
-| `event_id` | STRING. Unique observation ID, unchanged on retries. |
-| `device_id` | STRING. Device identifier. |
-| `observed_at` | TIMESTAMP. Observation start, UTC with millisecond precision. |
-| `zone_id` | STRING. Zone identifier. |
-| `occupancy_status` | STRING. `occupied` / `empty` / `unknown`. |
-| `person_count` | INTEGER. Representative count; 0 for empty, null for unknown. |
-| `confidence` | FLOAT. Representative confidence; null for empty/unknown. |
-| `valid_sample_count` | INTEGER. Valid sample count. |
-| `positive_sample_count` | INTEGER. Samples detecting a person above the threshold. |
-| `pan_deg` / `tilt_deg` | FLOAT. Commanded mount angles. |
-| `model_version` | STRING. Identifies the model and label mapping. |
-| `config_version` | STRING. Zone and observation configuration version. |
-| `schema_version` | INTEGER. Payload schema version. |
-| `error_code` | STRING / null. Reason for unknown status; null when successful. |
-| `received_at` | TIMESTAMP. Added by the cloud receiver. |
+| Field                   | Type / meaning                                                  |
+| ----------------------- | --------------------------------------------------------------- |
+| `event_id`              | STRING. Unique observation ID, unchanged on retries.            |
+| `device_id`             | STRING. Device identifier.                                      |
+| `observed_at`           | TIMESTAMP. Observation start, UTC with millisecond precision.   |
+| `zone_id`               | STRING. Zone identifier.                                        |
+| `occupancy_status`      | STRING. `occupied` / `empty` / `unknown`.                       |
+| `person_count`          | INTEGER. Representative count; 0 for empty, null for unknown.   |
+| `confidence`            | FLOAT. Representative confidence; null for empty/unknown.       |
+| `valid_sample_count`    | INTEGER. Valid sample count.                                    |
+| `positive_sample_count` | INTEGER. Samples detecting a person above the threshold.        |
+| `pan_deg` / `tilt_deg`  | FLOAT. Commanded mount angles.                                  |
+| `model_version`         | STRING. Identifies the model and label mapping.                 |
+| `config_version`        | STRING. Zone and observation configuration version.             |
+| `schema_version`        | INTEGER. Payload schema version.                                |
+| `error_code`            | STRING / null. Reason for unknown status; null when successful. |
+| `received_at`           | TIMESTAMP. Added by the cloud receiver.                         |
 
 Example payloads show occupied, empty, and unknown due to an inference timeout. The API adds `received_at`.
 
@@ -305,15 +305,15 @@ ROI coordinates above are illustrative placeholders. Calibrate against each inst
 
 This is a specification update only. Implementation, cloud deployment, and hardware verification have not been performed. MVP acceptance criteria:
 
-| Item | Acceptance criterion | Status |
-| --- | --- | --- |
-| Patrol | Repeatedly observe two zones within safe movement limits. | Not performed |
-| Classification | Distinguish occupied, empty, and inference failure; exclude movement images. | Not performed |
+| Item               | Acceptance criterion                                                                                                      | Status        |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| Patrol             | Repeatedly observe two zones within safe movement limits.                                                                 | Not performed |
+| Classification     | Distinguish occupied, empty, and inference failure; exclude movement images.                                              | Not performed |
 | Installation / ROI | Detect seated people and people at the door, exclude out-of-ROI detections, and document occlusion/light/distance limits. | Not performed |
-| Persistence | Store one record per observation and configuration history in the cloud. | Not performed |
-| Recovery | Replay pending records after outages/restarts without duplicates in query results. | Not performed |
-| Data use | Query by period/zone and identify unknown and missing observations. | Not performed |
-| Stored content | Do not store images/video/audio or embed credentials in code. | Not performed |
+| Persistence        | Store one record per observation and configuration history in the cloud.                                                  | Not performed |
+| Recovery           | Replay pending records after outages/restarts without duplicates in query results.                                        | Not performed |
+| Data use           | Query by period/zone and identify unknown and missing observations.                                                       | Not performed |
+| Stored content     | Do not store images/video/audio or embed credentials in code.                                                             | Not performed |
 
 ## References
 
