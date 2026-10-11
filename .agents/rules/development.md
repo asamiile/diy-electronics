@@ -5,7 +5,7 @@
 1. Prefer non-blocking `millis()`-based timing over `delay()` where possible.
 2. Avoid dynamic allocation (`malloc`, `new`) on resource-constrained microcontrollers; prefer static or stack storage.
 3. Prefer `const` values and `enum` over preprocessor macros when appropriate.
-4. Explain code intent in concise Japanese comments, following the existing firmware convention. Agent instruction documents themselves must be in English.
+4. Explain code intent in concise English comments. Existing Japanese comments may remain; do not translate comments in code unrelated to the change. Agent instruction documents themselves must be in English.
 
 ## Board-specific libraries
 

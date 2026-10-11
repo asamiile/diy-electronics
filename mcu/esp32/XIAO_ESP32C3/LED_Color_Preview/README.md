@@ -4,7 +4,16 @@
 
 ## Overview
 
-Preview physical LED color and brightness against 3DCG lighting using a Grove RGB LED Stick and Arduino IoT Remote. All ten WS2813 Mini LEDs show the same color. This is a planned build: the control sketch is not included and the proposed wiring has not been tested.
+A simple device for previewing LED colors with a Grove RGB LED Stick. Adjust the LED color and brightness from a smartphone with Arduino IoT Remote.
+
+![](images/PXL_20261009_075742498.MP.jpg)
+![](images/PXL_20261011_031406774.MP.jpg)
+![](images/PXL_20261011_031414415.MP.jpg)
+![](images/PXL_20261011_031422834.MP.jpg)
+![](images/PXL_20261011_031431135.MP.jpg)
+![](images/PXL_20261011_031445786.MP.jpg)
+![](images/PXL_20261011_083823331.MP.jpg)
+![](images/PXL_20261011_084216843.MP.jpg)
 
 ## Bill of Materials
 
@@ -89,34 +98,54 @@ All ten LEDs at full-brightness white draw only about 0.5A, so a fuse is not req
 > [!NOTE]
 > Internet access and an Arduino Cloud plan that allows four variables are required.
 
-1. **Prepare the board and libraries**
-   - In the Arduino IDE Boards Manager, install `esp32 by Espressif Systems` and select `XIAO_ESP32C3`.
-   - In the Library Manager, install `ArduinoIoTCloud` and `Adafruit_NeoPixel`. `WiFi` is included in the board package.
-   - Attach the Wi-Fi antenna to XIAO ESP32C3.
-2. **Register the device in Arduino Cloud**
-   - In Devices, register XIAO ESP32C3 as a third-party ESP32 device.
-   - Save the Device ID and Secret Key shown. Do not commit them to Git.
-3. **Create a Thing**
-   - Create a Thing, associate the device from step 2, and set the 2.4GHz Wi-Fi SSID and password.
-   - Add these Integer Number, Read & Write variables: `red`, `green`, `blue`, `brightness`
-4. **Upload the sketch**
-   - The sketch has not been written yet. It should behave as follows:
-     - Ten LEDs on D2 (GPIO4). The Nano pin mapping is not used.
-     - LEDs are off at startup.
-     - RGB and brightness are stored separately, and variable changes are applied to all ten LEDs.
-   - Add it to the Thing's sketch and upload it to XIAO ESP32C3. See [Arduino development](../../../../docs/arduino-development.md) for upload instructions.
-   - Confirm that the device shows as online in Arduino Cloud.
-5. **Create the dashboard**
+1. **Prepare the Arduino IDE**
+   - Launch the Arduino IDE.
+   - In the Boards Manager, install `esp32 by Espressif Systems`.
+   - In the Library Manager, install `ArduinoIoTCloud` and `Adafruit_NeoPixel`.
+2. **Connect XIAO ESP32C3 to the PC**
+   - With USB-C unplugged, attach the [Wi-Fi antenna](https://files.seeedstudio.com/wiki/XIAO_WiFi/XIAO_ESP32-C3_front_pinout.png) to XIAO ESP32C3.
+   - Connect XIAO ESP32C3 to the PC with a USB-C cable.
+   - In the Arduino IDE, select `XIAO_ESP32C3` as the board and select the XIAO ESP32C3 port.
+3. **Register the device in Arduino Cloud**
+   - Open [Arduino Cloud](https://app.arduino.cc/) in a browser and sign in.
+   - In Devices, register XIAO ESP32C3 as a third-party ESP32 device, and save the Device ID and Secret Key shown.
+4. **Create a Thing**
+   - In the Arduino Cloud left menu, open Things and press + Thing (Create Thing). Rename the Thing at the top of the page, for example to `LED_Color_Preview`.
+   - Under Associated Device, press Select Device, choose the device registered in step 3, and press Associate.
+   - Under Network, press Configure, enter the following, and press Save.
+     - Wi-Fi Name: the SSID of a 2.4GHz Wi-Fi network (5GHz is not supported)
+     - Password: the Wi-Fi password
+     - Secret Key: the Secret Key saved in step 3
+   - Under Cloud Variables, press + Add (Add Variable) and add a variable with the following settings. Repeat for `red`, `green`, `blue`, and `brightness`.
+     - Name: the variable name (for example, `red`). Enter it exactly, because it becomes the variable name in the sketch.
+     - Type: Integer Number
+     - Variable Permission: Read & Write
+     - Variable Update Policy: On change
+5. **Upload the sketch**
+   - Copy [credentials.h.example](sketch/LED_Color_Preview/credentials.h.example) and rename the copy to `credentials.h`.
+   - Enter the following values in `credentials.h` and save it.
+     - `SECRET_DEVICE_ID`: the Device ID from step 3
+     - `SECRET_DEVICE_KEY`: the Secret Key from step 3
+     - `SECRET_SSID`: the SSID of a 2.4GHz Wi-Fi network
+     - `SECRET_OPTIONAL_PASS`: the Wi-Fi password
+   - In the Arduino IDE, open [LED_Color_Preview.ino](sketch/LED_Color_Preview/LED_Color_Preview.ino) with File → Open.
+   - Press the Verify button and confirm that the sketch compiles without errors, then press the Upload button to upload the sketch.
+     - If the upload fails, hold the B (BOOT) button, press and release the R (RESET) button, release the B button, and press Upload again.
+   - Open Tools → Serial Monitor and set the speed to 115200 baud. If **WiFi.status(): 3** appears, Wi-Fi is connected.
+   - In Arduino Cloud Devices, confirm that the device is Online.
+6. **Create the dashboard**
+   - Select Linked Dashboards and click **Build dashboard**.
    - Add four Sliders with a 0–255 range, linked to `red`, `green`, `blue`, and `brightness`.
-   - Open the dashboard in Arduino IoT Remote on iOS or Android.
-6. **Check the color order**
-   - At low brightness, show red, green, and blue one at a time and confirm each matches. If the colors differ, fix the color order (RGB, GRB, etc.) in the sketch.
+7. **Control from a smartphone**
+   - Install the [Arduino IoT Cloud Remote app](https://cloud.arduino.cc/iot-remote-app/) on your smartphone.
+   - Open the dashboard in the Arduino IoT Cloud Remote app.
+   - Operate the dashboard as described in the Test section.
 
 ### Test
 
-#### Planned tests
-
-Test red, green, blue, and white at low brightness, app control, and brightness 0. Measure current, voltage, and temperature at the intended maximum brightness; verify behavior after power cycling and Wi-Fi reconnection.
+- Set brightness above 0.
+- Show red, green, and blue one at a time and confirm that the LEDs light in the specified color.
+- If the colors differ, fix the color order in the sketch (change `NEO_GRB` to `NEO_RGB`, etc.).
 
 ## References
 

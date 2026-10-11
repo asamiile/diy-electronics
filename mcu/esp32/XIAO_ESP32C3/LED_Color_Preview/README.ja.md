@@ -4,7 +4,16 @@
 
 ## 概要
 
-Grove RGB LED Stick と Arduino IoT Remote を使用し、実物の発光色・明るさを 3DCG の照明と比較する計画です。10 個の WS2813 Mini を同じ色で表示します。制御スケッチは未収録で、想定する配線も実機では未検証です。
+Grove RGB LED Stickで簡易的にLED色をプレビューする機材です。Arduino IoT Remote を使用し、スマートフォンからLEDの色と輝度を調節します。
+
+![](images/PXL_20261009_075742498.MP.jpg)
+![](images/PXL_20261011_031406774.MP.jpg)
+![](images/PXL_20261011_031414415.MP.jpg)
+![](images/PXL_20261011_031422834.MP.jpg)
+![](images/PXL_20261011_031431135.MP.jpg)
+![](images/PXL_20261011_031445786.MP.jpg)
+![](images/PXL_20261011_083823331.MP.jpg)
+![](images/PXL_20261011_084216843.MP.jpg)
 
 ## 部品表
 
@@ -33,12 +42,12 @@ Grove RGB LED Stick と Arduino IoT Remote を使用し、実物の発光色・�
 
 ### 試作・配線
 
-| 部品                                       | 数量 | 用途・備考           |
-| ------------------------------------------ | ---- | -------------------- |
-| [ブレッドボード](https://amzn.to/40bMzlk)  | 1    | 試作用の回路基板。   |
+| 部品                                       | 数量 | 用途・備考                                                                                     |
+| ------------------------------------------ | ---- | ---------------------------------------------------------------------------------------------- |
+| [ブレッドボード](https://amzn.to/40bMzlk)  | 1    | 試作用の回路基板。                                                                             |
 | [ジャンパワイヤ](https://amzn.to/45voWYC)  | 1 組 | 部品間の接続用。22AWG の単線がおすすめです。Grove Screw Terminal に挿せるのは 20〜30AWG です。 |
-| [抵抗 (300-500Ω)](https://amzn.to/4kMejW2) | 1    | LED のデータ線保護。 |
-| [USB-C ケーブル](https://amzn.to/4lU4bdZ)  | 1    | 書き込み・給電用。   |
+| [抵抗 (300-500Ω)](https://amzn.to/4kMejW2) | 1    | LED のデータ線保護。                                                                           |
+| [USB-C ケーブル](https://amzn.to/4lU4bdZ)  | 1    | 書き込み・給電用。                                                                             |
 
 ## 開発
 
@@ -67,7 +76,7 @@ Fritzing のデータ: [LED_Color_Preview.fzz](diagrams/LED_Color_Preview.fzz)
    - 赤・黒の線と 1000µF コンデンサを配線図のとおりにつなぎます。
    - コンデンサは帯のある側の足を − レールに挿します。
 4. **通電前に確認する**
-   - + レールと − レールがショートしていない（テスターで確認）。
+   - - レールと − レールがショートしていない（テスターで確認）。
    - 外部電源が 5V である（9V・12V は使わない）。
    - ねじ端子が締まり、むき出しの線同士が触れていない。Grove 端子に太い線（18AWG など）を無理に挿していない。
 5. **電源を入れる**
@@ -87,34 +96,54 @@ Fritzing のデータ: [LED_Color_Preview.fzz](diagrams/LED_Color_Preview.fzz)
 > [!NOTE]
 > インターネット接続と、変数を 4 個作成できる Arduino Cloud のプランが必要です。
 
-1. **ボードとライブラリを準備する**
-   - Arduino IDE のボードマネージャで `esp32 by Espressif Systems` を入れ、ボードに `XIAO_ESP32C3` を選びます。
-   - ライブラリマネージャで `ArduinoIoTCloud` と `Adafruit_NeoPixel` を入れます。`WiFi` はボードパッケージに含まれています。
-   - XIAO ESP32C3 に Wi-Fi アンテナを取り付けます。
-2. **Arduino Cloud にデバイスを登録する**
-   - Devices で XIAO ESP32C3 を外部の ESP32 デバイスとして登録します。
-   - 表示された Device ID と Secret Key を保存します。Git には含めません。
-3. **Thing を作成する**
-   - Thing を作成して手順 2 のデバイスを紐付け、2.4GHz Wi-Fi の SSID とパスワードを設定します。
-   - 次の変数を Integer Number・Read & Write で追加します: `red`、`green`、`blue`、`brightness`
-4. **スケッチを書き込む**
-   - スケッチは未作成です。次の動作で作成します。
-     - LED は D2（GPIO4）につながった 10 個。Nano のピン配置は使いません。
-     - 起動時は消灯します。
-     - RGB と明るさを別々に持ち、変数が変わったら 10 個すべてに反映します。
-   - Thing のスケッチに組み込み、XIAO ESP32C3 に書き込みます。書き込み方法は [Arduino 開発手順](../../../../docs/arduino-development.ja.md) を参照してください。
-   - Arduino Cloud でデバイスがオンラインになることを確認します。
-5. **ダッシュボードを作る**
+1. **Arduino IDE を準備する**
+   - Arduino IDE を起動します。
+   - ボードマネージャで `esp32 by Espressif Systems` をインストールします。
+   - ライブラリマネージャで `ArduinoIoTCloud` と `Adafruit_NeoPixel` をインストールします。
+2. **XIAO ESP32C3 を PC につなぐ**
+   - USB-C を抜いた状態で、XIAO ESP32C3 に [Wi-Fi アンテナ](https://files.seeedstudio.com/wiki/XIAO_WiFi/XIAO_ESP32-C3_front_pinout.png)を取り付けます。
+   - USB-C ケーブルで XIAO ESP32C3 と PC をつなぎます。
+   - Arduino IDE でボードに `XIAO_ESP32C3` を選び、XIAO ESP32C3 のポートを選びます。
+3. **Arduino Cloud にデバイスを登録する**
+   - ブラウザで [Arduino Cloud](https://app.arduino.cc/) を開いてログインする
+   - Devices で XIAO ESP32C3 を外部の ESP32 デバイスとして登録し、表示された Device ID と Secret Key を保存します。
+4. **Thing を作成する**
+   - Arduino Cloud の左メニューで Things を開き、+ Thing（Create Thing）を押します。画面上部の Thing 名を `LED_Color_Preview` などに変えます。
+   - Associated Device の Select Device を押し、手順 3 で登録したデバイスを選んで Associate を押します。
+   - Network の Configure を押し、次を入力して Save を押します。
+     - Wi-Fi Name: 2.4GHz の Wi-Fi の SSID（5GHz にはつながりません）
+     - Password: Wi-Fi のパスワード
+     - Secret Key: 手順 3 で保存した Secret Key
+   - Cloud Variables の + Add（Add Variable）を押し、次の設定で変数を追加します。`red`、`green`、`blue`、`brightness` の 4 個について繰り返します。
+     - Name: 変数名（例: `red`）。スケッチの変数名になるので、このとおりに入力します。
+     - Type: Integer Number
+     - Variable Permission: Read & Write
+     - Variable Update Policy: On change
+5. **スケッチを書き込む**
+   - [credentials.h.example](sketch/LED_Color_Preview/credentials.h.example) をコピーして、ファイル名を `credentials.h` にします。
+   - `credentials.h` に次の値を入力して保存します。
+     - `SECRET_DEVICE_ID`: 手順 3 の Device ID
+     - `SECRET_DEVICE_KEY`: 手順 3 の Secret Key
+     - `SECRET_SSID`: 2.4GHz の Wi-Fi の SSID
+     - `SECRET_OPTIONAL_PASS`: Wi-Fi のパスワード
+   - Arduino IDE の File → Open で [LED_Color_Preview.ino](sketch/LED_Color_Preview/LED_Color_Preview.ino) を開きます。
+   - Velifyボタンを押してスケッチにエラーが出ないことを確認してから、Uploadボタンを押してスケッチを書き込んでください。
+     - 書き込みに失敗する場合は、B（BOOT）ボタンを押したまま R（RESET）ボタンを押して離し、B ボタンを離してから、もう一度 Upload を押します。
+   - Tools → Serial Monitor を開き、通信速度を 115200 baud にします。**WiFi.status(): 3** が表示されていれば、Wi-Fi に接続できています。
+   - Arduino Cloud の Devices で、デバイスが Online になることを確認します。
+6. **ダッシュボードを作る**
+   - Linked Dashboardsを選択して、 **Build dashboard** をクリックします。
    - Slider を 4 個追加し、範囲を 0〜255 にして、それぞれ `red`、`green`、`blue`、`brightness` に紐付けます。
-   - スマートフォンの Arduino IoT Remote（iOS・Android）でダッシュボードを開きます。
-6. **色の順番を確認する**
-   - 低い明るさで赤・緑・青を 1 色ずつ表示し、指定した色で光ることを確認します。違う色で光る場合は、スケッチの色の並び（RGB・GRB など）を直します。
+7. **スマートフォンで操作する**
+   - スマートフォンに [Arduino IoT Cloud remote app](https://cloud.arduino.cc/iot-remote-app/)をインストールします。
+   - Arduino IoT Cloud remote appでダッシュボードを開きます。
+   - テストの記載にしたがってダッシュボードを操作します。
 
 ### テスト
 
-#### テスト計画
-
-低輝度で赤・緑・青・白を表示し、アプリ操作と明るさ 0 の消灯を確認します。想定する最大輝度で電流・電圧・温度を測定し、電源再投入と Wi-Fi 再接続後の動作を確認します。
+- brightness を0以上にする
+- 赤・緑・青を 1 色ずつ表示し、指定した色でLEDが光ることを確認する
+- 違う色で光る場合は、スケッチの色の並び（`NEO_GRB` の部分を `NEO_RGB` などに）を直します。
 
 ## 参考資料
 
