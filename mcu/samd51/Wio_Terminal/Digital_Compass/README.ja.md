@@ -36,8 +36,16 @@ Wio Terminal と外付けの 9 軸加速度・ジャイロ・磁気センサを�
 
 - [Arduino 開発手順](../../../../docs/arduino-development.ja.md)
 
+## ライセンス
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## サポート
+
+役に立った場合は、サポートをご検討ください:
+
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/asamiile)
+
 ## 作者
 
 [Asami.K](https://asami.tokyo/)
-
-<a href="https://www.buymeacoffee.com/asamiile" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>

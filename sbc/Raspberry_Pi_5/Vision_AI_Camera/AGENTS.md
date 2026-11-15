@@ -1,99 +1,31 @@
-# AI Camera Production Module
+# Indoor Occupancy Data Collection Camera
 
-## 1. Project overview
+## Scope
 
-This module covers building and controlling the AI Camera used to collect graduation-project data.
+- Follow the MVP and data contract in [README.md](README.md); maintain its Japanese counterpart.
+- Observe indoor zones and store numeric observation metadata in the cloud for later SQL analysis and visualization.
+- Required primary hardware: Raspberry Pi 5 (16GB), Grove Vision AI Module V2, OV5647-62 camera, and pan-tilt platform.
+- Implement one fixed zone first, then two-zone patrol: `work_area` near the camera and `door_area` at the far end of a long room. Install the camera in the near corner facing inward. The Pi coordinates observation, mount control, persistence, and cloud delivery.
+- Use a versioned rectangular ROI for each view; count only threshold-qualified person detections whose box centers lie inside the ROI. Match image coordinate systems and treat invalid ROI configuration as unknown.
+- Do not claim depth separation or exhaustive entry/exit counting: foreground occlusion and sequential observation can cause missed detections. Validate placement and ROIs on hardware.
+- Dashboard application development, Nano ESP32 firmware, environmental sensors, person tracking, skeleton/action analysis, and audio are outside the current MVP.
+- Do not store images, video, or audio. Do not identify individuals.
 
-- **Purpose:** observe indoor behavior and skeletons and convert them to numeric data.
-- **Policy:** do not record video. Collect only analyzed numeric metadata (coordinates, labels, and illuminance) and send it to BigQuery.
-- **Installation:** the living room, with the camera near the window.
+## Hardware and execution
 
-### Current implementation scope
+- Verify the exact mount controller, power requirements, signal voltages, and Vision AI-to-Pi transport before implementing wiring-dependent code.
+- Do not assume the previous PCA9685/B0283 setup or an Arduino bridge is required.
+- Use suitable external servo power and follow the controller's ground requirements.
+- Use bounded, non-blocking sensor/network waits. Determine safe movement limits on hardware.
+- Recorded mount angles are commands, not measured positions.
 
-- **Prioritize Phase 1:** implement only the Arduino Nano ESP32 "eye" first: Vision AI, pan/tilt, environmental sensing, and JSON transmission to the Pi.
-- **Speech recognition is not implemented:** Grove Speech Recognizer and ReSpeaker 2-Mics Pi HAT are available but excluded from the initial release. Revisit them after the Pi and data pipeline stabilize.
+## Data and cloud
 
-## 2. Hardware stack
-
-| Component | Role | Connection |
-| --- | --- | --- |
-| Raspberry Pi 5 (16GB) | Main processing, MediaPipe analysis, and GCP communication | Wi-Fi |
-| Arduino Nano ESP32 | Eye controller, pan/tilt control, and sensor aggregation | USB / Wi-Fi (UDP) |
-| Vision AI Module V2 | Initial person/airplane detection | I2C |
-| OV5647-62 Camera | Image input | Connected to Vision AI V2 |
-| Pan-Tilt Platform | Automatic tracking using two B0283 servos | I2C (PCA9685) |
-| Grove TSL2561 | Ambient illuminance in lux | I2C |
-
-### Future audio components (not started)
-
-| Component | Notes |
-| --- | --- |
-| Grove Speech Recognizer | Arduino side; outside the initial scope |
-| ReSpeaker 2-Mics Pi HAT | Raspberry Pi side; outside the initial scope |
-
-Related Arduino/data projects:
-
-- [Smart Lighting Control](../../../mcu/esp32/Arduino_Nano_ESP32/Smart_Lighting_Control/README.md)
-- [Smart Lighting Control Data Pipeline](../../../cloud/Cloud_Functions/Smart_Lighting_Control_Data_Pipeline/README.md)
-
-## 3. System architecture and data flow
-
-The system uses a distributed architecture.
-
-### Phase 1: The Eye (Arduino side) — current priority
-
-- Detect objects (Person/Airplane) with Vision AI Module V2.
-- Move pan/tilt servos to keep the target centered.
-- Read Grove TSL2561 illuminance.
-- Send metadata as JSON to Raspberry Pi 5 over UDP/Wi-Fi or serial.
-
-### Phase 2: The Brain (Raspberry Pi side) — after the eye
-
-- Receive Arduino data.
-- Extract 33 skeleton coordinates (x, y, z) using MediaPipe Pose.
-- Combine action labels with environmental data and POST to FastAPI (Motion Studio Backend).
-- Stream the resulting records into BigQuery.
-
-## 4. Development sequence
-
-Stabilize each step before advancing to the next.
-
-1. **Build the AI Camera:** assemble the camera, Vision AI Module V2, pan/tilt platform, Grove TSL2561, wiring, and power. Use external servo power and a common GND.
-2. **Implement Arduino firmware:** object detection, pan/tilt control, illuminance acquisition, and JSON creation/transmission to Raspberry Pi 5 over UDP/Wi-Fi or serial.
-3. **Test behavior:** tracking, communication continuity, and non-blocking exception handling.
-4. **Validate Pi reception:** inspect packet format and rate in logs or local output.
-5. **Phase 2 analysis:** add skeleton coordinates and action labels using MediaPipe Pose or equivalent, matching the schema in section 5.
-6. **Phase 2 backend integration:** POST to FastAPI (Motion Studio Backend); establish schema and error handling.
-7. **Build and test BigQuery delivery:** prepare the dataset, table, schema, and service-account authentication; test streaming or batch writes.
-8. **Optional data integration:** align device IDs and millisecond timestamps when combining with Smart Lighting Control data.
-
-## 5. Data specification (BigQuery schema)
-
-Generated records must follow this structure.
-
-| Field | Description |
-| --- | --- |
-| `timestamp` | ISO 8601 timestamp |
-| `target_type` | `"person"` / `"airplane"` / `"none"` |
-| `skeleton_3d` | JSON array of 33 coordinate points; nullable when the target is not a person |
-| `action_label` | Labels such as `"working"`, `"sitting"`, and `"walking"`; mainly used from Phase 2 |
-| `environmental_data` | `{ lux: number \| null, voice_command: string \| null }`; keep `voice_command` null or omitted for now |
-| `servo_angles` | `{ pan: number, tilt: number }` |
-
-## 6. Development constraints
-
-- **Non-blocking:** Arduino and Python must not stop their main loops while waiting for sensors.
-- **Power:** use external 5V/4A servo power. Include common-GND guidance in code comments.
-- **Integration:** preserve millisecond timestamp precision for joining with existing Smart Lighting Control data in BigQuery.
-
-## 7. Current implementation tasks
-
-### Phase 1 (priority)
-
-- Implement the Arduino Nano ESP32 UDP bridge for detection and illuminance/sensor status.
-- Implement pan/tilt tracking, using PID control or a suitable alternative.
-
-### Phase 2 (after Phase 1 stabilizes)
-
-- Optimize MediaPipe workloads for Raspberry Pi 5 with 16GB RAM.
-- Design and implement audio input (Grove/ReSpeaker) and `voice_command`.
+- Preserve UTC timestamps with millisecond precision, configuration/model/schema versions, and stable event IDs across retries.
+- Follow README definitions for occupied, empty, unknown, sample aggregation, and null values.
+- Persist pending observations across outages/restarts. Acknowledge delivery only after persistence and implement explicit deduplication; do not assume the database enforces event-ID uniqueness.
+- Store versioned zone configurations alongside observation records.
+- Treat missing observations and failed inference separately from empty observations. Do not sum zone counts into room population.
+- The ingestion API and BigQuery are planned; runtime, authentication, queue limits, and retention implementation remain to be selected.
+- Keep credentials out of code and examples.
+- Report specification, local checks, deployment, and physical verification separately.

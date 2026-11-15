@@ -53,8 +53,16 @@ Grove DHT11 を D0 に接続し、データ通信対応 USB-C ケーブルを使
 - [Adafruit IO ドキュメント](https://io.adafruit.com/api/docs/)
 - [Shiftr.io ドキュメント](https://www.shiftr.io/docs/)
 
+## ライセンス
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## サポート
+
+役に立った場合は、サポートをご検討ください:
+
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/asamiile)
+
 ## 作者
 
 [Asami.K](https://asami.tokyo/)
-
-<a href="https://www.buymeacoffee.com/asamiei" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>

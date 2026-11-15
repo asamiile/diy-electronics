@@ -79,8 +79,16 @@ Adafruit IO は照度を受信し、[照明データパイプライン](../../..
 - [Grove - Light Sensor v1.2](https://wiki.seeedstudio.com/Grove-Light-Sensor/)
 - [NTP Time Synchronization](https://docs.arduino.cc/libraries/time/)
 
+## ライセンス
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## サポート
+
+役に立った場合は、サポートをご検討ください:
+
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/asamiile)
+
 ## 作者
 
-[Your Name](https://your-portfolio.com/)
-
-<a href="https://www.buymeacoffee.com/asamiei" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+[Asami.K](https://asami.tokyo/)
