@@ -51,8 +51,16 @@ SunFounder R3 ボードへ書き込み、手動・自動モード切り替え、
 - [GitHub - GalaxyRVR](https://github.com/sunfounder/galaxy-rvr/tree/main)
 - [GitHub - SunFounder AI Camera Library for Arduino](https://github.com/sunfounder/SunFounder_AI_Camera/blob/main/README.md)
 
+## ライセンス
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## サポート
+
+役に立った場合は、サポートをご検討ください:
+
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/asamiile)
+
 ## 作者
 
 [Asami.K](https://asami.tokyo/)
-
-<a href="https://www.buymeacoffee.com/asamiile" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>

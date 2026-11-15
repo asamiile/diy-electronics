@@ -1,6 +1,4 @@
-# DIY Electronics
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+﻿# DIY Electronics
 
 ## Overview
 
@@ -32,6 +30,10 @@ These are a collection of DIY Electronics samples.
 
 - [Robot Car](mcu/esp32/ESP32-DevKitC/ESP32-DevKitC_Robot_Car/README.md)
 - [Web-Controlled 2-Axis Pan-Tilt Mount](mcu/esp32/ESP32-DevKitC/ESP32-DevKitC_Web-Controlled_2-Axis_Pan-Tilt_Mount/README.md)
+
+### M5Stamp Fly
+
+- [Indoor AI Follow Drone](mcu/esp32/M5Stamp_Fly/AI_Follow_Drone/README.md) (planning)
 
 ### XIAO RP2040
 
@@ -116,8 +118,16 @@ These are a collection of DIY Electronics samples.
 
 - [Wio Terminal Guide](https://wiki.seeedstudio.com/Wio_Terminal_Intro/)
 
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Support
+
+If you find this helpful, consider supporting the work:
+
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/asamiile)
+
 ## Author
 
 [Asami.K](https://asami.tokyo/)
-
-<a href="https://www.buymeacoffee.com/asamiile" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
