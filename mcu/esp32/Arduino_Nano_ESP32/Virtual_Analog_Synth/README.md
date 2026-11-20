@@ -1,4 +1,4 @@
-# Arduino Nano ESP32 Analog-Style Synth
+# Arduino Nano ESP32 Virtual Analog Synth
 
 [English](README.md) | [Japanese](README.ja.md)
 

@@ -1,4 +1,4 @@
-# Arduino Nano ESP32 アナログ風シンセ
+# Arduino Nano ESP32 バーチャルアナログ・シンセ
 
 [English](README.md) | [Japanese](README.ja.md)
 
