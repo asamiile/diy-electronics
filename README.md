@@ -16,6 +16,7 @@ These are a collection of DIY Electronics samples.
 - [16x16 LED Matrix](mcu/esp32/Arduino_Nano_ESP32/16x16_LED_Matrix/README.md)
 - [Web-Controlled 2-Axis Pan-Tilt Mount](mcu/esp32/Arduino_Nano_ESP32/Web-Controlled_2-Axis_Pan-Tilt_Mount/README.md)
 - [Rotating Turntable](mcu/esp32/Arduino_Nano_ESP32/Rotating_Turntable/README.md)
+- [Analog-Style Synth](mcu/esp32/Arduino_Nano_ESP32/Analog_Style_Synth/README.md) (planning)
 
 #### IoT with Adafruit IO & BigQuery
 
